@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: kaleidoscopetavern
-Implementation-Version: 1.0.1-neoforge+mc1.21.1
-
