@@ -1,6 +1,6 @@
 # Kaleidoscope Startale
-
-
+![icon.png](src/main/resources/assets/kaleidoscope_startale/textures/item/icon/icon.png)
+![largeicon.png](src/main/resources/assets/kaleidoscope_startale/textures/item/icon/largeicon.png)
 为森罗厨房和森罗酒馆提供了更多拓展联动内容，新增的畜牧体系为获取生物资源提供了更为友善的方法，更多内容持续产出中......
 
 ## Required
