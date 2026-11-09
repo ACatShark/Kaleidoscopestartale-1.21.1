@@ -39,7 +39,9 @@ public final class StartaleConfig {
         builder.push("universal_feed");
         UNIVERSAL_FEED_BLACKLIST = builder
                 .comment("Blacklisted entity IDs ignore the universal feed entirely.",
-                        "Format: namespace:path")
+                        "Format: namespace:path",
+                        "Hostile mobs and vanilla tamables (wolf/cat/parrot) are already ignored by default;",
+                        "list them here only if a modded variant slips through.")
                 .defineListAllowEmpty("blacklist", DEFAULT_BLACKLIST,
                         obj -> obj instanceof String s && ResourceLocation.tryParse(s) != null);
         builder.pop();

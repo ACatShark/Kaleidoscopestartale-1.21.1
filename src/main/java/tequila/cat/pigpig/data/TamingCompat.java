@@ -35,12 +35,8 @@ public final class TamingCompat {
             "getOwner", "getOwningPlayer", "getTameOwner", "getTamer", "getMaster",
             "getOwnerUUID", "getOwnerId", "getOwnerUniqueId");
 
-    /**
-     * 一个类上的探测结果。
-     * present 表示扫到了驯养相关的方法（私有方法也算），
-     * flags 和 owners 只保留真正能调用的方法。
-     */
-    private record Probe(boolean present, List<Method> flags, List<Method> owners) {
+    /** 一个类上真正调得动的驯养方法：布尔标志与主人读取。 */
+    private record Probe(List<Method> flags, List<Method> owners) {
     }
 
     private static final ClassValue<Probe> PROBE = new ClassValue<>() {
@@ -51,12 +47,21 @@ public final class TamingCompat {
     };
 
     /**
-     * 生物是否自带独立的驯养体系，用于让通用饲料回避。
-     * 第三方生物即使实现了 OwnableEntity（比如继承了原版 TamableAnimal），
-     * 只要探测到自己的驯养语义，就按独立体系对待。
+     * 生物是否已经被它自己的驯养体系收编，用于让通用饲料回避。
+     * 只看能不能读到一个真实的主人：第三方生物哪怕继承了 TamableAnimal、
+     * 身上带着 isTame()，只要还没有主人，就照常允许通用饲料去驯服。
      */
     public static boolean hasForeignTaming(LivingEntity entity) {
-        return isThirdParty(entity) && PROBE.get(entity.getClass()).present();
+        if (!isThirdParty(entity)) {
+            return false;
+        }
+        Probe probe = PROBE.get(entity.getClass());
+        for (Method owner : probe.owners()) {
+            if (hasOwnerValue(invoke(entity, owner))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -96,19 +101,14 @@ public final class TamingCompat {
     private static Probe detect(Class<?> type) {
         List<Method> flags = new ArrayList<>();
         List<Method> owners = new ArrayList<>();
-        boolean present = false;
 
         try {
             // 沿继承链取声明方法，私有和受保护的写法也能读到
             for (Class<?> current = type; current != null && current != Object.class; current = current.getSuperclass()) {
                 for (Method method : current.getDeclaredMethods()) {
                     Candidate candidate = classify(method);
-                    if (candidate == Candidate.NONE) {
-                        continue;
-                    }
-                    present = true;
-                    // 拿不到访问权限时只算存在，不参与实际读取
-                    if (!method.trySetAccessible()) {
+                    // 拿不到访问权限的方法调不动，直接跳过
+                    if (candidate == Candidate.NONE || !method.trySetAccessible()) {
                         continue;
                     }
                     collect(candidate, method, flags, owners);
@@ -121,16 +121,15 @@ public final class TamingCompat {
                 if (candidate == Candidate.NONE || flags.contains(method) || owners.contains(method)) {
                     continue;
                 }
-                present = true;
                 if (method.trySetAccessible()) {
                     collect(candidate, method, flags, owners);
                 }
             }
         } catch (Throwable ignored) {
-            return new Probe(present, List.of(), List.of());
+            return new Probe(List.of(), List.of());
         }
 
-        return new Probe(present, List.copyOf(flags), List.copyOf(owners));
+        return new Probe(List.copyOf(flags), List.copyOf(owners));
     }
 
     private static void collect(Candidate candidate, Method method, List<Method> flags, List<Method> owners) {

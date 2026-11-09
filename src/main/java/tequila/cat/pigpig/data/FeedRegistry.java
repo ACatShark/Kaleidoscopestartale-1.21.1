@@ -11,7 +11,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.item.Item;
 
 import tequila.cat.pigpig.KaleidoscopeStartale;
@@ -20,11 +22,13 @@ import tequila.cat.pigpig.init.ModItems;
 
 /**
  * 饲料 ↔ 生物 映射表。
- * 通用饲料（universal_feed）对任何可繁殖动物都可喂，配置里的黑名单可排除（如女仆模组的实体）。
+ * 通用饲料（universal_feed）默认只对可繁殖的 Animal 生效，敌对生物与原版可驯服生物由
+ * {@link #acceptsDefaultFeed} 直接排除；黑名单可再按实体 ID 精确排除（如女仆模组的实体）。
+ * 显式列出的饲料目标（livestock_feed / poultry_feed 等）不受上面两条默认规则限制。
  */
 public final class FeedRegistry {
     private static final List<String> FEED_TARGETS = List.of(
-            "kaleidoscope_startale:livestock_feed=minecraft:cow,minecraft:pig,minecraft:sheep,minecraft:goat,minecraft:sniffer",
+            "kaleidoscope_startale:livestock_feed=minecraft:cow,minecraft:mooshroom,minecraft:pig,minecraft:sheep,minecraft:goat,minecraft:sniffer",
             "kaleidoscope_startale:poultry_feed=minecraft:armadillo,minecraft:rabbit,minecraft:chicken");
 
     private static boolean built;
@@ -126,8 +130,26 @@ public final class FeedRegistry {
         return item == defaultFeed();
     }
 
-    private static boolean isBreedableByItem(Entity entity) {
-        return entity instanceof Animal;
+    /**
+     * 通用饲料的默认适用范围：可繁殖的 Animal。
+     * 两类生物不参与，避免和别的东西抢活：
+     *  - Enemy（Hoglin、Zoglin 等）：敌对生物不该被喂食、也不该被饲料吸引；
+     *  - 原版自带驯养体系的 TamableAnimal（狼、猫、鹦鹉）：驯服交回原版的骨头/鱼，
+     *    否则通用饲料会把它记成本模组驯养，和原版状态对不上。
+     * 第三方模组继承 TamableAnimal 的生物不在此列，仍按 TamingCompat 的 owner 判定处理。
+     */
+    private static boolean acceptsDefaultFeed(Entity entity, ResourceLocation key) {
+        if (!(entity instanceof Animal)) {
+            return false;
+        }
+        if (entity instanceof Enemy) {
+            return false;
+        }
+        return !(entity instanceof TamableAnimal) || !isVanilla(key);
+    }
+
+    private static boolean isVanilla(ResourceLocation key) {
+        return key != null && "minecraft".equals(key.getNamespace());
     }
 
     /** 该物品能否喂该生物 */
@@ -142,7 +164,7 @@ public final class FeedRegistry {
             Set<EntityType<?>> set = byFeed.get(item);
             return set != null && set.contains(type);
         }
-        return item == defaultFeed() && isBreedableByItem(entity);
+        return item == defaultFeed() && acceptsDefaultFeed(entity, key);
     }
 
     /** 该生物可接受的饲料（用于挂载饲料引诱 AI） */
@@ -156,7 +178,7 @@ public final class FeedRegistry {
             Set<Item> set = byEntity.get(key);
             return set == null ? Set.of() : set;
         }
-        return isBreedableByItem(entity) ? Set.of(defaultFeed()) : Set.of();
+        return acceptsDefaultFeed(entity, key) ? Set.of(defaultFeed()) : Set.of();
     }
 
     private FeedRegistry() {
