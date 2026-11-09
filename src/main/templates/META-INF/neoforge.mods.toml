@@ -1,20 +1,13 @@
-
-modLoader="javafml" #mandatory
-
-loaderVersion="${loader_version_range}" #mandatory
-
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
 license="${mod_license}"
 
-[[mods]] #mandatory
-
-modId="${mod_id}" #mandatory
-
-version="${mod_version}" #mandatory
-
-displayName="${mod_name}" #mandatory
-
-authors="Tequilacat"
-
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="Tequilacat, ChinaEX123"
+logoFile="logo.png"
 description='''
 A kaleidoscope extension.
 '''
@@ -22,15 +15,13 @@ A kaleidoscope extension.
 [[mixins]]
 config="${mod_id}.mixins.json"
 
-# 让 Armadillo#scuteTime（原版 private）可被访问：喂食犰狳需要把它的脱甲计时器改小。
-# 文件在默认路径 src/main/resources/META-INF/accesstransformer.cfg，但运行时仍要靠这里声明。
 [[accessTransformers]]
 file="META-INF/accesstransformer.cfg"
 
-[[dependencies.${mod_id}]] #optional
-    modId="neoforge" #mandatory
-    type="required" #mandatory
-    versionRange="${neo_version_range}" #mandatory
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neo_version_range}"
     ordering="NONE"
     side="BOTH"
 
@@ -45,9 +36,6 @@ file="META-INF/accesstransformer.cfg"
     modId="kaleidoscope_cookery"
     type="required"
     versionRange="[1.6.0-neoforge+mc1.21.1,)"
-    # 让前置先完成注册。否则本模组可能先于前置注册物品，一旦运行期引用到
-    # 前置的物品（如 DrinkBlockItem 构造函数里的 EMPTY_BOTTLE）就会触发
-    # "Trying to access unbound value" 并导致游戏启动崩溃。
     ordering="AFTER"
     side="BOTH"
 
@@ -55,16 +43,12 @@ file="META-INF/accesstransformer.cfg"
     modId="kaleidoscope_tavern"
     type="required"
     versionRange="[1.2.0-neoforge+mc1.21.1,)"
-    # 同上：tavern 提供空酒瓶、藤架、酒桶方块实体等，必须先于本模组注册。
     ordering="AFTER"
     side="BOTH"
 
-# 可选：Jade。装上后本模组驯养的牲畜会像原版宠物一样显示「主人：xxx」。
-# 它是 optional，没装也不会报错；对应代码在 tequila.cat.pigpig.compat.jade。
 [[dependencies.${mod_id}]]
     modId="jade"
     type="optional"
     versionRange="[15.0.0,)"
     ordering="AFTER"
     side="BOTH"
-
