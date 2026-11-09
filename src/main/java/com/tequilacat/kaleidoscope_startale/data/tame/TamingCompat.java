@@ -16,28 +16,41 @@ import net.minecraft.world.entity.LivingEntity;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 
 /**
- * 探测第三方生物自带的驯养体系。
- * hasForeignTaming 用来判断通用饲料要不要回避，回避时既不驯服也不加好感度；
- * isForeignTamed 用来读出生物自己的驯养状态，让拍拍器和好感度在别的模组驯服之后照常工作。
- * 探测结果按类缓存：扫到候选方法就算存在（私有方法也算），其中真正调得到的才保留下来，
- * 反射只扫一次。原版 OwnableEntity 由 MobTaming 先按原版逻辑处理，
- * 女仆模组由 MobTaming.isForeignMaid 排除，这两种情况都不依赖本类。
+ * 第三方驯养体系探测工具类。
+ * <p>
+ * 通过反射识别并缓存第三方生物自带的驯养方法：
+ * 一组返回布尔值的驯养标志方法与一组返回主人的获取方法。
+ * 探测结果按类缓存，私有与受保护方法也会被纳入，
+ * 但只有真正可访问的方法才会保留下来，反射只扫描一次。
  */
 public final class TamingCompat {
-    /** 返回是否已驯养、是否有主的无参方法。 */
+
+    /**
+     * 表示驯养状态的布尔方法名集合。
+     */
     private static final Set<String> TAMING_FLAGS = Set.of(
             "isTamed", "isTame", "isDomesticated", "isTrusted", "isBonded", "hasBeenTamed",
             "isOwned", "hasOwner");
 
-    /** 返回主人实体、主人 UUID 或主人名字的方法。 */
+    /**
+     * 获取主人的方法名集合。
+     */
     private static final Set<String> OWNER_GETTERS = Set.of(
             "getOwner", "getOwningPlayer", "getTameOwner", "getTamer", "getMaster",
             "getOwnerUUID", "getOwnerId", "getOwnerUniqueId");
 
-    /** 一个类上真正调得动的驯养方法：布尔标志与主人读取。 */
+    /**
+     * 探测结果记录，分别保存可调用的驯养标志方法与主人获取方法。
+     *
+     * @param flags  驯养标志方法列表
+     * @param owners 主人获取方法列表
+     */
     private record Probe(List<Method> flags, List<Method> owners) {
     }
 
+    /**
+     * 按类缓存探测结果，每个类只扫描一次。
+     */
     private static final ClassValue<Probe> PROBE = new ClassValue<>() {
         @Override
         protected Probe computeValue(Class<?> type) {
@@ -46,9 +59,13 @@ public final class TamingCompat {
     };
 
     /**
-     * 生物是否已经被它自己的驯养体系收编，用于让通用饲料回避。
-     * 只看能不能读到一个真实的主人：第三方生物哪怕继承了 TamableAnimal、
-     * 身上带着 isTame()，只要还没有主人，就照常允许通用饲料去驯服。
+     * 判断生物是否已被它自己的驯养体系收编，用于让通用饲料回避。
+     * <p>
+     * 只看能不能读到一个真实的主人；第三方生物哪怕继承了可驯养类、
+     * 身上带着驯养标志，只要还没有主人，就照常允许通用饲料去驯服。
+     *
+     * @param entity 目标生物
+     * @return 是否存在第三方驯养体系
      */
     public static boolean hasForeignTaming(LivingEntity entity) {
         if (!isThirdParty(entity)) {
@@ -64,9 +81,14 @@ public final class TamingCompat {
     }
 
     /**
-     * 读取第三方生物自己的驯养状态，读不到或调用失败一律当作未驯养。
+     * 读取第三方生物自己的驯养状态。
+     * <p>
+     * 读不到或调用失败一律当作未驯养。
      * 先看布尔标志，任意一个返回 true 就算已驯养；
      * 标志全为 false 或一个都调不通时，再看有没有主人。
+     *
+     * @param entity 目标生物
+     * @return 是否已驯养
      */
     public static boolean isForeignTamed(LivingEntity entity) {
         if (!isThirdParty(entity)) {
@@ -88,6 +110,14 @@ public final class TamingCompat {
         return false;
     }
 
+    /**
+     * 判断生物是否来自第三方模组。
+     * <p>
+     * 实体类型 ID 为空或命名空间既非 minecraft 也非本模组时视为第三方。
+     *
+     * @param entity 目标生物
+     * @return 是否为第三方生物
+     */
     private static boolean isThirdParty(LivingEntity entity) {
         ResourceLocation id = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
         if (id == null) {
@@ -97,6 +127,15 @@ public final class TamingCompat {
         return !"minecraft".equals(namespace) && !KaleidoscopeStartale.MODID.equals(namespace);
     }
 
+    /**
+     * 扫描指定类的驯养相关方法。
+     * <p>
+     * 沿继承链取声明方法（含私有与受保护），再补充接口默认方法，
+     * 只保留可访问且符合候选条件的方法；出现异常时返回空结果。
+     *
+     * @param type 目标类
+     * @return 探测结果
+     */
     private static Probe detect(Class<?> type) {
         List<Method> flags = new ArrayList<>();
         List<Method> owners = new ArrayList<>();
@@ -131,6 +170,14 @@ public final class TamingCompat {
         return new Probe(List.copyOf(flags), List.copyOf(owners));
     }
 
+    /**
+     * 将候选方法归类收集到对应列表。
+     *
+     * @param candidate 候选类型
+     * @param method    方法
+     * @param flags     驯养标志方法列表
+     * @param owners    主人获取方法列表
+     */
     private static void collect(Candidate candidate, Method method, List<Method> flags, List<Method> owners) {
         if (candidate == Candidate.FLAG) {
             flags.add(method);
@@ -139,12 +186,24 @@ public final class TamingCompat {
         }
     }
 
+    /**
+     * 候选方法类型枚举。
+     */
     private enum Candidate {
         NONE,
         FLAG,
         OWNER
     }
 
+    /**
+     * 判断方法属于哪类候选。
+     * <p>
+     * 排除带参数、静态、合成与桥接方法；
+     * 布尔返回值的驯养标志方法归为 FLAG，返回主人类型的主人获取方法归为 OWNER。
+     *
+     * @param method 方法
+     * @return 候选类型
+     */
     private static Candidate classify(Method method) {
         if (method.getParameterCount() != 0
                 || Modifier.isStatic(method.getModifiers())
@@ -166,7 +225,14 @@ public final class TamingCompat {
         return Candidate.NONE;
     }
 
-    /** 主人字段的常见形态：实体本身、UUID、字符串、Optional 包装。 */
+    /**
+     * 判断返回类型是否为可表示主人的类型。
+     * <p>
+     * 实体、UUID、Optional 与字符序列类型均视为可表示主人。
+     *
+     * @param returnType 返回类型
+     * @return 是否为可表示主人的类型
+     */
     private static boolean isOwnerType(Class<?> returnType) {
         return Entity.class.isAssignableFrom(returnType)
                 || returnType == UUID.class
@@ -174,6 +240,13 @@ public final class TamingCompat {
                 || CharSequence.class.isAssignableFrom(returnType);
     }
 
+    /**
+     * 反射调用方法，调用失败返回 null。
+     *
+     * @param entity 目标生物
+     * @param method 方法
+     * @return 调用结果，失败时为 null
+     */
     private static Object invoke(LivingEntity entity, Method method) {
         try {
             return method.invoke(entity);
@@ -183,6 +256,15 @@ public final class TamingCompat {
         }
     }
 
+    /**
+     * 判断返回值是否表示存在真实主人。
+     * <p>
+     * null、空 Optional、全 0 的 UUID、空白字符序列均视为无主人；
+     * 返回实体对象则视为有主人。
+     *
+     * @param value 调用返回值
+     * @return 是否表示存在主人
+     */
     private static boolean hasOwnerValue(Object value) {
         if (value == null) {
             return false;
