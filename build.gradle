@@ -50,6 +50,8 @@ repositories {
     maven { url = "https://maven.neoforged.net/releases/" }
     maven { url = "https://maven.minecraftforge.net/" }
     maven { url = "https://libraries.minecraft.net/" }
+    // 阿里云公共镜像：Maven Central 的传递依赖（netty/guava 等）走它，直连可通、速度快
+    maven { url = "https://maven.aliyun.com/repository/public" }
     mavenCentral()
     // Modrinth Maven for external mod dependencies (Kaleidoscope Cookery / Tavern).
     exclusiveContent {
@@ -73,6 +75,11 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 neoForge {
     version = project.neo_version
+
+    // src/main/resources/META-INF/accesstransformer.cfg opens Armadillo#scuteTime
+    // (feeding an armadillo has to shorten that timer). Fail the build instead of
+    // silently ignoring a stale entry.
+    validateAccessTransformers = true
 
     parchment {
         mappingsVersion = project.parchment_mappings_version
@@ -127,8 +134,21 @@ configurations {
 
 dependencies {
     // Hard (required) mod dependencies.
-    implementation "maven.modrinth:kaleidoscope-cookery:1.4.1-neoforge+mc1.21.1"
-    implementation "maven.modrinth:kaleidoscopetavern:1.0.1-neoforge+mc1.21.1"
+    // Must stay >= the versions declared in neoforge.mods.toml: Startale uses
+    // cookery's BowlFoodBlockItem / FoodBiteBlock and tavern's DrinkBlock,
+    // BottleBlockItem, JuiceBucketItem, ITrellis and JuiceFluidType.
+    implementation "maven.modrinth:kaleidoscope-cookery:1.6.0-neoforge+mc1.21.1"
+    implementation "maven.modrinth:kaleidoscopetavern:1.2.0-neoforge+mc1.21.1"
+
+    // Optional compat (JEI recipe page, Jade entity tooltips). Compile-time only:
+    // the classes under compat/ are referenced by nothing else and are loaded by
+    // JEI's @JeiPlugin / Jade's @WailaPlugin annotation scanning, so a missing mod
+    // at runtime simply means those tooltips never appear.
+    // If resolution fails, replace the versions with the builds you actually use.
+    // 注意：JEI 在 Modrinth 上 fabric/neoforge 共用同一个 version_number，
+    // 按版本号解析会拿到 Fabric 构建（class_XXXX 符号）。这里用 neoforge 文件的版本 ID。
+    compileOnly "maven.modrinth:jei:TxS03dKM" // jei-1.21.1-neoforge-19.21.0.247
+    compileOnly "maven.modrinth:jade:15.10.6+neoforge"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
@@ -136,6 +156,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             minecraft_version      : minecraft_version,
             minecraft_version_range: minecraft_version_range,
             neo_version            : neo_version,
+            neo_version_range      : neo_version_range,
             loader_version_range   : loader_version_range,
             mod_id                 : mod_id,
             mod_name               : mod_name,

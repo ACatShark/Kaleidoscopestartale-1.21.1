@@ -1,0 +1,66 @@
+{
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"1": "kaleidoscope_startale:block/brew/joja_cola",
+		"particle": "kaleidoscope_startale:block/brew/joja_cola"
+	},
+	"elements": [
+		{
+			"name": "count1",
+			"from": [5.5, 1, 5.5],
+			"to": [10.5, 7, 10.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 2, 7.5]},
+			"faces": {
+				"north": {"uv": [3, 4.5, 5.5, 8.5], "texture": "#1"},
+				"east": {"uv": [0, 4.5, 2.5, 8.5], "texture": "#1"},
+				"south": {"uv": [3, 0, 5.5, 4], "texture": "#1"},
+				"west": {"uv": [0, 0, 2.5, 4], "texture": "#1"},
+				"up": {"uv": [8.5, 5.5, 6, 3], "texture": "#1"},
+				"down": {"uv": [6, 0, 8.5, 2.5], "texture": "#1"}
+			}
+		},
+		{
+			"name": "count1",
+			"from": [5.75, 0.5, 5.75],
+			"to": [10.25, 1, 10.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.75, 1.5, 7.75]},
+			"faces": {
+				"north": {"uv": [3, 3.5, 5.5, 4], "texture": "#1"},
+				"east": {"uv": [0, 3.5, 2.5, 4], "texture": "#1"},
+				"south": {"uv": [0, 8, 2.5, 8.5], "texture": "#1"},
+				"west": {"uv": [3, 8, 5.5, 8.5], "texture": "#1"},
+				"up": {"uv": [8.5, 5.5, 6, 3], "texture": "#1"},
+				"down": {"uv": [6, 0, 8.5, 2.5], "texture": "#1"}
+			}
+		},
+		{
+			"name": "count1",
+			"from": [5.75, 7, 5.75],
+			"to": [10.25, 7.5, 10.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.75, 8, 7.75]},
+			"faces": {
+				"north": {"uv": [3, 3.5, 5.5, 4], "texture": "#1"},
+				"east": {"uv": [0, 3.5, 2.5, 4], "texture": "#1"},
+				"south": {"uv": [3, 8, 5.5, 8.5], "texture": "#1"},
+				"west": {"uv": [0, 8, 2.5, 8.5], "texture": "#1"},
+				"up": {"uv": [8.5, 2.5, 6, 0], "texture": "#1"},
+				"down": {"uv": [6, 3, 8.5, 5.5], "texture": "#1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 4.25, 0]
+		}
+	},
+	"groups": [
+		{
+			"name": "count1",
+			"origin": [0, 0, 0],
+			"scope": 0,
+			"color": 0,
+			"children": [0, 1, 2]
+		}
+	]
+}

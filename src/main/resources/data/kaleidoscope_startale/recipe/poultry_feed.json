@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "kaleidoscope_cookery:caterpillar"
+    },
+    {
+      "item": "kaleidoscope_cookery:chili_seed"
+    },
+    {
+      "item": "kaleidoscope_cookery:wild_rice"
+    },
+    {
+      "item": "kaleidoscope_cookery:lettuce_seed"
+    },
+    {
+      "item": "kaleidoscope_cookery:tomato_seed"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_startale:poultry_feed"
+  }
+}

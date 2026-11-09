@@ -1,0 +1,53 @@
+{
+  "item": "kaleidoscope_startale:joja_cola",
+  "effects": [
+    [
+      {
+        "effect": "minecraft:speed",
+        "duration": 30,
+        "amplifier": 4,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:speed",
+        "duration": 60,
+        "amplifier": 4,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:speed",
+        "duration": 120,
+        "amplifier": 4,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:speed",
+        "duration": 240,
+        "amplifier": 4,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:speed",
+        "duration": 480,
+        "amplifier": 4,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "minecraft:speed",
+        "duration": 720,
+        "amplifier": 4,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

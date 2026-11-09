@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "age=0,type=single,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/single_stage3" },
+    "age=0,type=single,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/single_stage3" },
+    "age=1,type=single,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/single_stage3" },
+    "age=1,type=single,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/single_stage3" },
+    "age=0,type=north_south,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/north_south" },
+    "age=0,type=north_south,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/north_south" },
+    "age=1,type=north_south,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/north_south" },
+    "age=1,type=north_south,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/north_south" },
+    "age=0,type=east_west,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/east_west" },
+    "age=0,type=east_west,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/east_west" },
+    "age=1,type=east_west,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/east_west" },
+    "age=1,type=east_west,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/east_west" },
+    "age=0,type=cross_north_south,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_north_south" },
+    "age=0,type=cross_north_south,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_north_south" },
+    "age=1,type=cross_north_south,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_north_south" },
+    "age=1,type=cross_north_south,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_north_south" },
+    "age=0,type=cross_east_west,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_east_west" },
+    "age=0,type=cross_east_west,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_east_west" },
+    "age=1,type=cross_east_west,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_east_west" },
+    "age=1,type=cross_east_west,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_east_west" },
+    "age=0,type=cross_up_down,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_up_down" },
+    "age=0,type=cross_up_down,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_up_down" },
+    "age=1,type=cross_up_down,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_up_down" },
+    "age=1,type=cross_up_down,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/cross_up_down" },
+    "age=0,type=six_direction,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/six_direction" },
+    "age=0,type=six_direction,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/six_direction" },
+    "age=1,type=six_direction,waterlogged=false": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/six_direction" },
+    "age=1,type=six_direction,waterlogged=true": { "model": "kaleidoscope_startale:block/plant/ancient_fruit_vine/six_direction" }
+  }
+}

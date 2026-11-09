@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "kaleidoscope_cookery:lettuce"
+    },
+    {
+      "item": "kaleidoscope_cookery:lettuce"
+    },
+    {
+      "item": "kaleidoscope_cookery:rice_panicle"
+    },
+    {
+      "item": "kaleidoscope_cookery:rice_panicle"
+    },
+    {
+      "item": "kaleidoscope_cookery:tomato"
+    },
+    {
+      "item": "kaleidoscope_cookery:tomato"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_startale:livestock_feed"
+  }
+}

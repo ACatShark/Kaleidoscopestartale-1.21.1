@@ -1,6 +1,0 @@
-{
-    "textures":  {
-                     "crop":  "kaleidoscope_starduwally:block/crop/ancient_fruit/stage4"
-                 },
-    "parent":  "minecraft:block/crop"
-}

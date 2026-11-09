@@ -32,3 +32,9 @@ run/
 **/src/generated/**/.cache/
 repo/
 !**/src/**/repo/
+
+# 本地反编译参考源码、临时脚本与根目录手工放置的 jar
+/.tmp/
+/.chk/
+/*.jar
+logs/

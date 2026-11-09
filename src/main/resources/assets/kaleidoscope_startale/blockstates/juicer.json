@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "facing=north,open=false": { "model": "kaleidoscope_startale:block/juicer/juicer_closed" },
+    "facing=south,open=false": { "model": "kaleidoscope_startale:block/juicer/juicer_closed", "y": 180 },
+    "facing=east,open=false":  { "model": "kaleidoscope_startale:block/juicer/juicer_closed", "y": 90 },
+    "facing=west,open=false":  { "model": "kaleidoscope_startale:block/juicer/juicer_closed", "y": 270 },
+
+    "facing=north,open=true":  { "model": "kaleidoscope_startale:block/juicer/juicer_open" },
+    "facing=south,open=true":  { "model": "kaleidoscope_startale:block/juicer/juicer_open", "y": 180 },
+    "facing=east,open=true":   { "model": "kaleidoscope_startale:block/juicer/juicer_open", "y": 90 },
+    "facing=west,open=true":   { "model": "kaleidoscope_startale:block/juicer/juicer_open", "y": 270 }
+  }
+}

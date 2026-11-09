@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "kaleidoscope_startale:ancient_fruit"
+    },
+    {
+      "item": "kaleidoscope_startale:ancient_fruit"
+    },
+    {
+      "item": "kaleidoscope_startale:ancient_fruit"
+    },
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_startale:ancient_fruit_platter"
+  }
+}

@@ -1,6 +1,0 @@
-{
-    "textures":  {
-                     "crop":  "kaleidoscope_starduwally:block/crop/hops/stage4"
-                 },
-    "parent":  "minecraft:block/crop"
-}

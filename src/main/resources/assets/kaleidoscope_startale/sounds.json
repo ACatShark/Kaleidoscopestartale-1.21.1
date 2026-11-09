@@ -1,0 +1,24 @@
+{
+  "juicer_working": {
+    "subtitle": "subtitles.kaleidoscope_startale.juicer.working",
+    "sounds": [
+      {
+        "name": "kaleidoscope_startale:juicer_working",
+        "stream": false
+      }
+    ]
+  },
+  "pet_squeeze": {
+    "subtitle": "subtitles.kaleidoscope_startale.pet_squeeze",
+    "sounds": [
+      {
+        "name": "kaleidoscope_startale:squeak1",
+        "stream": false
+      },
+      {
+        "name": "kaleidoscope_startale:squeak2",
+        "stream": false
+      }
+    ]
+  }
+}

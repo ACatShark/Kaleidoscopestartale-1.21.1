@@ -1,128 +1,193 @@
 package tequila.cat.pigpig.init;
 
+import com.github.ysbbbbbb.kaleidoscopecookery.item.BowlFoodBlockItem;
+import com.github.ysbbbbbb.kaleidoscopetavern.item.CocktailBlockItem;
+import com.github.ysbbbbbb.kaleidoscopetavern.item.JuiceBucketItem;
+
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.Items;
 
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import tequila.cat.pigpig.KaleidoscopeStarduwally;
-import tequila.cat.pigpig.item.AncientFruitPlatterItem;
-import tequila.cat.pigpig.item.FeedItem;
-import tequila.cat.pigpig.item.ReleaseContractItem;
+import tequila.cat.pigpig.KaleidoscopeStartale;
+import tequila.cat.pigpig.fluid.ModFluids;
+import tequila.cat.pigpig.item.BowlFoodBlockItemWithTooltip;
+import tequila.cat.pigpig.item.EffectFoodItem;
+import tequila.cat.pigpig.item.JuicerBlockItem;
+import tequila.cat.pigpig.item.ModDrinkBlockItem;
+import tequila.cat.pigpig.item.PetterItem;
 import tequila.cat.pigpig.item.RhubarbJamItem;
-import tequila.cat.pigpig.item.SaleContractItem;
+import tequila.cat.pigpig.item.SeedItem;
 
 public final class ModItems {
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(KaleidoscopeStarduwally.MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(KaleidoscopeStartale.MODID);
 
-    // Cauliflower: seeds + harvest.
-    private static final FoodProperties CAULIFLOWER_FOOD = new FoodProperties.Builder()
-            .nutrition(2)
-            .saturationModifier(0.25F)
-            .build();
-    public static final DeferredItem<ItemNameBlockItem> CAULIFLOWER_SEEDS = ITEMS.register("cauliflower_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.CAULIFLOWER_CROP.get(), new Item.Properties()));
-    public static final DeferredItem<Item> CAULIFLOWER = ITEMS.register("cauliflower",
-            () -> new Item(new Item.Properties().food(CAULIFLOWER_FOOD)));
-
-    // Parsnip: carrot-style (no separate seed, plant the parsnip itself). Edible 3 hunger / 1 saturation.
-    // Actual saturation = nutrition * saturationModifier * 2, so 3 * (1/6) * 2 = 1.
-    private static final FoodProperties PARSNIP_FOOD = new FoodProperties.Builder()
-            .nutrition(3)
-            .saturationModifier(1.0F / (3.0F * 2.0F))
-            .build();
-    public static final DeferredItem<ItemNameBlockItem> PARSNIP = ITEMS.register("parsnip",
-            () -> new ItemNameBlockItem(ModBlocks.PARSNIP_CROP.get(), new Item.Properties().food(PARSNIP_FOOD)));
-
-    // Rhubarb + rhubarb seeds. Edible 1 hunger / 1 saturation. 1 * (1/2) * 2 = 1.
-    private static final FoodProperties RHUBARB_FOOD = new FoodProperties.Builder()
-            .nutrition(1)
-            .saturationModifier(1.0F / (1.0F * 2.0F))
-            .build();
-    public static final DeferredItem<ItemNameBlockItem> RHUBARB_SEEDS = ITEMS.register("rhubarb_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.RHUBARB_CROP.get(), new Item.Properties()));
+    // ---- 作物 ----
+    private static final FoodProperties RHUBARB_FOOD = food(1, 1.0F).build();
+    public static final DeferredItem<SeedItem> RHUBARB_SEEDS = ITEMS.register("rhubarb_seeds",
+            () -> new SeedItem(ModBlocks.RHUBARB_CROP.get(), new Item.Properties()));
     public static final DeferredItem<Item> RHUBARB = ITEMS.register("rhubarb",
             () -> new Item(new Item.Properties().food(RHUBARB_FOOD)));
 
-    // Amaranth + amaranth seeds (wheat-style). Not directly edible.
-    public static final DeferredItem<ItemNameBlockItem> AMARANTH_SEEDS = ITEMS.register("amaranth_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.AMARANTH_CROP.get(), new Item.Properties()));
+    public static final DeferredItem<SeedItem> AMARANTH_SEEDS = ITEMS.register("amaranth_seeds",
+            () -> new SeedItem(ModBlocks.AMARANTH_CROP.get(), new Item.Properties()));
     public static final DeferredItem<Item> AMARANTH = ITEMS.register("amaranth",
             () -> new Item(new Item.Properties()));
 
-    // Frost melon + frost melon seeds. Edible 6 hunger / 1 saturation. 6 * (1/12) * 2 = 1.
-    private static final FoodProperties FROST_MELON_FOOD = new FoodProperties.Builder()
-            .nutrition(6)
-            .saturationModifier(1.0F / (6.0F * 2.0F))
-            .build();
-    public static final DeferredItem<ItemNameBlockItem> FROST_MELON_SEEDS = ITEMS.register("frost_melon_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.FROST_MELON_CROP.get(), new Item.Properties()));
-    public static final DeferredItem<Item> FROST_MELON = ITEMS.register("frost_melon",
-            () -> new Item(new Item.Properties().food(FROST_MELON_FOOD)));
-
-    // Leek: edible 2 hunger / 1 saturation. 2 * (1/4) * 2 = 1.
-    private static final FoodProperties LEEK_FOOD = new FoodProperties.Builder()
-            .nutrition(2)
-            .saturationModifier(1.0F / (2.0F * 2.0F))
-            .build();
-    public static final DeferredItem<Item> LEEK = ITEMS.register("leek",
-            () -> new Item(new Item.Properties().food(LEEK_FOOD)));
-
-    // Ancient fruit: edible 4 hunger / 1 saturation. 4 * (1/8) * 2 = 1.
-    private static final FoodProperties ANCIENT_FRUIT_FOOD = new FoodProperties.Builder()
-            .nutrition(4)
-            .saturationModifier(1.0F / (4.0F * 2.0F))
-            .build();
-
-    // 上古水果：藤架式作物（生长方式同 tavern 的葡萄），种子播种。
-    public static final DeferredItem<ItemNameBlockItem> ANCIENT_FRUIT_SEEDS = ITEMS.register("ancient_fruit_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.ANCIENT_FRUIT_CROP.get(), new Item.Properties()));
+    private static final FoodProperties ANCIENT_FRUIT_FOOD = food(4, 1.0F).build();
+    /** 上古水果藤的种植凭证物品（对藤架右键种下） */
+    public static final DeferredItem<Item> ANCIENT_FRUIT_VINE = ITEMS.register("ancient_fruit_vine",
+            () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ANCIENT_FRUIT = ITEMS.register("ancient_fruit",
             () -> new Item(new Item.Properties().food(ANCIENT_FRUIT_FOOD)));
 
-    // 啤酒花：藤架式作物，种子播种。不可直接食用。
-    public static final DeferredItem<ItemNameBlockItem> HOPS_SEEDS = ITEMS.register("hops_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.HOPS_CROP.get(), new Item.Properties()));
-    public static final DeferredItem<Item> HOPS = ITEMS.register("hops",
+    private static final FoodProperties GOLDFISH_FOOD = food(2, 0.5F).build();
+    public static final DeferredItem<Item> GOLDFISH = ITEMS.register("goldfish",
+            () -> new Item(new Item.Properties().food(GOLDFISH_FOOD)));
+
+    // ---- 加工食品 ----
+    private static final FoodProperties RHUBARB_JAM_FOOD = food(7, 1.0F)
+            .usingConvertsTo(Items.GLASS_BOTTLE)
+            .effect(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.MUSTARD, 6000), 1.0F)
+            .effect(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.WARMTH, 3600), 1.0F)
+            .build();
+    public static final DeferredItem<RhubarbJamItem> RHUBARB_JAM = ITEMS.register("rhubarb_jam",
+            () -> new RhubarbJamItem(ModBlocks.RHUBARB_JAM.get(), new Item.Properties().stacksTo(16).food(RHUBARB_JAM_FOOD)));
+
+    private static final FoodProperties ANCIENT_FRUIT_PLATTER_FOOD = food(9, 1.0F)
+            .usingConvertsTo(Items.BOWL)
+            .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3600), 1.0F)
+            .effect(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.VIGOR, 3600), 1.0F)
+            .build();
+    public static final DeferredItem<EffectFoodItem> ANCIENT_FRUIT_PLATTER = ITEMS.register("ancient_fruit_platter",
+            () -> new EffectFoodItem(new Item.Properties().food(ANCIENT_FRUIT_PLATTER_FOOD)));
+
+    private static final FoodProperties AMARANTH_SOUP_FOOD = food(10, 1.1F)
+            .usingConvertsTo(Items.BOWL)
+            .effect(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.WARMTH, 3600), 1.0F)
+            .build();
+    public static final DeferredItem<EffectFoodItem> AMARANTH_SOUP = ITEMS.register("amaranth_soup",
+            () -> new EffectFoodItem(new Item.Properties().stacksTo(1).food(AMARANTH_SOUP_FOOD)));
+
+    private static final FoodProperties FISH_MUSHROOM_SOUP_ITEM_FOOD = food(22, 1.2F)
+            .alwaysEdible()
+            .effect(() -> new MobEffectInstance(ModEffects.MEAL, 6000), 1.0F)
+            .build();
+    public static final DeferredItem<BowlFoodBlockItemWithTooltip> FISH_MUSHROOM_SOUP = ITEMS.register("fish_mushroom_soup",
+            () -> new BowlFoodBlockItemWithTooltip(ModBlocks.FISH_MUSHROOM_SOUP.get(), FISH_MUSHROOM_SOUP_ITEM_FOOD,
+                    Items.BOWL, "tooltip.kaleidoscope_startale.fish_mushroom_soup.maxim"));
+
+    /** 整份 22 点饱食度、1.2 倍饱和度；发光与弹射闪避各 5 分钟。 */
+    private static final FoodProperties GLOWING_CATERPILLAR_SOUP_ITEM_FOOD = food(22, 1.2F)
+            .alwaysEdible()
+            .effect(() -> new MobEffectInstance(MobEffects.GLOWING, 6000), 1.0F)
+            .effect(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.PROJECTILE_DODGE, 6000), 1.0F)
+            .build();
+    public static final DeferredItem<BowlFoodBlockItem> GLOWING_CATERPILLAR_SOUP = ITEMS.register("glowing_caterpillar_soup",
+            () -> new BowlFoodBlockItem(ModBlocks.GLOWING_CATERPILLAR_SOUP.get(), GLOWING_CATERPILLAR_SOUP_ITEM_FOOD,
+                    Items.BOWL));
+
+    private static final FoodProperties RHUBARB_FONDANT_PIE_ITEM_FOOD = food(20, 1.1F).alwaysEdible().build();
+    public static final DeferredItem<BowlFoodBlockItem> RHUBARB_FONDANT_PIE = ITEMS.register("rhubarb_fondant_pie",
+            () -> new BowlFoodBlockItem(ModBlocks.RHUBARB_FONDANT_PIE.get(), RHUBARB_FONDANT_PIE_ITEM_FOOD, Items.BOWL));
+
+    private static final FoodProperties OMELETTE_RICE_ITEM_FOOD = food(17, 1.2F).alwaysEdible().build();
+    public static final DeferredItem<BowlFoodBlockItem> OMELETTE_RICE = ITEMS.register("omelette_rice",
+            () -> new BowlFoodBlockItem(ModBlocks.OMELETTE_RICE.get(), OMELETTE_RICE_ITEM_FOOD, Items.BOWL));
+
+    private static final FoodProperties ANCIENT_FRUIT_SKEWER_FOOD = food(14, 1.1F).build();
+    public static final DeferredItem<Item> ANCIENT_FRUIT_SKEWER = ITEMS.register("ancient_fruit_skewer",
+            () -> new Item(new Item.Properties().food(ANCIENT_FRUIT_SKEWER_FOOD)));
+
+    private static final FoodProperties EGG_BAKED_CAKE_FOOD = food(11, 1.0F)
+            .effect(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.WARMTH, 3600), 1.0F)
+            .build();
+    public static final DeferredItem<EffectFoodItem> EGG_BAKED_CAKE = ITEMS.register("egg_baked_cake",
+            () -> new EffectFoodItem(new Item.Properties().food(EGG_BAKED_CAKE_FOOD)));
+
+    private static final FoodProperties IDEA_COOKIE_FOOD = food(7, 0.8F)
+            .effect(() -> new MobEffectInstance(ModEffects.INSPIRATION, 700), 1.0F)
+            .build();
+    public static final DeferredItem<EffectFoodItem> IDEA_COOKIE = ITEMS.register("idea_cookie",
+            () -> new EffectFoodItem(new Item.Properties().food(IDEA_COOKIE_FOOD)));
+
+    private static final FoodProperties INSPIRATION_MUSHROOM_FOOD = food(5, 0.7F)
+            .effect(() -> new MobEffectInstance(ModEffects.INSPIRATION, 400), 1.0F)
+            .build();
+    public static final DeferredItem<EffectFoodItem> INSPIRATION_MUSHROOM = ITEMS.register("inspiration_mushroom",
+            () -> new EffectFoodItem(new Item.Properties().food(INSPIRATION_MUSHROOM_FOOD)));
+
+    /** 整份 28 点饱食度、1.2 倍饱和度。 */
+    private static final FoodProperties SLIME_KING_FLAVORED_JELLY_FOOD = new FoodProperties.Builder()
+            .nutrition(28)
+            .saturationModifier(1.2F)
+            .build();
+    public static final DeferredItem<Item> SLIME_KING_FLAVORED_JELLY = ITEMS.register("slime_king_flavored_jelly",
+            () -> new Item(new Item.Properties().food(SLIME_KING_FLAVORED_JELLY_FOOD)));
+
+    // ---- 酒水 / 果汁 ----
+    public static final DeferredItem<JuiceBucketItem> ANCIENT_FRUIT_JUICE_BUCKET = ITEMS.register("ancient_fruit_juice_bucket",
+            () -> new JuiceBucketItem(ModFluids.ANCIENT_FRUIT_JUICE));
+    public static final DeferredItem<ModDrinkBlockItem> ANCIENT_FRUIT_WINE = ITEMS.register("ancient_fruit_wine",
+            () -> new ModDrinkBlockItem(ModBlocks.ANCIENT_FRUIT_WINE.get()));
+    public static final DeferredItem<ModDrinkBlockItem> REFRESHING_BEER = ITEMS.register("refreshing_beer",
+            () -> new ModDrinkBlockItem(ModBlocks.REFRESHING_BEER.get()));
+    public static final DeferredItem<ModDrinkBlockItem> YANJING_U7 = ITEMS.register("yanjing_u7",
+            () -> new ModDrinkBlockItem(ModBlocks.YANJING_U7.get()));
+    public static final DeferredItem<ModDrinkBlockItem> GRAPE_FLAVORED_WINE = ITEMS.register("grape_flavored_wine",
+            () -> new ModDrinkBlockItem(ModBlocks.GRAPE_FLAVORED_WINE.get()));
+    public static final DeferredItem<ModDrinkBlockItem> RED_EYE_WINE = ITEMS.register("red_eye_wine",
+            () -> new ModDrinkBlockItem(ModBlocks.RED_EYE_WINE.get()));
+    public static final DeferredItem<ModDrinkBlockItem> JOJA_COLA = ITEMS.register("joja_cola",
+            () -> new ModDrinkBlockItem(ModBlocks.JOJA_COLA.get()));
+    public static final DeferredItem<CocktailBlockItem> ICE_ELF_COCKTAIL = ITEMS.register("ice_elf_cocktail",
+            () -> new CocktailBlockItem(ModBlocks.ICE_ELF_COCKTAIL.get()));
+    public static final DeferredItem<CocktailBlockItem> BUBBLE_ECHO_COCKTAIL = ITEMS.register("bubble_echo",
+            () -> new CocktailBlockItem(ModBlocks.BUBBLE_ECHO_COCKTAIL.get()));
+    public static final DeferredItem<CocktailBlockItem> SPRING_DRINK_COCKTAIL = ITEMS.register("spring_drink",
+            () -> new CocktailBlockItem(ModBlocks.SPRING_DRINK_COCKTAIL.get()));
+    public static final DeferredItem<CocktailBlockItem> SPRING_DRINK_1_COCKTAIL = ITEMS.register("spring_drink_1",
+            () -> new CocktailBlockItem(ModBlocks.SPRING_DRINK_1_COCKTAIL.get()));
+    public static final DeferredItem<CocktailBlockItem> BERRY_JUICE = ITEMS.register("berry_juice",
+            () -> new CocktailBlockItem(ModBlocks.BERRY_JUICE.get()));
+    public static final DeferredItem<CocktailBlockItem> GLOW_BERRY_JUICE = ITEMS.register("glow_berry_juice",
+            () -> new CocktailBlockItem(ModBlocks.GLOW_BERRY_JUICE.get()));
+    public static final DeferredItem<CocktailBlockItem> GRAPE_JUICE = ITEMS.register("grape_juice",
+            () -> new CocktailBlockItem(ModBlocks.GRAPE_JUICE.get()));
+    public static final DeferredItem<CocktailBlockItem> GOLD_GRAPE_JUICE = ITEMS.register("gold_grape_juice",
+            () -> new CocktailBlockItem(ModBlocks.GOLD_GRAPE_JUICE.get()));
+    public static final DeferredItem<CocktailBlockItem> ICE_GRAPE_JUICE = ITEMS.register("ice_grape_juice",
+            () -> new CocktailBlockItem(ModBlocks.ICE_GRAPE_JUICE.get()));
+    public static final DeferredItem<CocktailBlockItem> GREEN_GRAPE_JUICE = ITEMS.register("green_grape_juice",
+            () -> new CocktailBlockItem(ModBlocks.GREEN_GRAPE_JUICE.get()));
+
+    private static final FoodProperties ENCHANTED_NIGHTCRAWLER_FOOD = food(18, 0.4F)
+            .alwaysEdible()
+            .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 200), 1.0F)
+            .build();
+    public static final DeferredItem<EffectFoodItem> ENCHANTED_NIGHTCRAWLER = ITEMS.register("enchanted_nightcrawler",
+            () -> new EffectFoodItem(new Item.Properties().food(ENCHANTED_NIGHTCRAWLER_FOOD)));
+
+    // ---- 饲料 / 工具 ----
+    public static final DeferredItem<Item> LIVESTOCK_FEED = ITEMS.register("livestock_feed",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> POULTRY_FEED = ITEMS.register("poultry_feed",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> UNIVERSAL_FEED = ITEMS.register("universal_feed",
             () -> new Item(new Item.Properties()));
 
-    // ============ 加工食品 ============
+    public static final DeferredItem<JuicerBlockItem> JUICER = ITEMS.register("juicer",
+            () -> new JuicerBlockItem(ModBlocks.JUICER.get(), new Item.Properties()));
+    public static final DeferredItem<PetterItem> PETTER = ITEMS.register("petter",
+            () -> new PetterItem(new Item.Properties().stacksTo(1).durability(700)));
 
-    // 大黄酱：用 kaleidoscopecookery 汤锅（水作汤底）烹制，kaleidoscopetavern 空酒瓶承接，可饮用。
-    public static final DeferredItem<Item> RHUBARB_JAM = ITEMS.register("rhubarb_jam",
-            () -> new RhubarbJamItem(new Item.Properties().stacksTo(16)));
-
-    // 上古水果拼盘：3 个上古水果 + 1 个碗合成，食用回复 9 饱食度 / 1 饱和度。
-    // 最终饱和度 = nutrition * saturationModifier * 2 = 9 * (1/18) * 2 = 1.0。
-    private static final FoodProperties ANCIENT_FRUIT_PLATTER_FOOD = new FoodProperties.Builder()
-            .nutrition(9)
-            .saturationModifier(1.0F / (9.0F * 2.0F))
-            .build();
-    public static final DeferredItem<Item> ANCIENT_FRUIT_PLATTER = ITEMS.register("ancient_fruit_platter",
-            () -> new AncientFruitPlatterItem(new Item.Properties().food(ANCIENT_FRUIT_PLATTER_FOOD)));
-
-    // ============ 养殖：经济系统（占位物品，后续可替换实现） ============
-
-    // ---- 饲料 ----
-    public static final DeferredItem<FeedItem> LIVESTOCK_FEED = ITEMS.register("livestock_feed",
-            () -> new FeedItem(FeedItem.FeedType.LIVESTOCK, new Item.Properties()));
-    public static final DeferredItem<FeedItem> POULTRY_FEED = ITEMS.register("poultry_feed",
-            () -> new FeedItem(FeedItem.FeedType.POULTRY, new Item.Properties()));
-    public static final DeferredItem<FeedItem> PREMIUM_FEED = ITEMS.register("premium_feed",
-            () -> new FeedItem(FeedItem.FeedType.PREMIUM, new Item.Properties()));
-
-    // ---- 契约 ----
-    public static final DeferredItem<SaleContractItem> SALE_CONTRACT = ITEMS.register("sale_contract",
-            () -> new SaleContractItem(new Item.Properties().stacksTo(1)));
-    public static final DeferredItem<ReleaseContractItem> RELEASE_CONTRACT = ITEMS.register("release_contract",
-            () -> new ReleaseContractItem(new Item.Properties().stacksTo(1)));
-
-    // ---- 交易站方块物品 ----
-    public static final DeferredItem<BlockItem> SHIPPING_BIN = ITEMS.register("shipping_bin",
-            () -> new BlockItem(ModBlocks.SHIPPING_BIN.get(), new Item.Properties()));
+    private static FoodProperties.Builder food(int nutrition, float saturationMultiplier) {
+        return new FoodProperties.Builder().nutrition(nutrition).saturationModifier(saturationMultiplier / 2.0F);
+    }
 
     private ModItems() {
     }

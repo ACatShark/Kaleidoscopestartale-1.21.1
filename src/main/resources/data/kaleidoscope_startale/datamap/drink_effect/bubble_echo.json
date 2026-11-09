@@ -1,0 +1,13 @@
+{
+  "item": "kaleidoscope_startale:bubble_echo",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_startale:inspiration",
+        "duration": 180,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

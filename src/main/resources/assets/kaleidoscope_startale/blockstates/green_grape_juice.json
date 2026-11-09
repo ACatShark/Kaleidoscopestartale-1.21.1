@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=east,waterlogged=false": { "model": "kaleidoscope_startale:block/juice/green_grape_juice", "y": 90 },
+    "facing=east,waterlogged=true": { "model": "kaleidoscope_startale:block/juice/green_grape_juice", "y": 90 },
+    "facing=north,waterlogged=false": { "model": "kaleidoscope_startale:block/juice/green_grape_juice" },
+    "facing=north,waterlogged=true": { "model": "kaleidoscope_startale:block/juice/green_grape_juice" },
+    "facing=south,waterlogged=false": { "model": "kaleidoscope_startale:block/juice/green_grape_juice", "y": 180 },
+    "facing=south,waterlogged=true": { "model": "kaleidoscope_startale:block/juice/green_grape_juice", "y": 180 },
+    "facing=west,waterlogged=false": { "model": "kaleidoscope_startale:block/juice/green_grape_juice", "y": 270 },
+    "facing=west,waterlogged=true": { "model": "kaleidoscope_startale:block/juice/green_grape_juice", "y": 270 }
+  }
+}

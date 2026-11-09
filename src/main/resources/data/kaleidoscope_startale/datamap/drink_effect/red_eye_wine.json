@@ -1,0 +1,53 @@
+{
+  "item": "kaleidoscope_startale:red_eye_wine",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_startale:bloodthirst",
+        "duration": 60,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "kaleidoscope_startale:bloodthirst",
+        "duration": 180,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "kaleidoscope_startale:bloodthirst",
+        "duration": 300,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "kaleidoscope_startale:bloodthirst",
+        "duration": 420,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "kaleidoscope_startale:bloodthirst",
+        "duration": 540,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ],
+    [
+      {
+        "effect": "kaleidoscope_startale:bloodthirst",
+        "duration": 720,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}

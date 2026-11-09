@@ -1,0 +1,42 @@
+版权所有 (c) 2026 Kaleidoscope Startale 作者
+All Rights Reserved
+
+本项目的源代码、资源文件及编译产物（以下合称“本项目”）版权归作者所有，
+未授予任何开源许可证。
+
+未经作者事先书面许可，任何人不得：
+
+1. 复制、分发、公开传播本项目的源代码或编译产物；
+2. 修改本项目，或基于本项目发布衍生作品；
+3. 将本项目或其任何部分用于商业用途；
+4. 在其他项目中引用、链接或再分发本项目的代码、模型、贴图、音效等资源。
+
+以下行为无需额外授权：
+
+1. 在 Minecraft 整合包中直接使用作者官方发布的、未经修改的 jar 文件，
+   但须保留原始下载来源，且不得暗示作者为你的整合包背书；
+2. 出于个人学习目的阅读源代码，但不得据此复制或再分发其中的代码与资源。
+
+本项目按“现状”提供，不附带任何明示或默示的担保，包括但不限于对适销性、
+特定用途适用性的担保。因使用本项目产生的任何直接或间接损失，作者不承担责任。
+
+如需商业授权或其他许可，请联系作者。
+
+---
+
+Copyright (c) 2026 Kaleidoscope Startale authors
+All Rights Reserved
+
+This project, including its source code, assets and compiled artifacts
+(collectively, "the Project"), is proprietary. No open source license is granted.
+
+You may not copy, redistribute, publish, modify, or use the Project or any part
+of it for commercial purposes without prior written permission from the authors.
+
+You may use unmodified official release jars inside a Minecraft modpack,
+provided the original download source is retained and no endorsement by the
+authors is implied.
+
+THE PROJECT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY ARISING FROM THE USE OF THE PROJECT.

@@ -1,0 +1,7 @@
+{
+  "parent": "kaleidoscope_startale:block/cross",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "cross": "kaleidoscope_startale:block/crop/rhubarb/stage5"
+  }
+}

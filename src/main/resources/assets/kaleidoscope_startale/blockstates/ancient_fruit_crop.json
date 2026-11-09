@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "age=0": { "model": "kaleidoscope_startale:block/crop/ancient_fruit/stage5" },
+    "age=1": { "model": "kaleidoscope_startale:block/crop/ancient_fruit/stage5" }
+  }
+}
