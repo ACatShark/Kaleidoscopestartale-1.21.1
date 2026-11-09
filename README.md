@@ -1,25 +1,18 @@
+# Kaleidoscope Startale
+![icon.png](src/main/resources/assets/kaleidoscope_startale/textures/item/icon/icon.png)
+![largeicon.png](src/main/resources/assets/kaleidoscope_startale/textures/item/icon/largeicon.png)
+为森罗厨房和森罗酒馆提供了更多拓展联动内容，新增的畜牧体系为获取生物资源提供了更为友善的方法，更多内容持续产出中......
 
-Installation information
-=======
+## Required
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+| 模组 | Mod ID | 版本要求 |
+| --- | --- | --- |
+| Minecraft | `minecraft` | 1.21.1 |
+| NeoForge | `neoforge` | 21.1.0 及以上 |
+| 森罗物语：厨房 | `kaleidoscope_cookery` | 1.6.0-neoforge+mc1.21.1 及以上 |
+| 森罗物语：酒馆 | `kaleidoscope_tavern` | 1.2.0-neoforge+mc1.21.1 及以上 |
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+## 许可
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
-
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
-
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+本项目采用「保留所有权利」（All Rights Reserved）协议。
+未经作者书面许可，不得复制、分发、修改或用于商业用途。
