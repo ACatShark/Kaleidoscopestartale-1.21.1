@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ancient_fruit": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_startale:ancient_fruit"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_bowl": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:bowl"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "kaleidoscope_startale:ancient_fruit_platter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_bowl",
+      "has_ancient_fruit"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "kaleidoscope_startale:ancient_fruit_platter"
+    ]
+  }
+}

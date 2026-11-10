@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lettuce": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_cookery:lettuce"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_rice_panicle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_cookery:rice_panicle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "kaleidoscope_startale:livestock_feed"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tomato": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_cookery:tomato"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lettuce",
+      "has_rice_panicle",
+      "has_tomato"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "kaleidoscope_startale:livestock_feed"
+    ]
+  }
+}

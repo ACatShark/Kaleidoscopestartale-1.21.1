@@ -1,0 +1,28 @@
+{
+  "type": "kaleidoscope_cookery:stockpot",
+  "ingredients": [
+    {
+      "item": "kaleidoscope_startale:goldfish"
+    },
+    {
+      "item": "kaleidoscope_startale:goldfish"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "tag": "c:mushrooms"
+    },
+    {
+      "tag": "c:mushrooms"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_startale:fish_mushroom_soup"
+  },
+  "soup_base": "minecraft:milk"
+}

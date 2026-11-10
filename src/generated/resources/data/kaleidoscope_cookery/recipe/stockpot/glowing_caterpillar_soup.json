@@ -1,0 +1,25 @@
+{
+  "type": "kaleidoscope_cookery:stockpot",
+  "ingredients": [
+    {
+      "item": "kaleidoscope_startale:enchanted_nightcrawler"
+    },
+    {
+      "tag": "kaleidoscope_cookery:caterpillars"
+    },
+    {
+      "tag": "kaleidoscope_cookery:caterpillars"
+    },
+    {
+      "item": "kaleidoscope_startale:amaranth"
+    },
+    {
+      "item": "kaleidoscope_startale:amaranth"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_startale:glowing_caterpillar_soup"
+  },
+  "soup_base": "minecraft:milk"
+}

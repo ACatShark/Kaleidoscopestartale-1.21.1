@@ -20,74 +20,73 @@ public class ModItemModelsProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-//        // ==================== 作物 ====================
-//        basicItem(KSItems.AMARANTH_SEEDS.get());
-//        basicItem(KSItems.RHUBARB_SEEDS.get());
-//        basicItem(KSItems.RHUBARB.get());
-//        basicItem(KSItems.AMARANTH.get());
-//        basicItem(KSItems.ANCIENT_FRUIT_VINE.get());
-//        basicItem(KSItems.ANCIENT_FRUIT.get());
-//
-//        // ==================== 食物 ====================
-//        basicItem(KSItems.GOLDFISH.get());
-//        basicItem(KSItems.ANCIENT_FRUIT_PLATTER.get());
-//        basicItem(KSItems.ENCHANTED_NIGHTCRAWLER.get());
-//        basicItem(KSItems.AMARANTH_SOUP.get());
-//        basicItem(KSItems.FISH_MUSHROOM_SOUP.get());
-//        basicItem(KSItems.GLOWING_CATERPILLAR_SOUP.get());
-//        basicItem(KSItems.RHUBARB_FONDANT_PIE.get());
-//        basicItem(KSItems.OMELETTE_RICE.get());
-//        basicItem(KSItems.EGG_BAKED_CAKE.get());
-//        basicItem(KSItems.IDEA_COOKIE.get());
-//        basicItem(KSItems.INSPIRATION_MUSHROOM.get());
-//        basicItem(KSItems.SLIME_KING_FLAVORED_JELLY.get());
-//
-//        // ==================== 加工食品 ====================
-//        basicItem(KSItems.RHUBARB_JAM.get());
-//
-//        // ==================== 酒水 ====================
-//        basicItem(KSItems.ANCIENT_FRUIT_WINE.get());
-//        basicItem(KSItems.REFRESHING_BEER.get());
-//        basicItem(KSItems.YANJING_U7.get());
-//        basicItem(KSItems.GRAPE_FLAVORED_WINE.get());
-//        basicItem(KSItems.RED_EYE_WINE.get());
-//        basicItem(KSItems.JOJA_COLA.get());
-//
-//        // ==================== 鸡尾酒 ====================
-//        basicItem(KSItems.ICE_ELF_COCKTAIL.get());
-//        basicItem(KSItems.BUBBLE_ECHO_COCKTAIL.get());
-//        basicItem(KSItems.SPRING_DRINK_COCKTAIL.get());
-//        basicItem(KSItems.SPRING_DRINK_1_COCKTAIL.get());
-//
-//        // ==================== 果汁 ====================
-//        basicItem(KSItems.BERRY_JUICE.get());
-//        basicItem(KSItems.GLOW_BERRY_JUICE.get());
-//        basicItem(KSItems.GRAPE_JUICE.get());
-//        basicItem(KSItems.GOLD_GRAPE_JUICE.get());
-//        basicItem(KSItems.ICE_GRAPE_JUICE.get());
-//        basicItem(KSItems.GREEN_GRAPE_JUICE.get());
-//        basicItem(KSItems.ANCIENT_FRUIT_JUICE_BUCKET.get());
-//
-//        // ==================== 材料 / 工具 ====================
-//        basicItem(KSItems.LIVESTOCK_FEED.get());
-//        basicItem(KSItems.POULTRY_FEED.get());
-//        basicItem(KSItems.UNIVERSAL_FEED.get());
-
-        // ==================== 厨具 ====================
-        basicItem(KSItems.CREAM_OIL.get());
-        basicItem(KSItems.YUNOMI.get());
-        simpleBlockItem(KSBlocks.COLD_STOVE.get());
-
-        // ==================== 材料 ====================
-        basicItem(KSItems.MATCHA_POWDER.get());
-        basicItem(KSItems.CREAM.get());
+        // ==================== 作物 ====================
+        cropItem(KSItems.AMARANTH.get());
+        cropItem(KSItems.AMARANTH_SEEDS.get());
+        cropItem(KSItems.RHUBARB.get());
+        cropItem(KSItems.RHUBARB_SEEDS.get());
+        cropItem(KSItems.ANCIENT_FRUIT_VINE.get());
+        cropItem(KSItems.ANCIENT_FRUIT.get());
 
         // ==================== 食物 ====================
+        foodItem(KSItems.GOLDFISH.get());
         foodItem(KSItems.MATCHA_BB.get());
         foodItem(KSItems.MATCHA_PARFAIT.get());
         foodItem(KSItems.MATCHA_CAKE_ROLL.get());
         foodItem(KSItems.MATCHA_CAKE_SLICE.get());
         foodItem(KSItems.MATCHA_CAKE.get());
+        foodItem(KSItems.ENCHANTED_NIGHTCRAWLER.get());
+
+        // ==================== 加工食品 ====================
+        brewItem(KSItems.RHUBARB_JAM.get());
+        foodItem(KSItems.ANCIENT_FRUIT_PLATTER.get());
+        foodItem(KSItems.AMARANTH_SOUP.get());
+        foodItem(KSItems.FISH_MUSHROOM_SOUP.get());
+        foodItem(KSItems.GLOWING_CATERPILLAR_SOUP.get());
+        foodItem(KSItems.RHUBARB_FONDANT_PIE.get());
+        foodItem(KSItems.OMELETTE_RICE.get());
+//        foodItem(KSItems.ANCIENT_FRUIT_SKEWER.get());
+        foodItem(KSItems.EGG_BAKED_CAKE.get());
+        foodItem(KSItems.IDEA_COOKIE.get());
+        foodItem(KSItems.INSPIRATION_MUSHROOM.get());
+        foodItem(KSItems.SLIME_KING_FLAVORED_JELLY.get());
+
+        // ==================== 酒水 ====================
+        brewItem(KSItems.ANCIENT_FRUIT_WINE.get());
+        brewItem(KSItems.REFRESHING_BEER.get());
+        brewItem(KSItems.YANJING_U7.get());
+        brewItem(KSItems.GRAPE_FLAVORED_WINE.get());
+        brewItem(KSItems.RED_EYE_WINE.get());
+        brewItem(KSItems.JOJA_COLA.get());
+
+        // ==================== 鸡尾酒 ====================
+        brewItem(KSItems.ICE_ELF_COCKTAIL.get());
+        brewItem(KSItems.BUBBLE_ECHO_COCKTAIL.get());
+        brewItem(KSItems.SPRING_DRINK_COCKTAIL.get());
+        brewItem(KSItems.SPRING_DRINK_1_COCKTAIL.get());
+
+        // ==================== 果汁 ====================
+        juiceItem(KSItems.BERRY_JUICE.get());
+        juiceItem(KSItems.GLOW_BERRY_JUICE.get());
+        juiceItem(KSItems.GRAPE_JUICE.get());
+        juiceItem(KSItems.GOLD_GRAPE_JUICE.get());
+        juiceItem(KSItems.ICE_GRAPE_JUICE.get());
+        juiceItem(KSItems.GREEN_GRAPE_JUICE.get());
+        juiceItem(KSItems.ANCIENT_FRUIT_JUICE_BUCKET.get());
+
+        // ==================== 材料 ====================
+        basicItem(KSItems.LIVESTOCK_FEED.get());
+        basicItem(KSItems.POULTRY_FEED.get());
+        basicItem(KSItems.UNIVERSAL_FEED.get());
+        basicItem(KSItems.MATCHA_POWDER.get());
+        basicItem(KSItems.CREAM.get());
+
+        // ====================  工具 ====================
+//        basicItem(KSItems.JUICER.get());
+//        basicItem(KSItems.PETTER.get());
+        simpleBlockItem(KSBlocks.COLD_STOVE.get());
+        basicItem(KSItems.YUNOMI.get());
+        basicItem(KSItems.CREAM_OIL.get());
 
         // ==================== 茶叶 ====================
         basicItem(KSItems.GREEN_TEA_LEAVES.get());
@@ -98,11 +97,30 @@ public class ModItemModelsProvider extends ItemModelProvider {
         // ==================== 茶 ====================
         teaItem(TeacupRegistry.getItem(KSTeacups.MATCHA_TEA));
         teaItem(TeacupRegistry.getItem(KSTeacups.ROSE_TEA));
+
     }
 
-    /**
-     * 茶（路径：item/tea）
-     */
+    private void cropItem(Item item) {
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
+        String itemName = key.getPath();
+        ItemModelBuilder builder = withExistingParent(itemName, ResourceLocation.withDefaultNamespace("item/generated"));
+        builder.texture("layer0", KaleidoscopeStartale.id("item/crop/" + itemName));
+    }
+
+    private void brewItem(Item item) {
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
+        String itemName = key.getPath();
+        ItemModelBuilder builder = withExistingParent(itemName, ResourceLocation.withDefaultNamespace("item/generated"));
+        builder.texture("layer0", KaleidoscopeStartale.id("item/brew/" + itemName));
+    }
+
+    private void juiceItem(Item item) {
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
+        String itemName = key.getPath();
+        ItemModelBuilder builder = withExistingParent(itemName, ResourceLocation.withDefaultNamespace("item/generated"));
+        builder.texture("layer0", KaleidoscopeStartale.id("item/juice/" + itemName));
+    }
+
     private void teaItem(Item item) {
         ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
         String itemName = key.getPath();
@@ -110,9 +128,6 @@ public class ModItemModelsProvider extends ItemModelProvider {
         builder.texture("layer0", KaleidoscopeStartale.id("item/tea/" + itemName));
     }
 
-    /**
-     * 茶包（路径：item/teacup_bag/）
-     */
     private void bagItem(Item item) {
         ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
         String itemName = key.getPath();
@@ -120,9 +135,6 @@ public class ModItemModelsProvider extends ItemModelProvider {
         builder.texture("layer0", KaleidoscopeStartale.id("item/tea_bag/" + itemName));
     }
 
-    /**
-     * 食物（路径：item/food）
-     */
     private void foodItem(Item item) {
         ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
         String itemName = key.getPath();

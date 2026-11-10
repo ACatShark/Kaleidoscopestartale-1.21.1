@@ -1,0 +1,9 @@
+{
+  "values": [
+    "kaleidoscope_startale:petter",
+    {
+      "id": "#minecraft:enchantable/sword",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "kaleidoscope_cookery:stockpot",
+  "carrier": {
+    "item": "minecraft:glass_bottle"
+  },
+  "ingredients": [
+    {
+      "item": "kaleidoscope_startale:rhubarb"
+    },
+    {
+      "item": "kaleidoscope_startale:rhubarb"
+    },
+    {
+      "item": "kaleidoscope_startale:rhubarb"
+    },
+    {
+      "item": "kaleidoscope_startale:rhubarb"
+    },
+    {
+      "item": "kaleidoscope_startale:rhubarb"
+    },
+    {
+      "item": "kaleidoscope_startale:rhubarb"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_startale:rhubarb_jam"
+  }
+}

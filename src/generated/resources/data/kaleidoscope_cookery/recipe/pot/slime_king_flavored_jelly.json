@@ -1,0 +1,31 @@
+{
+  "type": "kaleidoscope_cookery:pot",
+  "carrier": {
+    "item": "minecraft:light_weighted_pressure_plate"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "minecraft:slime_ball"
+    },
+    {
+      "item": "kaleidoscope_startale:ancient_fruit"
+    },
+    {
+      "item": "kaleidoscope_startale:ancient_fruit"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    {
+      "item": "minecraft:gold_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_startale:slime_king_flavored_jelly"
+  },
+  "stir_fry_count": 5
+}

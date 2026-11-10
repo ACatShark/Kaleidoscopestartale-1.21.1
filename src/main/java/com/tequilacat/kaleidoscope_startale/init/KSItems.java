@@ -46,6 +46,9 @@ public interface KSItems {
     DeferredItem<Item> MATCHA_CAKE_SLICE = ITEMS.register("matcha_cake_slice", () -> new Item(new Item.Properties().food(KSFoods.CAKE_SLICE)));
     /** 抹茶蛋糕 */
     DeferredItem<BlockItem> MATCHA_CAKE = ITEMS.register("matcha_cake", () -> new BlockItem(KSBlocks.MATCHA_CAKE.get(), new Item.Properties().stacksTo(1)));
+    /** 附魔夜行者 */
+    DeferredItem<EffectFoodItem> ENCHANTED_NIGHTCRAWLER = ITEMS.register("enchanted_nightcrawler",
+            () -> new EffectFoodItem(new Item.Properties().food(KSFoods.ENCHANTED_NIGHTCRAWLER_FOOD)));
 
 
     // ==================== 加工食品 ====================
@@ -128,12 +131,9 @@ public interface KSItems {
     DeferredItem<CocktailBlockItem> GREEN_GRAPE_JUICE = ITEMS.register("green_grape_juice", () -> new CocktailBlockItem(KSBlocks.GREEN_GRAPE_JUICE.get()));
     /** 上古水果汁桶 */
     DeferredItem<JuiceBucketItem> ANCIENT_FRUIT_JUICE_BUCKET = ITEMS.register("ancient_fruit_juice_bucket", () -> new JuiceBucketItem(KSFluids.ANCIENT_FRUIT_JUICE));
-    /** 附魔夜行者 */
-    DeferredItem<EffectFoodItem> ENCHANTED_NIGHTCRAWLER = ITEMS.register("enchanted_nightcrawler",
-            () -> new EffectFoodItem(new Item.Properties().food(KSFoods.ENCHANTED_NIGHTCRAWLER_FOOD)));
 
 
-    // ==================== 材料 / 工具 ====================
+    // ==================== 材料 ====================
     /** 杂蔬饲料 */
     DeferredItem<Item> LIVESTOCK_FEED = ITEMS.register("livestock_feed", () -> new Item(new Item.Properties()));
     /** 八宝肥虫饲料 */

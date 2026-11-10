@@ -1,0 +1,21 @@
+{
+  "type": "kaleidoscope_cookery:pot",
+  "carrier": {
+    "item": "minecraft:stick"
+  },
+  "ingredients": [
+    {
+      "item": "kaleidoscope_startale:ancient_fruit"
+    },
+    {
+      "item": "kaleidoscope_startale:ancient_fruit"
+    },
+    {
+      "item": "kaleidoscope_startale:ancient_fruit"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_startale:ancient_fruit_skewer"
+  }
+}

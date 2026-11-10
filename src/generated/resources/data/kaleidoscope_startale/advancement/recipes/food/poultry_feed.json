@@ -1,0 +1,76 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_caterpillar": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_cookery:caterpillar"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_chili_seed": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_cookery:chili_seed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_lettuce_seed": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_cookery:lettuce_seed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "kaleidoscope_startale:poultry_feed"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tomato_seed": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_cookery:tomato_seed"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_wild_rice": {
+      "conditions": {
+        "items": [
+          {
+            "items": "kaleidoscope_cookery:wild_rice"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_caterpillar",
+      "has_chili_seed",
+      "has_wild_rice",
+      "has_lettuce_seed",
+      "has_tomato_seed"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "kaleidoscope_startale:poultry_feed"
+    ]
+  }
+}

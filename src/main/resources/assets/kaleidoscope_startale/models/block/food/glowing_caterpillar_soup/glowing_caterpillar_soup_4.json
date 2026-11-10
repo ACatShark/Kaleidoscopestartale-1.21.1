@@ -4,8 +4,8 @@
 	"render_type": "minecraft:cutout",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "kaleidoscope_startale:block/glowing_caterpillar_soup",
-		"particle": "kaleidoscope_startale:block/glowing_caterpillar_soup"
+		"0": "kaleidoscope_startale:block/food/glowing_caterpillar_soup",
+		"particle": "kaleidoscope_startale:block/food/glowing_caterpillar_soup"
 	},
 	"elements": [
 		{

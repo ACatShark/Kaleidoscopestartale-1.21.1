@@ -1,0 +1,25 @@
+{
+  "type": "kaleidoscope_cookery:pot",
+  "ingredients": [
+    {
+      "tag": "c:mushrooms"
+    },
+    {
+      "item": "kaleidoscope_startale:rhubarb"
+    },
+    {
+      "item": "kaleidoscope_startale:rhubarb"
+    },
+    {
+      "item": "kaleidoscope_startale:amaranth"
+    },
+    {
+      "item": "kaleidoscope_startale:amaranth"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_startale:inspiration_mushroom"
+  },
+  "stir_fry_count": 6
+}
