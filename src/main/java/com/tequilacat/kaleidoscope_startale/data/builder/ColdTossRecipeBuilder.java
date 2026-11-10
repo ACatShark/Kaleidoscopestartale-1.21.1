@@ -1,92 +1,152 @@
 package com.tequilacat.kaleidoscope_startale.data.builder;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.crafting.recipe.ColdTossRecipe;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 冷炒配方序列化器。
+ * 冷炒配方的数据生成构建器。
  * <p>
- * 负责冷炒配方的编解码：原料列表、产物、翻炒次数与载体的数据编解码，
- * 以及面向网络的流编解码。翻炒次数与载体均有默认值。
+ * 以链式调用方式设置原料列表、产出、翻炒次数与取成品容器等参数，
+ * 支持以物品或标识符形式设置字段，并提供多种保存入口。
+ * 取成品容器默认为空，表示可直接右键取走成品。
  */
-public class ColdTossRecipeBuilder implements RecipeSerializer<ColdTossRecipe> {
+public class ColdTossRecipeBuilder {
 
-    /** 翻炒次数默认值。 */
-    public static final int DEFAULT_STIR_FRY_COUNT = 5;
-
-    /**
-     * 冷炒配方的数据编解码器。
-     * <p>
-     * 翻炒次数与载体均为可选，缺省时使用默认值。
-     */
-    private static final MapCodec<ColdTossRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(ColdTossRecipe::ingredients),
-            ItemStack.CODEC.fieldOf("result").forGetter(ColdTossRecipe::result),
-            Codec.INT.optionalFieldOf("stir_fry_count", DEFAULT_STIR_FRY_COUNT).forGetter(ColdTossRecipe::stirFryCount),
-            Ingredient.CODEC.optionalFieldOf("carrier", Ingredient.EMPTY).forGetter(ColdTossRecipe::carrier)
-    ).apply(instance, ColdTossRecipe::new));
+    /** 原料列表 */
+    private final List<Ingredient> ingredients = new ArrayList<>();
+    /** 产出结果物品 */
+    private ItemStack result;
+    /** 翻炒次数，默认 5 */
+    private int stirFryCount = 5;
+    /** 取成品所需的容器，默认为空 */
+    private Ingredient carrier = Ingredient.EMPTY;
 
     /**
-     * 冷炒配方的流编解码器，用于网络传输。
-     * <p>
-     * 依次写入原料数量与各原料、产物、翻炒次数与载体。
-     */
-    private static final StreamCodec<RegistryFriendlyByteBuf, ColdTossRecipe> STREAM_CODEC =
-            new StreamCodec<>() {
-                @Override
-                public ColdTossRecipe decode(RegistryFriendlyByteBuf buf) {
-                    int size = buf.readVarInt();
-                    List<Ingredient> ingredients = new ArrayList<>(size);
-                    for (int i = 0; i < size; ++i) {
-                        ingredients.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
-                    }
-
-                    ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
-                    int stirFryCount = buf.readVarInt();
-                    Ingredient carrier = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-                    return new ColdTossRecipe(ingredients, result, stirFryCount, carrier);
-                }
-
-                @Override
-                public void encode(RegistryFriendlyByteBuf buf, ColdTossRecipe recipe) {
-                    buf.writeVarInt(recipe.ingredients().size());
-                    for (Ingredient ingredient : recipe.ingredients()) {
-                        Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ingredient);
-                    }
-
-                    ItemStack.STREAM_CODEC.encode(buf, recipe.result());
-                    buf.writeVarInt(recipe.stirFryCount());
-                    Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.carrier());
-                }
-            };
-
-    /**
-     * 获取配方的数据编解码器。
+     * 创建构建器实例。
      *
-     * @return 数据编解码器
+     * @return 新的构建器实例
      */
-    @Override
-    public MapCodec<ColdTossRecipe> codec() {
-        return CODEC;
+    public static ColdTossRecipeBuilder builder() {
+        return new ColdTossRecipeBuilder();
     }
 
     /**
-     * 获取配方的流编解码器。
+     * 追加一项原料。
      *
-     * @return 流编解码器
+     * @param ingredient 原料
+     * @return 当前构建器实例
      */
-    @Override
-    public StreamCodec<RegistryFriendlyByteBuf, ColdTossRecipe> streamCodec() {
-        return STREAM_CODEC;
+    public ColdTossRecipeBuilder addIngredient(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
+        return this;
+    }
+
+    /**
+     * 以物品标识符追加一项原料。
+     *
+     * @param itemId 物品标识符
+     * @return 当前构建器实例
+     */
+    public ColdTossRecipeBuilder addIngredient(ResourceLocation itemId) {
+        this.ingredients.add(Ingredient.of(BuiltInRegistries.ITEM.get(itemId)));
+        return this;
+    }
+
+    /**
+     * 设置产出结果物品。
+     *
+     * @param result 产出物品堆
+     * @return 当前构建器实例
+     */
+    public ColdTossRecipeBuilder setResult(ItemStack result) {
+        this.result = result;
+        return this;
+    }
+
+    /**
+     * 以物品标识符设置产出结果物品。
+     *
+     * @param itemId 物品标识符
+     * @return 当前构建器实例
+     */
+    public ColdTossRecipeBuilder setResult(ResourceLocation itemId) {
+        this.result = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
+        return this;
+    }
+
+    /**
+     * 设置翻炒次数。
+     *
+     * @param stirFryCount 翻炒次数
+     * @return 当前构建器实例
+     */
+    public ColdTossRecipeBuilder setStirFryCount(int stirFryCount) {
+        this.stirFryCount = stirFryCount;
+        return this;
+    }
+
+    /**
+     * 设置烹饪完成后取成品所需的容器原料。
+     * <p>
+     * 未设置时默认 Ingredient.EMPTY，表示直接右键即可取走成品；
+     * 例如配方需要碗来接 → setCarrier(Ingredient.of(Items.BOWL))。
+     *
+     * @param carrier 取成品所需的容器原料
+     * @return 当前构建器实例
+     */
+    public ColdTossRecipeBuilder setCarrier(Ingredient carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+
+    /**
+     * 以物品标识符设置取成品所需的容器原料。
+     *
+     * @param itemId 物品标识符
+     * @return 当前构建器实例
+     */
+    public ColdTossRecipeBuilder setCarrier(ResourceLocation itemId) {
+        this.carrier = Ingredient.of(BuiltInRegistries.ITEM.get(itemId));
+        return this;
+    }
+
+    /**
+     * 保存配方，使用基于产出物品路径自动生成的标识符。
+     *
+     * @param output 配方输出
+     */
+    public void save(RecipeOutput output) {
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(result.getItem());
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(KaleidoscopeStartale.MODID, "cold_toss/" + itemId.getPath());
+        save(output, id);
+    }
+
+    /**
+     * 保存配方，使用指定标识符。
+     *
+     * @param output 配方输出
+     * @param id     配方标识符
+     */
+    public void save(RecipeOutput output, ResourceLocation id) {
+        ColdTossRecipe recipe = new ColdTossRecipe(List.copyOf(ingredients), result, stirFryCount, carrier);
+        output.accept(id, recipe, null);
+    }
+
+    /**
+     * 保存配方，使用字符串解析为标识符。
+     *
+     * @param output 配方输出
+     * @param name   配方标识符字符串
+     */
+    public void save(RecipeOutput output, String name) {
+        save(output, ResourceLocation.parse(name));
     }
 }

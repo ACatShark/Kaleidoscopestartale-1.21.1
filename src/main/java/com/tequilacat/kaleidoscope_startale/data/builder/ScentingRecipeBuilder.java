@@ -1,97 +1,145 @@
 package com.tequilacat.kaleidoscope_startale.data.builder;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.crafting.recipe.ScentingRecipe;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
- * 窨制配方序列化器。
+ * 窨制配方的数据生成构建器。
  * <p>
- * 负责窨制配方的编解码：原料列表、产物与时长的数据编解码，
- * 以及面向网络的流编解码。原料数量限制为最多 3 个，时长有默认值。
+ * 以链式调用方式设置原料列表、产出与窨制时长等参数，
+ * 提供多种原料设置重载与保存入口。
+ * 原料数量上限为 MAX_INGREDIENTS，超出时抛出异常。
  */
-public class ScentingRecipeBuilder implements RecipeSerializer<ScentingRecipe> {
+public class ScentingRecipeBuilder {
 
-    /** 窨制配方最多支持的原料数量。 */
+    /** 最多 3 个原料 */
     public static final int MAX_INGREDIENTS = 3;
 
-    /** 窨制时长默认值（刻），即 60 秒。 */
-    public static final int DEFAULT_DURATION = 20 * 60;
+    /** 原料列表 */
+    private List<Ingredient> ingredients;
+    /** 产出结果物品 */
+    private ItemStack result;
+    /** 窨制时长（刻），默认 1200 */
+    private int duration = 1200;
 
     /**
-     * 窨制配方的数据编解码器。
-     * <p>
-     * 原料列表在编解码时校验数量不超过最大原料数；时长为可选，缺省时使用默认值。
-     */
-    private static final MapCodec<ScentingRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC.listOf().validate(list -> list.size() > MAX_INGREDIENTS
-                            ? DataResult.error(() -> "ingredients size must be <= " + MAX_INGREDIENTS)
-                            : DataResult.success(list))
-                    .fieldOf("ingredients").forGetter(ScentingRecipe::ingredients),
-            ItemStack.CODEC.fieldOf("result").forGetter(ScentingRecipe::result),
-            Codec.INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(ScentingRecipe::duration)
-    ).apply(instance, ScentingRecipe::new));
-
-    /**
-     * 窨制配方的流编解码器，用于网络传输。
-     * <p>
-     * 编码时写入原料数量并逐个写入原料；解码时按数量读取并限制不超过最大原料数，
-     * 随后依次读出产物与时长。
-     */
-    private static final StreamCodec<RegistryFriendlyByteBuf, ScentingRecipe> STREAM_CODEC =
-            new StreamCodec<>() {
-                @Override
-                public ScentingRecipe decode(RegistryFriendlyByteBuf buf) {
-                    int size = Math.min(MAX_INGREDIENTS, buf.readVarInt());
-                    List<Ingredient> ingredients = new ArrayList<>(size);
-                    for (int i = 0; i < size; ++i) {
-                        ingredients.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
-                    }
-
-                    ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
-                    int duration = buf.readVarInt();
-                    return new ScentingRecipe(ingredients, result, duration);
-                }
-
-                @Override
-                public void encode(RegistryFriendlyByteBuf buf, ScentingRecipe recipe) {
-                    buf.writeVarInt(recipe.ingredients().size());
-                    for (Ingredient ingredient : recipe.ingredients()) {
-                        Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ingredient);
-                    }
-
-                    ItemStack.STREAM_CODEC.encode(buf, recipe.result());
-                    buf.writeVarInt(recipe.duration());
-                }
-            };
-
-    /**
-     * 获取配方的数据编解码器。
+     * 创建构建器实例。
      *
-     * @return 数据编解码器
+     * @return 新的构建器实例
      */
-    @Override
-    public MapCodec<ScentingRecipe> codec() {
-        return CODEC;
+    public static ScentingRecipeBuilder builder() {
+        return new ScentingRecipeBuilder();
     }
 
     /**
-     * 获取配方的流编解码器。
+     * 设置原料列表。
      *
-     * @return 流编解码器
+     * @param ingredients 原料列表
+     * @return 当前构建器实例
+     * @throws IllegalArgumentException 原料数量超过上限时抛出
      */
-    @Override
-    public StreamCodec<RegistryFriendlyByteBuf, ScentingRecipe> streamCodec() {
-        return STREAM_CODEC;
+    public ScentingRecipeBuilder setIngredients(List<Ingredient> ingredients) {
+        if (ingredients.size() > MAX_INGREDIENTS) {
+            throw new IllegalArgumentException("ScentingRecipe 最多支持 " + MAX_INGREDIENTS + " 个原料，实际: " + ingredients.size());
+        }
+        this.ingredients = ingredients;
+        return this;
+    }
+
+    /**
+     * 以物品标识符数组设置原料列表。
+     *
+     * @param itemIds 物品标识符数组
+     * @return 当前构建器实例
+     * @throws IllegalArgumentException 原料数量超过上限时抛出
+     */
+    public ScentingRecipeBuilder setIngredients(ResourceLocation... itemIds) {
+        if (itemIds.length > MAX_INGREDIENTS) {
+            throw new IllegalArgumentException("ScentingRecipe 最多支持 " + MAX_INGREDIENTS + " 个原料，实际: " + itemIds.length);
+        }
+        this.ingredients = Stream.of(itemIds)
+                .map(id -> Ingredient.of(BuiltInRegistries.ITEM.get(id)))
+                .toList();
+        return this;
+    }
+
+    /**
+     * 以物品数组设置原料列表。
+     *
+     * @param items 物品数组
+     * @return 当前构建器实例
+     * @throws IllegalArgumentException 原料数量超过上限时抛出
+     */
+    public ScentingRecipeBuilder setIngredients(ItemLike... items) {
+        if (items.length > MAX_INGREDIENTS) {
+            throw new IllegalArgumentException("ScentingRecipe 最多支持 " + MAX_INGREDIENTS + " 个原料，实际: " + items.length);
+        }
+        this.ingredients = Stream.of(items)
+                .map(Ingredient::of)
+                .toList();
+        return this;
+    }
+
+    /**
+     * 设置产出结果物品。
+     *
+     * @param result 产出物品堆
+     * @return 当前构建器实例
+     */
+    public ScentingRecipeBuilder setResult(ItemStack result) {
+        this.result = result;
+        return this;
+    }
+
+    /**
+     * 设置窨制时长。
+     *
+     * @param duration 窨制时长（刻）
+     * @return 当前构建器实例
+     */
+    public ScentingRecipeBuilder setDuration(int duration) {
+        this.duration = duration;
+        return this;
+    }
+
+    /**
+     * 保存配方，使用基于产出物品路径自动生成的标识符。
+     *
+     * @param output 配方输出
+     */
+    public void save(RecipeOutput output) {
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(result.getItem());
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(KaleidoscopeStartale.MODID, "scenting/" + itemId.getPath());
+        save(output, id);
+    }
+
+    /**
+     * 保存配方，使用指定标识符。
+     *
+     * @param output 配方输出
+     * @param id     配方标识符
+     */
+    public void save(RecipeOutput output, ResourceLocation id) {
+        ScentingRecipe recipe = new ScentingRecipe(ingredients, result, duration);
+        output.accept(id, recipe, null);
+    }
+
+    /**
+     * 保存配方，使用字符串解析为标识符。
+     *
+     * @param output 配方输出
+     * @param name   配方标识符字符串
+     */
+    public void save(RecipeOutput output, String name) {
+        save(output, ResourceLocation.parse(name));
     }
 }

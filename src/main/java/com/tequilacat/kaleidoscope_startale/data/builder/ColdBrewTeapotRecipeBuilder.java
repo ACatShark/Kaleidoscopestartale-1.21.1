@@ -1,94 +1,173 @@
 package com.tequilacat.kaleidoscope_startale.data.builder;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.crafting.recipe.ColdBrewTeapotRecipe;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.material.Fluid;
 
 /**
- * 冷萃茶壶配方序列化器。
+ * 冷萃茶壶配方的数据生成构建器。
  * <p>
- * 负责冷萃茶壶配方的编解码：茶液、原料、原料数量、处理时长、产物与容器的数据编解码，
- * 以及面向网络的流编解码。茶液、原料数量、处理时长与容器均有默认值。
+ * 以链式调用方式设置茶液、原料、产出、容器与处理时长等参数，
+ * 支持以物品或标识符形式设置字段，并提供多种保存入口。
+ * 容器默认使用空杯物品。
  */
-public class ColdBrewTeapotRecipeBuilder implements RecipeSerializer<ColdBrewTeapotRecipe> {
+public class ColdBrewTeapotRecipeBuilder {
 
-    /** 处理时长默认值（刻）。 */
-    public static final int DEFAULT_TIME = 2400;
-
-    /** 原料数量默认值。 */
-    public static final int DEFAULT_INGREDIENT_COUNT = 1;
-
-    /** 空茶液标识符，用作茶液字段的默认值。 */
-    public static final ResourceLocation EMPTY_TEA_FLUID = ResourceLocation.withDefaultNamespace("empty");
-
-    /**
-     * 冷萃茶壶配方的数据编解码器。
-     * <p>
-     * 茶液、原料数量、处理时长与容器均为可选，缺省时使用默认值。
-     */
-    private static final MapCodec<ColdBrewTeapotRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            ResourceLocation.CODEC.optionalFieldOf("tea_fluid", EMPTY_TEA_FLUID).forGetter(ColdBrewTeapotRecipe::teaFluid),
-            Ingredient.CODEC.fieldOf("ingredient").forGetter(ColdBrewTeapotRecipe::ingredient),
-            Codec.INT.optionalFieldOf("ingredient_count", DEFAULT_INGREDIENT_COUNT).forGetter(ColdBrewTeapotRecipe::ingredientCount),
-            Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(ColdBrewTeapotRecipe::time),
-            ItemStack.STRICT_CODEC.fieldOf("result").forGetter(ColdBrewTeapotRecipe::result),
-            Ingredient.CODEC.optionalFieldOf("container",
-                    Ingredient.of(com.github.ysbbbbbb.kaleidoscopecookery.init.ModItems.EMPTY_CUP.get())).forGetter(ColdBrewTeapotRecipe::container)
-    ).apply(instance, ColdBrewTeapotRecipe::new));
+    /** 所需茶液标识符 */
+    private ResourceLocation teaFluid;
+    /** 所需原料 */
+    private Ingredient ingredient;
+    /** 产出结果物品 */
+    private ItemStack result;
+    /** 取成品所需的容器，默认使用空杯 */
+    private Ingredient container = Ingredient.of(com.github.ysbbbbbb.kaleidoscopecookery.init.ModItems.EMPTY_CUP.get());
+    /** 所需原料数量，默认 1 */
+    private int ingredientCount = 1;
+    /** 处理时长（刻），默认 2400 */
+    private int time = 2400;
 
     /**
-     * 冷萃茶壶配方的流编解码器，用于网络传输。
-     * <p>
-     * 依次写入茶液标识符、原料、原料数量、处理时长、产物与容器。
-     */
-    private static final StreamCodec<RegistryFriendlyByteBuf, ColdBrewTeapotRecipe> STREAM_CODEC =
-            new StreamCodec<>() {
-                @Override
-                public ColdBrewTeapotRecipe decode(RegistryFriendlyByteBuf buf) {
-                    ResourceLocation teaFluid = buf.readResourceLocation();
-                    Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-                    int ingredientCount = buf.readVarInt();
-                    int time = buf.readVarInt();
-                    ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
-                    Ingredient container = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-                    return new ColdBrewTeapotRecipe(teaFluid, ingredient, ingredientCount, time, result, container);
-                }
-
-                @Override
-                public void encode(RegistryFriendlyByteBuf buf, ColdBrewTeapotRecipe recipe) {
-                    buf.writeResourceLocation(recipe.teaFluid());
-                    Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.ingredient());
-                    buf.writeVarInt(recipe.ingredientCount());
-                    buf.writeVarInt(recipe.time());
-                    ItemStack.STREAM_CODEC.encode(buf, recipe.result());
-                    Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.container());
-                }
-            };
-
-    /**
-     * 获取配方的数据编解码器。
+     * 创建构建器实例。
      *
-     * @return 数据编解码器
+     * @return 新的构建器实例
      */
-    @Override
-    public MapCodec<ColdBrewTeapotRecipe> codec() {
-        return CODEC;
+    public static ColdBrewTeapotRecipeBuilder builder() {
+        return new ColdBrewTeapotRecipeBuilder();
     }
 
     /**
-     * 获取配方的流编解码器。
+     * 设置所需茶液。
      *
-     * @return 流编解码器
+     * @param fluid 茶液流体
+     * @return 当前构建器实例
      */
-    @Override
-    public StreamCodec<RegistryFriendlyByteBuf, ColdBrewTeapotRecipe> streamCodec() {
-        return STREAM_CODEC;
+    public ColdBrewTeapotRecipeBuilder setTeaFluid(Fluid fluid) {
+        this.teaFluid = BuiltInRegistries.FLUID.getKey(fluid);
+        return this;
+    }
+
+    /**
+     * 设置所需原料。
+     *
+     * @param ingredient 原料
+     * @return 当前构建器实例
+     */
+    public ColdBrewTeapotRecipeBuilder setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+        return this;
+    }
+
+    /**
+     * 以物品标识符设置所需原料。
+     *
+     * @param itemId 物品标识符
+     * @return 当前构建器实例
+     */
+    public ColdBrewTeapotRecipeBuilder setIngredient(ResourceLocation itemId) {
+        this.ingredient = Ingredient.of(BuiltInRegistries.ITEM.get(itemId));
+        return this;
+    }
+
+    /**
+     * 设置所需原料数量。
+     *
+     * @param count 原料数量
+     * @return 当前构建器实例
+     */
+    public ColdBrewTeapotRecipeBuilder setIngredientCount(int count) {
+        this.ingredientCount = count;
+        return this;
+    }
+
+    /**
+     * 设置产出结果物品。
+     *
+     * @param result 产出物品堆
+     * @return 当前构建器实例
+     */
+    public ColdBrewTeapotRecipeBuilder setResult(ItemStack result) {
+        this.result = result;
+        return this;
+    }
+
+    /**
+     * 以物品标识符设置产出结果物品。
+     *
+     * @param itemId 物品标识符
+     * @return 当前构建器实例
+     */
+    public ColdBrewTeapotRecipeBuilder setResult(ResourceLocation itemId) {
+        this.result = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
+        return this;
+    }
+
+    /**
+     * 设置取成品所需的容器。
+     *
+     * @param container 容器原料
+     * @return 当前构建器实例
+     */
+    public ColdBrewTeapotRecipeBuilder setContainer(Ingredient container) {
+        this.container = container;
+        return this;
+    }
+
+    /**
+     * 以物品标识符设置取成品所需的容器。
+     *
+     * @param itemId 物品标识符
+     * @return 当前构建器实例
+     */
+    public ColdBrewTeapotRecipeBuilder setContainer(ResourceLocation itemId) {
+        this.container = Ingredient.of(BuiltInRegistries.ITEM.get(itemId));
+        return this;
+    }
+
+    /**
+     * 设置处理时长。
+     *
+     * @param time 处理时长（刻）
+     * @return 当前构建器实例
+     */
+    public ColdBrewTeapotRecipeBuilder setTime(int time) {
+        this.time = time;
+        return this;
+    }
+
+    /**
+     * 保存配方，使用基于产出物品路径自动生成的标识符。
+     *
+     * @param output 配方输出
+     */
+    public void save(RecipeOutput output) {
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(result.getItem());
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(KaleidoscopeStartale.MODID, "cold_brew_teapot/" + itemId.getPath());
+        save(output, id);
+    }
+
+    /**
+     * 保存配方，使用指定标识符。
+     *
+     * @param output 配方输出
+     * @param id     配方标识符
+     */
+    public void save(RecipeOutput output, ResourceLocation id) {
+        ColdBrewTeapotRecipe recipe = new ColdBrewTeapotRecipe(teaFluid, ingredient, ingredientCount, time, result, container);
+        output.accept(id, recipe, null);
+    }
+
+    /**
+     * 保存配方，使用字符串解析为标识符。
+     *
+     * @param output 配方输出
+     * @param name   配方标识符字符串
+     */
+    public void save(RecipeOutput output, String name) {
+        save(output, ResourceLocation.parse(name));
     }
 }

@@ -12,20 +12,13 @@ import com.github.ysbbbbbb.kaleidoscopetavern.datagen.builder.PressingTubBuilder
 import com.github.ysbbbbbb.kaleidoscopetavern.datagen.builder.ShakerBuilder;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModFluids;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
-import com.tequilacat.kaleidoscope_startale.crafting.recipe.ColdBrewTeapotRecipe;
-import com.tequilacat.kaleidoscope_startale.crafting.recipe.ColdStewRecipe;
-import com.tequilacat.kaleidoscope_startale.crafting.recipe.ColdTossRecipe;
-import com.tequilacat.kaleidoscope_startale.crafting.recipe.FermentingRecipe;
-import com.tequilacat.kaleidoscope_startale.crafting.recipe.JuicerRecipe;
-import com.tequilacat.kaleidoscope_startale.crafting.recipe.ScentingRecipe;
+import com.tequilacat.kaleidoscope_startale.data.builder.*;
 import com.tequilacat.kaleidoscope_startale.init.KSFluids;
 import com.tequilacat.kaleidoscope_startale.init.KSItems;
 import com.tequilacat.kaleidoscope_startale.init.KSTeacups;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -34,7 +27,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipesProvider extends RecipeProvider implements IConditionBuilder {
@@ -131,14 +123,10 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
     private void JuicerRecipes(RecipeOutput output) {
 
         // 上古水果 → 上古水果汁
-        output.accept(KaleidoscopeStartale.id("juicer/ancient_fruit_juice"),
-                new JuicerRecipe(
-                        NonNullList.of(Ingredient.EMPTY, Ingredient.of(KSItems.ANCIENT_FRUIT.get())),
-                        KSFluids.ANCIENT_FRUIT_JUICE.get(),
-                        250,
-                        59,
-                        ItemStack.EMPTY),
-                null);
+        JuicerRecipeBuilder.builder()
+                .addIngredient(Ingredient.of(KSItems.ANCIENT_FRUIT.get()))
+                .setFluid(KSFluids.ANCIENT_FRUIT_JUICE.get())
+                .save(output);
 
     }
 
@@ -146,15 +134,14 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
     private void ColdBrewTeapotRecipes(RecipeOutput output) {
 
         // 抹茶粉 + 水 → 抹茶
-        output.accept(KaleidoscopeStartale.id("cold_brew_teapot/matcha_tea"),
-                new ColdBrewTeapotRecipe(
-                        ResourceLocation.withDefaultNamespace("water"),
-                        Ingredient.of(KSItems.MATCHA_POWDER.get()),
-                        1,
-                        240,
-                        new ItemStack(TeacupRegistry.getItem(KSTeacups.MATCHA_TEA)),
-                        Ingredient.of(KSItems.YUNOMI.get())),
-                null);
+        ColdBrewTeapotRecipeBuilder.builder()
+                .setTeaFluid(Fluids.WATER)
+                .setIngredient(Ingredient.of(KSItems.MATCHA_POWDER.get()))
+                .setIngredientCount(1)
+                .setResult(new ItemStack(TeacupRegistry.getItem(KSTeacups.MATCHA_TEA)))
+                .setContainer(Ingredient.of(KSItems.YUNOMI.get()))
+                .setTime(240)
+                .save(output);
 
     }
 
@@ -162,14 +149,13 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
     private void FermentingRecipes(RecipeOutput output) {
 
         // 钻石 → 绿宝石
-        output.accept(KaleidoscopeStartale.id("fermenting/diamond"),
-                new FermentingRecipe(
-                        Ingredient.of(Items.DIAMOND),
-                        new ItemStack(Items.EMERALD),
-                        1200,
-                        10,
-                        12),
-                null);
+        FermentingRecipeBuilder.builder()
+                .setIngredient(Ingredient.of(Items.DIAMOND))
+                .setResult(new ItemStack(Items.EMERALD))
+                .setDuration(1200)
+                .setMinLight(10)
+                .setMaxLight(12)
+                .save(output, KaleidoscopeStartale.id("fermenting/diamond"));
 
     }
 
@@ -177,14 +163,11 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
     private void ScentingRecipes(RecipeOutput output) {
 
         // 绿宝石 ×3 → 钻石
-        output.accept(KaleidoscopeStartale.id("scenting/emerald"),
-                new ScentingRecipe(
-                        List.of(Ingredient.of(Items.EMERALD),
-                                Ingredient.of(Items.EMERALD),
-                                Ingredient.of(Items.EMERALD)),
-                        new ItemStack(Items.DIAMOND),
-                        1200),
-                null);
+        ScentingRecipeBuilder.builder()
+                .setIngredients(Items.EMERALD, Items.EMERALD, Items.EMERALD)
+                .setResult(new ItemStack(Items.DIAMOND))
+                .setDuration(1200)
+                .save(output, KaleidoscopeStartale.id("scenting/emerald"));
 
     }
 
@@ -192,22 +175,19 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
     private void ColdTossRecipes(RecipeOutput output) {
 
         // 铁锭 → 铁块
-        output.accept(KaleidoscopeStartale.id("cold_toss/iron_block"),
-                new ColdTossRecipe(
-                        List.of(Ingredient.of(Items.IRON_INGOT)),
-                        new ItemStack(Items.IRON_BLOCK),
-                        5,
-                        Ingredient.of(Items.BOWL)),
-                null);
+        ColdTossRecipeBuilder.builder()
+                .addIngredient(Ingredient.of(Items.IRON_INGOT))
+                .setResult(new ItemStack(Items.IRON_BLOCK))
+                .setStirFryCount(5)
+                .setCarrier(Ingredient.of(Items.BOWL))
+                .save(output);
 
         // 钻石 → 钻石块
-        output.accept(KaleidoscopeStartale.id("cold_toss/diamond_block"),
-                new ColdTossRecipe(
-                        List.of(Ingredient.of(Items.DIAMOND)),
-                        new ItemStack(Items.DIAMOND_BLOCK),
-                        5,
-                        Ingredient.EMPTY),
-                null);
+        ColdTossRecipeBuilder.builder()
+                .addIngredient(Ingredient.of(Items.DIAMOND))
+                .setResult(new ItemStack(Items.DIAMOND_BLOCK))
+                .setStirFryCount(5)
+                .save(output);
 
     }
 
@@ -215,23 +195,21 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
     private void ColdStewRecipes(RecipeOutput output) {
 
         // 牛奶 + 牛肉 → 熟牛肉
-        output.accept(KaleidoscopeStartale.id("cold_stew/cooked_beef"),
-                new ColdStewRecipe(
-                        Ingredient.of(Items.MILK_BUCKET),
-                        List.of(Ingredient.of(Items.BEEF)),
-                        new ItemStack(Items.COOKED_BEEF),
-                        600),
-                null);
+        ColdStewRecipeBuilder.builder()
+                .setSoupBase(Ingredient.of(Items.MILK_BUCKET))
+                .addIngredient(Ingredient.of(Items.BEEF))
+                .setResult(new ItemStack(Items.COOKED_BEEF))
+                .setDuration(600)
+                .save(output);
 
         // 细雪桶 + 钻石 + 抹茶粉 → 蘑菇煲
-        output.accept(KaleidoscopeStartale.id("cold_stew/mushroom_stew"),
-                new ColdStewRecipe(
-                        Ingredient.of(Items.POWDER_SNOW_BUCKET),
-                        List.of(Ingredient.of(Items.DIAMOND),
-                                Ingredient.of(KSItems.MATCHA_POWDER.get())),
-                        new ItemStack(Items.MUSHROOM_STEW),
-                        800),
-                null);
+        ColdStewRecipeBuilder.builder()
+                .setSoupBase(Ingredient.of(Items.POWDER_SNOW_BUCKET))
+                .addIngredient(Ingredient.of(Items.DIAMOND))
+                .addIngredient(Ingredient.of(KSItems.MATCHA_POWDER.get()))
+                .setResult(new ItemStack(Items.MUSHROOM_STEW))
+                .setDuration(800)
+                .save(output);
 
     }
 

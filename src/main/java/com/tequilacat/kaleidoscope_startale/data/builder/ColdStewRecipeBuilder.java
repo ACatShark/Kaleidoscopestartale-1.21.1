@@ -1,96 +1,161 @@
 package com.tequilacat.kaleidoscope_startale.data.builder;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.crafting.recipe.ColdStewRecipe;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
+import com.tequilacat.kaleidoscope_startale.crafting.serializer.ColdStewRecipeSerializer;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 冷炖配方序列化器。
+ * 冷炖配方的数据生成构建器。
  * <p>
- * 负责冷炖配方的编解码：汤底、原料列表、产物与时长的数据编解码，
- * 以及面向网络的流编解码。汤底与时长均有默认值。
+ * 以链式调用方式设置汤底、原料列表、产出与处理时长等参数，
+ * 支持以物品或标识符形式设置字段，并提供多种保存入口。
+ * 汤底默认使用序列化器中定义的默认汤底。
  */
-public class ColdStewRecipeBuilder implements RecipeSerializer<ColdStewRecipe> {
+public class ColdStewRecipeBuilder {
 
-    /** 处理时长默认值（刻）。 */
-    public static final int DEFAULT_DURATION = 1200;
-
-    /** 默认汤底。 */
-    public static final Ingredient DEFAULT_SOUP_BASE = Ingredient.of(Items.POWDER_SNOW_BUCKET, Items.BUCKET);
-
-    /**
-     * 冷炖配方的数据编解码器。
-     * <p>
-     * 汤底与时长为可选，缺省时使用默认值。
-     */
-    private static final MapCodec<ColdStewRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            Ingredient.CODEC.optionalFieldOf("soup_base", DEFAULT_SOUP_BASE).forGetter(ColdStewRecipe::soupBase),
-            Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(ColdStewRecipe::ingredients),
-            ItemStack.CODEC.fieldOf("result").forGetter(ColdStewRecipe::result),
-            Codec.INT.optionalFieldOf("duration", DEFAULT_DURATION).forGetter(ColdStewRecipe::duration)
-    ).apply(instance, ColdStewRecipe::new));
+    /** 汤底原料，默认使用序列化器中定义的默认汤底 */
+    private Ingredient soupBase = ColdStewRecipeSerializer.DEFAULT_SOUP_BASE;
+    /** 原料列表 */
+    private final List<Ingredient> ingredients = new ArrayList<>();
+    /** 产出结果物品 */
+    private ItemStack result;
+    /** 处理时长（刻），默认 1200 */
+    private int duration = 1200;
 
     /**
-     * 冷炖配方的流编解码器，用于网络传输。
-     * <p>
-     * 依次写入汤底、原料数量与各原料、产物与时长。
-     */
-    private static final StreamCodec<RegistryFriendlyByteBuf, ColdStewRecipe> STREAM_CODEC =
-            new StreamCodec<>() {
-                @Override
-                public ColdStewRecipe decode(RegistryFriendlyByteBuf buf) {
-                    Ingredient soupBase = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
-                    int size = buf.readVarInt();
-                    List<Ingredient> ingredients = new ArrayList<>(size);
-                    for (int i = 0; i < size; ++i) {
-                        ingredients.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
-                    }
-
-                    ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
-                    int duration = buf.readVarInt();
-                    return new ColdStewRecipe(soupBase, ingredients, result, duration);
-                }
-
-                @Override
-                public void encode(RegistryFriendlyByteBuf buf, ColdStewRecipe recipe) {
-                    Ingredient.CONTENTS_STREAM_CODEC.encode(buf, recipe.soupBase());
-                    buf.writeVarInt(recipe.ingredients().size());
-                    for (Ingredient ingredient : recipe.ingredients()) {
-                        Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ingredient);
-                    }
-
-                    ItemStack.STREAM_CODEC.encode(buf, recipe.result());
-                    buf.writeVarInt(recipe.duration());
-                }
-            };
-
-    /**
-     * 获取配方的数据编解码器。
+     * 创建构建器实例。
      *
-     * @return 数据编解码器
+     * @return 新的构建器实例
      */
-    @Override
-    public MapCodec<ColdStewRecipe> codec() {
-        return CODEC;
+    public static ColdStewRecipeBuilder builder() {
+        return new ColdStewRecipeBuilder();
     }
 
     /**
-     * 获取配方的流编解码器。
+     * 追加一项原料。
      *
-     * @return 流编解码器
+     * @param ingredient 原料
+     * @return 当前构建器实例
      */
-    @Override
-    public StreamCodec<RegistryFriendlyByteBuf, ColdStewRecipe> streamCodec() {
-        return STREAM_CODEC;
+    public ColdStewRecipeBuilder addIngredient(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
+        return this;
+    }
+
+    /**
+     * 以物品标识符追加一项原料。
+     *
+     * @param itemId 物品标识符
+     * @return 当前构建器实例
+     */
+    public ColdStewRecipeBuilder addIngredient(ResourceLocation itemId) {
+        this.ingredients.add(Ingredient.of(BuiltInRegistries.ITEM.get(itemId)));
+        return this;
+    }
+
+    /**
+     * 设置产出结果物品。
+     *
+     * @param result 产出物品堆
+     * @return 当前构建器实例
+     */
+    public ColdStewRecipeBuilder setResult(ItemStack result) {
+        this.result = result;
+        return this;
+    }
+
+    /**
+     * 以物品标识符设置产出结果物品。
+     *
+     * @param itemId 物品标识符
+     * @return 当前构建器实例
+     */
+    public ColdStewRecipeBuilder setResult(ResourceLocation itemId) {
+        this.result = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
+        return this;
+    }
+
+    /**
+     * 设置汤底原料。
+     *
+     * @param soupBase 汤底原料
+     * @return 当前构建器实例
+     */
+    public ColdStewRecipeBuilder setSoupBase(Ingredient soupBase) {
+        this.soupBase = soupBase;
+        return this;
+    }
+
+    /**
+     * 以物品标识符设置汤底原料。
+     *
+     * @param itemId 物品标识符
+     * @return 当前构建器实例
+     */
+    public ColdStewRecipeBuilder setSoupBase(ResourceLocation itemId) {
+        this.soupBase = Ingredient.of(BuiltInRegistries.ITEM.get(itemId));
+        return this;
+    }
+
+    /**
+     * 以若干物品设置汤底原料。
+     *
+     * @param items 汤底物品
+     * @return 当前构建器实例
+     */
+    public ColdStewRecipeBuilder setSoupBase(net.minecraft.world.level.ItemLike... items) {
+        this.soupBase = Ingredient.of(items);
+        return this;
+    }
+
+    /**
+     * 设置处理时长。
+     *
+     * @param duration 处理时长（刻）
+     * @return 当前构建器实例
+     */
+    public ColdStewRecipeBuilder setDuration(int duration) {
+        this.duration = duration;
+        return this;
+    }
+
+    /**
+     * 保存配方，使用基于产出物品路径自动生成的标识符。
+     *
+     * @param output 配方输出
+     */
+    public void save(RecipeOutput output) {
+        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(result.getItem());
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(KaleidoscopeStartale.MODID, "cold_stew/" + itemId.getPath());
+        save(output, id);
+    }
+
+    /**
+     * 保存配方，使用指定标识符。
+     *
+     * @param output 配方输出
+     * @param id     配方标识符
+     */
+    public void save(RecipeOutput output, ResourceLocation id) {
+        ColdStewRecipe recipe = new ColdStewRecipe(soupBase, List.copyOf(ingredients), result, duration);
+        output.accept(id, recipe, null);
+    }
+
+    /**
+     * 保存配方，使用字符串解析为标识符。
+     *
+     * @param output 配方输出
+     * @param name   配方标识符字符串
+     */
+    public void save(RecipeOutput output, String name) {
+        save(output, ResourceLocation.parse(name));
     }
 }

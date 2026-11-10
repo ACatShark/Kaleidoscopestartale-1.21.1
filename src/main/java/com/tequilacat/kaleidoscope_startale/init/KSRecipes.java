@@ -2,7 +2,7 @@ package com.tequilacat.kaleidoscope_startale.init;
 
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.crafting.recipe.*;
-import com.tequilacat.kaleidoscope_startale.data.builder.*;
+import com.tequilacat.kaleidoscope_startale.crafting.serializer.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -28,12 +28,12 @@ public interface KSRecipes {
     ResourceLocation COLD_STEW_ID = KaleidoscopeStartale.id("cold_stew");
 
 
-    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<JuicerRecipe>> JUICER_SERIALIZER = RECIPE_SERIALIZERS.register("juicer", JuicerRecipeBuilder::new);
-    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdBrewTeapotRecipe>> COLD_BREW_TEAPOT_SERIALIZER = RECIPE_SERIALIZERS.register("cold_brew_teapot", ColdBrewTeapotRecipeBuilder::new);
-    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FermentingRecipe>> FERMENTING_SERIALIZER = RECIPE_SERIALIZERS.register("fermenting", FermentingRecipeBuilder::new);
-    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ScentingRecipe>> SCENTING_SERIALIZER = RECIPE_SERIALIZERS.register("scenting", ScentingRecipeBuilder::new);
-    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdTossRecipe>> COLD_TOSS_SERIALIZER = RECIPE_SERIALIZERS.register("cold_toss", ColdTossRecipeBuilder::new);
-    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdStewRecipe>> COLD_STEW_SERIALIZER = RECIPE_SERIALIZERS.register("cold_stew", ColdStewRecipeBuilder::new);
+    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<JuicerRecipe>> JUICER_SERIALIZER = RECIPE_SERIALIZERS.register("juicer", JuicerRecipeSerializer::new);
+    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdBrewTeapotRecipe>> COLD_BREW_TEAPOT_SERIALIZER = RECIPE_SERIALIZERS.register("cold_brew_teapot", ColdBrewTeapotRecipeSerializer::new);
+    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FermentingRecipe>> FERMENTING_SERIALIZER = RECIPE_SERIALIZERS.register("fermenting", FermentingRecipeSerializer::new);
+    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ScentingRecipe>> SCENTING_SERIALIZER = RECIPE_SERIALIZERS.register("scenting", ScentingRecipeSerializer::new);
+    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdTossRecipe>> COLD_TOSS_SERIALIZER = RECIPE_SERIALIZERS.register("cold_toss", ColdTossRecipeSerializer::new);
+    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdStewRecipe>> COLD_STEW_SERIALIZER = RECIPE_SERIALIZERS.register("cold_stew", ColdStewRecipeSerializer::new);
 
 
     RecipeType<JuicerRecipe> JUICER_TYPE = RecipeType.simple(JUICER_ID);
