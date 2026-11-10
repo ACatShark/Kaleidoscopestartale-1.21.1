@@ -1,0 +1,15 @@
+{
+  "type": "kaleidoscope_startale:cold_toss",
+  "carrier": {
+    "item": "minecraft:bowl"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:iron_block"
+  }
+}

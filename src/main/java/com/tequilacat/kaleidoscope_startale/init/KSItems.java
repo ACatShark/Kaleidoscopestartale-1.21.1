@@ -6,6 +6,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.item.JuiceBucketItem;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.item.*;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -31,9 +32,21 @@ public interface KSItems {
     /** 上古水果 */
     DeferredItem<Item> ANCIENT_FRUIT = ITEMS.register("ancient_fruit", () -> new Item(new Item.Properties().food(KSFoods.ANCIENT_FRUIT)));
 
+
     // ==================== 食物 ====================
     /** 金鱼 */
     DeferredItem<Item> GOLDFISH = ITEMS.register("goldfish", () -> new Item(new Item.Properties().food(KSFoods.GOLDFISH)));
+    /** 抹茶棒冰 */
+    DeferredItem<Item> MATCHA_BB = ITEMS.register("matcha_bb", () -> new Item(new Item.Properties().food(KSFoods.POPSICLE)));
+    /** 抹茶芭菲 */
+    DeferredItem<Item> MATCHA_PARFAIT = ITEMS.register("matcha_parfait", () -> new Item(new Item.Properties().food(KSFoods.PARFAIT)));
+    /** 抹茶蛋糕卷 */
+    DeferredItem<Item> MATCHA_CAKE_ROLL = ITEMS.register("matcha_cake_roll", () -> new Item(new Item.Properties().food(KSFoods.CAKE_ROLL)));
+    /** 抹茶蛋糕切片 */
+    DeferredItem<Item> MATCHA_CAKE_SLICE = ITEMS.register("matcha_cake_slice", () -> new Item(new Item.Properties().food(KSFoods.CAKE_SLICE)));
+    /** 抹茶蛋糕 */
+    DeferredItem<BlockItem> MATCHA_CAKE = ITEMS.register("matcha_cake", () -> new BlockItem(KSBlocks.MATCHA_CAKE.get(), new Item.Properties().stacksTo(1)));
+
 
     // ==================== 加工食品 ====================
     /** 大黄酱 */
@@ -88,6 +101,7 @@ public interface KSItems {
     /** Joja可乐 */
     DeferredItem<ModDrinkBlockItem> JOJA_COLA = ITEMS.register("joja_cola", () -> new ModDrinkBlockItem(KSBlocks.JOJA_COLA.get()));
 
+
     // ==================== 鸡尾酒 ====================
     /** 冰之精灵 */
     DeferredItem<CocktailBlockItem> ICE_ELF_COCKTAIL = ITEMS.register("ice_elf_cocktail", () -> new CocktailBlockItem(KSBlocks.ICE_ELF_COCKTAIL.get()));
@@ -97,6 +111,7 @@ public interface KSItems {
     DeferredItem<CocktailBlockItem> SPRING_DRINK_COCKTAIL = ITEMS.register("spring_drink", () -> new CocktailBlockItem(KSBlocks.SPRING_DRINK_COCKTAIL.get()));
     /** 春日饮 */
     DeferredItem<CocktailBlockItem> SPRING_DRINK_1_COCKTAIL = ITEMS.register("spring_drink_1", () -> new CocktailBlockItem(KSBlocks.SPRING_DRINK_1_COCKTAIL.get()));
+
 
     // ==================== 果汁 ====================
     /** 浆果汁 */
@@ -111,7 +126,6 @@ public interface KSItems {
     DeferredItem<CocktailBlockItem> ICE_GRAPE_JUICE = ITEMS.register("ice_grape_juice", () -> new CocktailBlockItem(KSBlocks.ICE_GRAPE_JUICE.get()));
     /** 青提葡萄汁 */
     DeferredItem<CocktailBlockItem> GREEN_GRAPE_JUICE = ITEMS.register("green_grape_juice", () -> new CocktailBlockItem(KSBlocks.GREEN_GRAPE_JUICE.get()));
-
     /** 上古水果汁桶 */
     DeferredItem<JuiceBucketItem> ANCIENT_FRUIT_JUICE_BUCKET = ITEMS.register("ancient_fruit_juice_bucket", () -> new JuiceBucketItem(KSFluids.ANCIENT_FRUIT_JUICE));
     /** 附魔夜行者 */
@@ -119,18 +133,42 @@ public interface KSItems {
             () -> new EffectFoodItem(new Item.Properties().food(KSFoods.ENCHANTED_NIGHTCRAWLER_FOOD)));
 
 
-    // ==================== 饲料 / 工具 ====================
+    // ==================== 材料 / 工具 ====================
     /** 杂蔬饲料 */
     DeferredItem<Item> LIVESTOCK_FEED = ITEMS.register("livestock_feed", () -> new Item(new Item.Properties()));
     /** 八宝肥虫饲料 */
     DeferredItem<Item> POULTRY_FEED = ITEMS.register("poultry_feed", () -> new Item(new Item.Properties()));
     /** 通用饲料 */
     DeferredItem<Item> UNIVERSAL_FEED = ITEMS.register("universal_feed", () -> new Item(new Item.Properties()));
+    /** 抹茶粉 */
+    DeferredItem<Item> MATCHA_POWDER = ITEMS.register("matcha_powder", () -> new Item(new Item.Properties()));
+    /** 奶油 */
+    DeferredItem<Item> CREAM = ITEMS.register("cream", () -> new CreamItem(new Item.Properties()));
+
+
+    // ==================== 工具 ====================
     /** 榨汁机 */
     DeferredItem<JuicerBlockItem> JUICER = ITEMS.register("juicer", () -> new JuicerBlockItem(KSBlocks.JUICER.get(), new Item.Properties()));
     /** 拍拍器 */
-    DeferredItem<PetterItem> PETTER = ITEMS.register("petter",
-            () -> new PetterItem(new Item.Properties().stacksTo(1).durability(700)));
+    DeferredItem<PetterItem> PETTER = ITEMS.register("petter", () -> new PetterItem(new Item.Properties().stacksTo(1).durability(700)));
+    /** 冷灶 */
+    DeferredItem<Item> COLD_STOVE = ITEMS.register("cold_stove", () -> new BlockItem(KSBlocks.COLD_STOVE.get(), new Item.Properties()));
+    /** 云吞 */
+    DeferredItem<Item> YUNOMI = ITEMS.register("yunomi", YunomiItem::new);
+    /** 奶油油壶 */
+    DeferredItem<BlockItem> CREAM_OIL = ITEMS.register("cream_oil", () -> new CreamOilBlockItem(KSBlocks.CREAM_OIL.get(), new Item.Properties().stacksTo(1)));
+
+
+    // ==================== 茶叶 ====================
+    /** 绿茶茶叶 */
+    DeferredItem<Item> GREEN_TEA_LEAVES = ITEMS.register("green_tea_leaves", () -> new Item(new Item.Properties()));
+
+
+    // ==================== 茶包 ====================
+    /** 玫瑰花茶茶包 */
+    DeferredItem<Item> ROSE_TEA_BAG = ITEMS.register("rose_tea_bag", () -> new Item(new Item.Properties()));
+
+
 
     private static DeferredItem<BowlFoodBlockItem> registerBowlFood(String name, DeferredBlock<? extends Block> block, FoodProperties food) {
         return ITEMS.register(name, () -> new BowlFoodBlockItem(block.get(), food, Items.BOWL));

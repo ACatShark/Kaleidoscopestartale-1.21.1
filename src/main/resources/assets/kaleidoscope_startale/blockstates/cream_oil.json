@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=east,has_oil=false,waterlogged=false": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 90
+    },
+    "facing=east,has_oil=false,waterlogged=true": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 90
+    },
+    "facing=east,has_oil=true,waterlogged=false": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 90
+    },
+    "facing=east,has_oil=true,waterlogged=true": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 90
+    },
+    "facing=north,has_oil=false,waterlogged=false": {
+      "model": "kaleidoscope_startale:block/cream_oil"
+    },
+    "facing=north,has_oil=false,waterlogged=true": {
+      "model": "kaleidoscope_startale:block/cream_oil"
+    },
+    "facing=north,has_oil=true,waterlogged=false": {
+      "model": "kaleidoscope_startale:block/cream_oil"
+    },
+    "facing=north,has_oil=true,waterlogged=true": {
+      "model": "kaleidoscope_startale:block/cream_oil"
+    },
+    "facing=south,has_oil=false,waterlogged=false": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 180
+    },
+    "facing=south,has_oil=false,waterlogged=true": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 180
+    },
+    "facing=south,has_oil=true,waterlogged=false": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 180
+    },
+    "facing=south,has_oil=true,waterlogged=true": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 180
+    },
+    "facing=west,has_oil=false,waterlogged=false": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 270
+    },
+    "facing=west,has_oil=false,waterlogged=true": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 270
+    },
+    "facing=west,has_oil=true,waterlogged=false": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 270
+    },
+    "facing=west,has_oil=true,waterlogged=true": {
+      "model": "kaleidoscope_startale:block/cream_oil",
+      "y": 270
+    }
+  }
+}

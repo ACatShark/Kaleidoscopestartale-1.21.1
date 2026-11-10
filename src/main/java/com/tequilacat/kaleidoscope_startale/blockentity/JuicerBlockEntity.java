@@ -5,7 +5,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.util.FluidUtils;
 import com.tequilacat.kaleidoscope_startale.block.JuicerBlock;
 import com.tequilacat.kaleidoscope_startale.client.renderer.block.JuicerSounds;
 import com.tequilacat.kaleidoscope_startale.crafting.recipe.JuicerRecipe;
-import com.tequilacat.kaleidoscope_startale.crafting.serializer.JuicerRecipeInput;
+import com.tequilacat.kaleidoscope_startale.crafting.recipe.JuicerRecipeInput;
 import com.tequilacat.kaleidoscope_startale.init.KSBlockEntities;
 import com.tequilacat.kaleidoscope_startale.init.KSItems;
 import com.tequilacat.kaleidoscope_startale.init.KSRecipes;

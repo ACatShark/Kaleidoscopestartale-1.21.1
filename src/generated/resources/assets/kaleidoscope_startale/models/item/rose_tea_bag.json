@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "kaleidoscope_startale:item/tea_bag/rose_tea_bag"
+  }
+}

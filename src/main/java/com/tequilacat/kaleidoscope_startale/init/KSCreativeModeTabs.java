@@ -1,7 +1,10 @@
 package com.tequilacat.kaleidoscope_startale.init;
 
+import com.github.ysbbbbbb.kaleidoscopecookery.init.registry.TeacupRegistry;
 import com.github.ysbbbbbb.kaleidoscopetavern.item.BottleBlockItem;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
+import com.tequilacat.kaleidoscope_startale.block.CreamOilBlock;
+import com.tequilacat.kaleidoscope_startale.blockentity.CreamOilBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -62,6 +65,34 @@ public final class KSCreativeModeTabs {
                         output.accept(KSItems.POULTRY_FEED.get());
                         output.accept(KSItems.PETTER.get());
                         output.accept(KSItems.JUICER.get());
+
+
+
+                        /* 奶油油壶 */
+                        ItemStack fullCreamOil = new ItemStack(KSItems.CREAM_OIL.get());
+
+                        // 厨具
+                        output.accept(KSItems.COLD_STOVE);
+                        output.accept(KSItems.YUNOMI);
+                        output.accept(KSItems.CREAM_OIL);
+                        CreamOilBlock.writeCreamCount(fullCreamOil, CreamOilBlockEntity.MAX_CREAM_COUNT);
+                        // 材料
+                        output.accept(KSItems.MATCHA_POWDER);
+                        output.accept(KSItems.CREAM);
+                        // 食物
+                        output.accept(KSItems.MATCHA_BB);
+                        output.accept(KSItems.MATCHA_PARFAIT);
+                        output.accept(KSItems.MATCHA_CAKE_ROLL);
+                        output.accept(KSItems.MATCHA_CAKE_SLICE);
+                        output.accept(KSItems.MATCHA_CAKE);
+                        // 茶叶
+                        output.accept(KSItems.GREEN_TEA_LEAVES);
+                        // 混合茶叶
+                        // 茶包
+                        output.accept(KSItems.ROSE_TEA_BAG);
+                        // 新茶
+                        output.accept(TeacupRegistry.getItem(KSTeacups.MATCHA_TEA));
+                        output.accept(TeacupRegistry.getItem(KSTeacups.ROSE_TEA));
                     })
                     .build());
 

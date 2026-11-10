@@ -1,9 +1,10 @@
 package com.tequilacat.kaleidoscope_startale.compat.jei;
 
+import com.github.ysbbbbbb.kaleidoscopecookery.init.ModBlocks;
+import com.github.ysbbbbbb.kaleidoscopecookery.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.compat.jei.category.PressingTubCategory;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
-import com.tequilacat.kaleidoscope_startale.compat.jei.category.JuicePouringCategory;
-import com.tequilacat.kaleidoscope_startale.compat.jei.category.JuicerRecipeCategory;
+import com.tequilacat.kaleidoscope_startale.compat.jei.category.*;
 import com.tequilacat.kaleidoscope_startale.init.KSItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -35,6 +36,11 @@ public class ModJeiPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new JuicerRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new JuicePouringCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ColdBrewTeapotRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new FermentingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ScentingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ColdTossRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ColdStewRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     /**
@@ -48,6 +54,11 @@ public class ModJeiPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(JuicerRecipeCategory.TYPE, JuicerRecipeCategory.getRecipes());
         registration.addRecipes(JuicePouringCategory.TYPE, JuicePouringCategory.getRecipes());
+        registration.addRecipes(ColdBrewTeapotRecipeCategory.TYPE, ColdBrewTeapotRecipeCategory.getRecipes());
+        registration.addRecipes(FermentingRecipeCategory.TYPE, FermentingRecipeCategory.getRecipes());
+        registration.addRecipes(ScentingRecipeCategory.TYPE, ScentingRecipeCategory.getRecipes());
+        registration.addRecipes(ColdTossRecipeCategory.TYPE, ColdTossRecipeCategory.getRecipes());
+        registration.addRecipes(ColdStewRecipeCategory.TYPE, ColdStewRecipeCategory.getRecipes());
     }
 
     /**
@@ -66,6 +77,12 @@ public class ModJeiPlugin implements IModPlugin {
 
         // 榨汁机 → 空酒杯灌汁
         registration.addRecipeCatalyst(KSItems.JUICER.get().getDefaultInstance(), JuicePouringCategory.TYPE);
+
+        registration.addRecipeCatalyst(ModItems.TEAPOT.get(), ColdBrewTeapotRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(ModBlocks.BAMBOO_TRAY.get(), FermentingRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(ModBlocks.BAMBOO_TRAY.get(), ScentingRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(ModBlocks.POT.get(), ColdTossRecipeCategory.TYPE);
+        registration.addRecipeCatalyst(ModBlocks.STOCKPOT.get(), ColdStewRecipeCategory.TYPE);
     }
 
     /**

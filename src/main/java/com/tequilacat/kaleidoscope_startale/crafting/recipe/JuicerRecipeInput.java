@@ -1,4 +1,4 @@
-package com.tequilacat.kaleidoscope_startale.crafting.serializer;
+package com.tequilacat.kaleidoscope_startale.crafting.recipe;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;

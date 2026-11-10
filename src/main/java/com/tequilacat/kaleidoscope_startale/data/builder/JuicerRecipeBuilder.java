@@ -24,7 +24,7 @@ import java.util.Objects;
  * 以及面向网络的流编解码。原料数量限制为最多 4 个，
  * 流体量与制作时间均有默认值。
  */
-public class JuicerRecipeSerializer implements RecipeSerializer<JuicerRecipe> {
+public class JuicerRecipeBuilder implements RecipeSerializer<JuicerRecipe> {
 
     /** 最大原料数量。 */
     public static final int MAX_INGREDIENTS = 4;
@@ -43,13 +43,13 @@ public class JuicerRecipeSerializer implements RecipeSerializer<JuicerRecipe> {
      */
     private static final MapCodec<JuicerRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC.listOf()
-                    .xmap(JuicerRecipeSerializer::toNonNullList,
+                    .xmap(JuicerRecipeBuilder::toNonNullList,
                             nonnull -> nonnull.stream().filter(ingredient -> !ingredient.isEmpty()).toList())
                     .fieldOf("ingredients").forGetter(JuicerRecipe::ingredients),
             BuiltInRegistries.FLUID.byNameCodec().fieldOf("fluid").forGetter(JuicerRecipe::fluid),
             Codec.INT.optionalFieldOf("fluid_amount", DEFAULT_FLUID_AMOUNT).forGetter(JuicerRecipe::fluidAmount),
             Codec.INT.optionalFieldOf("time", DEFAULT_CRAFT_TIME).forGetter(JuicerRecipe::craftTime),
-            ItemStack.CODEC.optionalFieldOf("result", ItemStack.EMPTY).forGetter(JuicerRecipe::result)
+            ItemStack.OPTIONAL_CODEC.optionalFieldOf("result", ItemStack.EMPTY).forGetter(JuicerRecipe::result)
     ).apply(instance, JuicerRecipe::new));
 
     /**
@@ -72,7 +72,7 @@ public class JuicerRecipeSerializer implements RecipeSerializer<JuicerRecipe> {
                     Fluid fluid = Objects.requireNonNull(BuiltInRegistries.FLUID.get(fluidId));
                     int fluidAmount = buf.readVarInt();
                     int craftTime = buf.readVarInt();
-                    ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
+                    ItemStack result = ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
                     return new JuicerRecipe(ingredients, fluid, fluidAmount, craftTime, result);
                 }
 
@@ -90,7 +90,7 @@ public class JuicerRecipeSerializer implements RecipeSerializer<JuicerRecipe> {
                     buf.writeResourceLocation(Objects.requireNonNull(fluidId));
                     buf.writeVarInt(recipe.fluidAmount());
                     buf.writeVarInt(recipe.craftTime());
-                    ItemStack.STREAM_CODEC.encode(buf, recipe.result());
+                    ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, recipe.result());
                 }
             };
 

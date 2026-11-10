@@ -1,6 +1,5 @@
 package com.tequilacat.kaleidoscope_startale.crafting.recipe;
 
-import com.tequilacat.kaleidoscope_startale.crafting.serializer.JuicerRecipeInput;
 import com.tequilacat.kaleidoscope_startale.init.KSRecipes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
@@ -30,8 +29,8 @@ import java.util.List;
  * @param craftTime   制作时间（刻）
  * @param result      可选产物
  */
-public record JuicerRecipe(NonNullList<Ingredient> ingredients, Fluid fluid, int fluidAmount,
-                           int craftTime, ItemStack result) implements Recipe<JuicerRecipeInput> {
+public record JuicerRecipe(NonNullList<Ingredient> ingredients, Fluid fluid, int fluidAmount, int craftTime, ItemStack result)
+        implements Recipe<JuicerRecipeInput> {
 
     /**
      * 紧凑构造函数。

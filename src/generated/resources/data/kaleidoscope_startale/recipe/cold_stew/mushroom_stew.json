@@ -1,0 +1,19 @@
+{
+  "type": "kaleidoscope_startale:cold_stew",
+  "duration": 800,
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "kaleidoscope_startale:matcha_powder"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:mushroom_stew"
+  },
+  "soup_base": {
+    "item": "minecraft:powder_snow_bucket"
+  }
+}

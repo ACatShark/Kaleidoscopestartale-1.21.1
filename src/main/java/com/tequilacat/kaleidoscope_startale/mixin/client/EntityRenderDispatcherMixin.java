@@ -1,4 +1,4 @@
-package com.tequilacat.kaleidoscope_startale.mixin;
+package com.tequilacat.kaleidoscope_startale.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.tequilacat.kaleidoscope_startale.util.PetterSqueeze;

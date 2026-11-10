@@ -1,6 +1,7 @@
 package com.tequilacat.kaleidoscope_startale.data;
 
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
+import com.tequilacat.kaleidoscope_startale.data.recipe.KSRecipeProvider;
 import com.tequilacat.kaleidoscope_startale.data.tags.ModEntityTagsProvider;
 import com.tequilacat.kaleidoscope_startale.data.tags.ModItemTagsProvider;
 import net.minecraft.core.HolderLookup;
@@ -27,5 +28,10 @@ public class ModDataGenerator {
         generator.addProvider(event.includeServer(), new ModItemTagsProvider(packOutput, lookupProvider,
                 CompletableFuture.completedFuture(TagsProvider.TagLookup.empty()), existingFileHelper));
         generator.addProvider(event.includeServer(), new ModEntityTagsProvider(packOutput, lookupProvider, existingFileHelper));
+//        generator.addProvider(event.includeServer(), new ModBlockTagsProvider(packOutput, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeClient(), new ModItemModelsProvider(packOutput, event.getExistingFileHelper()));
+//        generator.addProvider(event.includeServer(), new LootTableProvider(packOutput, Collections.emptySet(),
+//                List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTablesProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
+        generator.addProvider(event.includeServer(), new KSRecipeProvider(packOutput, lookupProvider));
     }
 }

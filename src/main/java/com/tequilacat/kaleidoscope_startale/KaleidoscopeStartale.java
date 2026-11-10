@@ -34,6 +34,7 @@ public class KaleidoscopeStartale {
         KSFluids.register(modEventBus);
         KSCreativeModeTabs.register(modEventBus);
         KSAttachments.TYPES.register(modEventBus);
+        KSTeacups.init();
         KSEffects.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(new VinePlantingEvents());

@@ -1,0 +1,12 @@
+{
+  "type": "kaleidoscope_startale:fermenting",
+  "ingredient": {
+    "item": "minecraft:diamond"
+  },
+  "max_light": 12,
+  "min_light": 10,
+  "result": {
+    "count": 1,
+    "id": "minecraft:emerald"
+  }
+}

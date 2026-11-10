@@ -2,13 +2,18 @@
   "required": true,
   "package": "com.tequilacat.kaleidoscope_startale.mixin",
   "compatibilityLevel": "JAVA_21",
+  "client": [
+    "client.EntityRenderDispatcherMixin"
+  ],
   "mixins": [
+    "BambooTrayBlockEntityMixin",
     "FoodDataMixin",
     "ItemStackMixin",
-    "LivingEntityMixin"
-  ],
-  "client": [
-    "EntityRenderDispatcherMixin"
+    "LivingEntityMixin",
+    "TeapotBlockEntityMixin",
+    "PotBlockEntityMixin",
+    "OilPotBlockMixin",
+    "StockpotBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

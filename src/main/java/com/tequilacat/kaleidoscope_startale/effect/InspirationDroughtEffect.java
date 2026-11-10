@@ -9,11 +9,12 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.neoforged.neoforge.common.EffectCure;
 import net.neoforged.neoforge.common.EffectCures;
 
-/** 灵感枯竭：只能用不死图腾解除，期间无法再获得灵感充沛。 */
+/**
+ * 灵感枯竭。
+ * <p>
+ * 期间无法再获得灵感充沛。
+ */
 public class InspirationDroughtEffect extends MobEffect {
-
-    /** 效果颜色。 */
-     public static final int COLOR = 0x006B5F3B;
 
     /**
      * 允许的解除方式集合，仅限不死图腾保护。
@@ -25,8 +26,8 @@ public class InspirationDroughtEffect extends MobEffect {
      * <p>
      * 类别为有害，使用指定颜色。
      */
-    public InspirationDroughtEffect() {
-        super(MobEffectCategory.HARMFUL, COLOR);
+    public InspirationDroughtEffect(int color) {
+        super(MobEffectCategory.HARMFUL, color);
     }
 
     /**

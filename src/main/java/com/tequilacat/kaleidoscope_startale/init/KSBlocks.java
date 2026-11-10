@@ -6,6 +6,7 @@ import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.DrinkBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.CocktailBlock;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.block.*;
+import com.tequilacat.kaleidoscope_startale.block.cake.MatchaCake;
 import com.tequilacat.kaleidoscope_startale.block.crop.ancientFruit.AncientFruitTrellisCropBlock;
 import com.tequilacat.kaleidoscope_startale.block.crop.ancientFruit.AncientFruitVineBlock;
 import com.tequilacat.kaleidoscope_startale.util.DrinkShapes;
@@ -40,6 +41,7 @@ public interface KSBlocks {
     DeferredBlock<AncientFruitVineBlock> ANCIENT_FRUIT_VINE = BLOCKS.register("ancient_fruit_vine",
             () -> new AncientFruitVineBlock(0.05F, 0.1F, KSBlocks::ancientFruitCropBlock, KSItems.ANCIENT_FRUIT_VINE));
 
+
     // ==================== 酒水 ====================
     /** 上古水果酒 */
     DeferredBlock<Block> ANCIENT_FRUIT_WINE = BLOCKS.register("ancient_fruit_wine", () -> DrinkBlock.create().maxCount(2).shapes(DrinkShapes.ancientFruitWine()).build().get());
@@ -56,6 +58,7 @@ public interface KSBlocks {
     /** 大黄酱 */
     DeferredBlock<Block> RHUBARB_JAM = BLOCKS.register("rhubarb_jam", () -> DrinkBlock.create().maxCount(2).shapes(DrinkShapes.rhubarbJam()).build().get());
 
+
     // ==================== 鸡尾酒 ====================
     /** 冰之精灵 */
     DeferredBlock<CocktailBlock> ICE_ELF_COCKTAIL = BLOCKS.register("ice_elf_cocktail", () -> new GlowingCocktailBlock(5));
@@ -65,6 +68,7 @@ public interface KSBlocks {
     DeferredBlock<CocktailBlock> SPRING_DRINK_COCKTAIL = BLOCKS.register("spring_drink", () -> new GlowingCocktailBlock(5));
     /** 春日饮 */
     DeferredBlock<CocktailBlock> SPRING_DRINK_1_COCKTAIL = BLOCKS.register("spring_drink_1", () -> new GlowingCocktailBlock(5));
+
 
     // ==================== 果汁 ====================
     /** 浆果汁 */
@@ -84,6 +88,12 @@ public interface KSBlocks {
     // ==================== 工具 ====================
     /** 榨汁机 */
     DeferredBlock<JuicerBlock> JUICER = BLOCKS.register("juicer", () -> new JuicerBlock(JuicerBlock.createProperties()));
+    /** 冷灶 */
+    DeferredBlock<Block> COLD_STOVE = BLOCKS.register("cold_stove", ColdStoveBlock::new);
+    /** 奶油油壶 */
+    DeferredBlock<Block> CREAM_OIL = BLOCKS.register("cream_oil", CreamOilBlock::new);
+    /** 汤吞 */
+    DeferredBlock<Block> YUNOMI = BLOCKS.register("yunomi", YunomiBlock::new);
 
 
     // ==================== 食物 ====================
@@ -99,6 +109,9 @@ public interface KSBlocks {
     /** 闪亮猪儿虫浓汤 */
     DeferredBlock<FoodBiteBlock> GLOWING_CATERPILLAR_SOUP = BLOCKS.register("glowing_caterpillar_soup",
             () -> new FoodBiteBlock(KSFoods.GLOWING_CATERPILLAR_SOUP_BLOCK_FOOD, 4, (FoodBiteAnimateTicks.AnimateTick) null));
+    /** 抹茶蛋糕 */
+    DeferredBlock<Block> MATCHA_CAKE = BLOCKS.register("matcha_cake", MatchaCake::new);
+
 
     private static ItemLike lazyItem(Supplier<? extends Item> supplier) {
         return supplier::get;

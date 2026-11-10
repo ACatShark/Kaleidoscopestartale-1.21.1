@@ -27,12 +27,33 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 import javax.annotation.Nullable;
 
+/**
+ * 榨汁机方块物品。
+ * <p>
+ * 继承方块物品，支持携带方块实体数据放置（保留内容物），
+ * 并在对空酒杯使用时将罐内果汁灌注为对应果汁方块。
+ */
 public class JuicerBlockItem extends BlockItem {
 
+    /**
+     * 构造榨汁机方块物品。
+     *
+     * @param block      关联方块
+     * @param properties 物品属性
+     */
     public JuicerBlockItem(Block block, Item.Properties properties) {
         super(block, properties);
     }
 
+    /**
+     * 对物品使用方块。
+     * <p>
+     * 若目标为空酒杯且物品罐内果汁不少于一杯，则将酒杯替换为对应果汁方块、
+     * 扣除流体、回写物品数据并播放灌注音效；否则回退到默认放置逻辑。
+     *
+     * @param context 使用上下文
+     * @return 交互结果
+     */
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
@@ -76,6 +97,15 @@ public class JuicerBlockItem extends BlockItem {
         return InteractionResult.SUCCESS;
     }
 
+    /**
+     * 放置方块。
+     * <p>
+     * 若物品携带方块实体数据，则在创造模式下额外处理：
+     * 手动扣减一个物品并同步物品栏，使带内容物的榨汁机也能正常消耗。
+     *
+     * @param context 放置上下文
+     * @return 放置结果
+     */
     @Override
     public InteractionResult place(BlockPlaceContext context) {
         ItemStack stack = context.getItemInHand();
@@ -99,6 +129,15 @@ public class JuicerBlockItem extends BlockItem {
         return result;
     }
 
+    /**
+     * 从物品数据中读取流体罐。
+     * <p>
+     * 无方块实体数据或不含罐数据时返回 null。
+     *
+     * @param stack      物品堆叠
+     * @param registries 注册表提供者
+     * @return 流体罐，无法读取时返回 null
+     */
     @Nullable
     private static FluidTank readTank(ItemStack stack, HolderLookup.Provider registries) {
         CustomData data = stack.get(DataComponents.BLOCK_ENTITY_DATA);
@@ -114,6 +153,15 @@ public class JuicerBlockItem extends BlockItem {
         return tank;
     }
 
+    /**
+     * 将流体罐写回物品数据。
+     * <p>
+     * 仅当物品已携带方块实体数据时执行，覆盖其中的罐数据。
+     *
+     * @param stack      物品堆叠
+     * @param tank       流体罐
+     * @param registries 注册表提供者
+     */
     private static void writeTank(ItemStack stack, FluidTank tank, HolderLookup.Provider registries) {
         CustomData data = stack.get(DataComponents.BLOCK_ENTITY_DATA);
         if (data == null) {
