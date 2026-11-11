@@ -21,6 +21,7 @@ public class StartaleConfig {
     public static final ModConfigSpec.DoubleValue PETTER_RANCH_HERO_DROP_CHANCE_BONUS;
     public static final ModConfigSpec.IntValue PETTER_RANCH_HERO_EXTRA_ROLLS;
     public static final ModConfigSpec.IntValue PETTER_RANCH_HERO_SQUEEZE_POWER;
+    public static final ModConfigSpec.IntValue PETTER_RANCH_HERO_CAP_BONUS;
 
     public static final ModConfigSpec.IntValue TAME_CHANCE;
     public static final ModConfigSpec.DoubleValue TAME_HEAL;
@@ -43,19 +44,18 @@ public class StartaleConfig {
         UNIVERSAL_FEED_BLACKLIST = builder
                 .comment(
                         "通用饲料黑名单",
-                        "格式: namespace:path",
-                        "敌对生物与原版可驯服动物(狼/猫/鹦鹉)默认已忽略，",
-                        "只有模组生物漏网时才需要写在这里"
+                        "敌对生物与原版可驯服动物(狼/猫/鹦鹉)默认已忽略，"
                 )
                 .comment(
                         "Entity IDs blacklisted from the universal feed",
-                        "Format: namespace:path",
-                        "Hostile mobs and vanilla tamables (wolf/cat/parrot) are already ignored by default,",
-                        "list them here only if a modded variant slips through"
+                        "Hostile mobs and vanilla tamables (wolf/cat/parrot) are already ignored by default,"
                 )
                 .defineListAllowEmpty("blacklist", List.of(
                         "touhou_little_maid:maid",
-                        "touhou_little_maid:fairy"
+                        "touhou_little_maid:fairy",
+                        "cataclysm:the_baby_leviathan",
+                        "cataclysm:cataclysm:modern_remnant",
+                        "cataclysm:netherite_ministrosity"
                 ), obj -> obj instanceof String s && ResourceLocation.tryParse(s) != null);
 
         builder.pop();
@@ -96,6 +96,10 @@ public class StartaleConfig {
                 .comment("牧场英雄效果提供的拍击力度加成")
                 .comment("Squeeze power bonus granted by the Ranch Hero effect")
                 .defineInRange("ranchHeroSqueezePower", 2, 0, Integer.MAX_VALUE);
+        PETTER_RANCH_HERO_CAP_BONUS = builder
+                .comment("牧场英雄效果提高的掉落物上限")
+                .comment("Drop cap increase granted by the Ranch Hero effect")
+                .defineInRange("ranchHeroCapBonus", 2, 0, Integer.MAX_VALUE);
         builder.pop();
 
         builder.comment("驯养配置").push("Taming");

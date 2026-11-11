@@ -6,7 +6,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 /**
  * 蓝调时刻。
  * <p>
- * 之后获得的其它状态效果持续时间 ×1.5。
+ * 之后获得的增益型状态效果持续时间 ×2。
  */
 public class BlueHourEffect extends MobEffect {
 

@@ -31,11 +31,14 @@ public class InspirationEvents {
     /** 灵感枯竭持续刻数。 */
     private static final int DROUGHT_TICKS = 3600;
 
+    /** 单次伤害最多可抵消的点数。 */
+    private static final float MAX_COVERED_DAMAGE = 50.0F;
+
     /**
      * 处理受伤前事件。
      * <p>
      * 若玩家拥有灵感效果且伤害有效，则按每点伤害消耗经验抵扣伤害，
-     * 经验不足时只能抵扣部分伤害。
+     * 经验不足时只能抵扣部分伤害；单次伤害最多抵消 50 点。
      *
      * @param event 受伤前事件
      */
@@ -59,7 +62,7 @@ public class InspirationEvents {
             return;
         }
 
-        int xpNeeded = (int) Math.ceil((double) (damage * (float) XP_PER_DAMAGE));
+        int xpNeeded = (int) Math.ceil((double) (Math.min(damage, MAX_COVERED_DAMAGE) * (float) XP_PER_DAMAGE));
         int spent = Math.min(player.totalExperience, xpNeeded);
         if (spent > 0) {
             player.giveExperiencePoints(-spent);

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
  * 生物实体混入类。
  * <p>
  * 在生物获得状态效果时进行干预，若生物已拥有蓝时效果，
- * 则延长新获得效果的持续时间。
+ * 则延长新获得的增益效果的持续时间。
  */
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
@@ -21,13 +21,13 @@ public abstract class LivingEntityMixin {
      * 蓝时效果持续时间倍率。
      */
     @Unique
-    private static final float BLUE_HOUR_DURATION_MULTIPLIER = 1.5F;
+    private static final float BLUE_HOUR_DURATION_MULTIPLIER = 2.0F;
 
     /**
      * 延长状态效果持续时间。
      * <p>
      * 拦截 addEffect 方法的参数，若目标生物已拥有蓝时效果，
-     * 且新效果不是蓝时自身，则将新效果的持续时间乘以倍率。
+     * 且新效果本身为增益型、也不是蓝时自身，则将新效果的持续时间乘以倍率。
      *
      * @param instance 即将添加的状态效果实例
      * @return 可能被延长持续时间后的效果实例
@@ -48,6 +48,10 @@ public abstract class LivingEntityMixin {
             return instance;
         }
         if (instance.getEffect().value() == KSEffects.BLUE_HOUR.get()) {
+            return instance;
+        }
+        // 只延长增益型效果，负面效果保持原时长
+        if (!instance.getEffect().value().isBeneficial()) {
             return instance;
         }
 

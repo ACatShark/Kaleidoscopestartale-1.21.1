@@ -6,10 +6,13 @@
     "client.EntityRenderDispatcherMixin"
   ],
   "mixins": [
+    "AnvilMenuMixin",
     "BambooTrayBlockEntityMixin",
     "FoodDataMixin",
+    "ItemCombinerMenuAccessor",
     "ItemStackMixin",
     "LivingEntityMixin",
+    "PlayerMixin",
     "TeapotBlockEntityMixin",
     "PotBlockEntityMixin",
     "OilPotBlockMixin",

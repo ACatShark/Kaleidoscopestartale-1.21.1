@@ -12,13 +12,13 @@ import com.tequilacat.kaleidoscope_startale.init.KSEffects;
 /**
  * 嗜血事件类。
  * <p>
- * 嗜血：造成伤害后回复相当于该伤害 80% 的生命。
+ * 嗜血：造成伤害后回复相当于该伤害 70% 的生命。
  */
 @EventBusSubscriber(modid = KaleidoscopeStartale.MODID)
 public class BloodthirstEvents {
 
     /** 吸血比例。 */
-    private static final float LIFESTEAL_RATIO = 0.8F;
+    private static final float LIFESTEAL_RATIO = 0.7F;
 
     /**
      * 处理受伤后事件。

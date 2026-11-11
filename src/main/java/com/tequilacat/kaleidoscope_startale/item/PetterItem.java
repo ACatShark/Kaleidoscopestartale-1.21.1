@@ -115,8 +115,8 @@ public class PetterItem extends Item {
                 }
             }
 
-            // 按好感度等级与抢夺等级限制本次最多挤出的物品数量
-            drops = limitDrops(drops, maxDropsAt(favorLevel, looting), level.random);
+            // 按好感度等级、抢夺等级与牧场英雄限制本次最多挤出的物品数量
+            drops = limitDrops(drops, maxDropsAt(favorLevel, looting, ranchHero), level.random);
 
             dropped = countItems(drops);
             if (dropped > 0) {
@@ -137,22 +137,27 @@ public class PetterItem extends Item {
     }
 
     /**
-     * 计算指定好感度等级与抢夺等级下的掉落数量上限。
+     * 计算指定好感度等级、抢夺等级与牧场英雄状态下的掉落数量上限。
      * <p>
      * 基础上限来自配置项，抢夺等级每级按配置增加上限；
-     * 好感度达到配置中的各级阈值时各额外 +1。
+     * 好感度达到配置中的各级阈值时各额外 +1；
+     * 拥有牧场英雄时再按配置额外提高上限。
      *
      * @param favorLevel 好感度等级
      * @param looting    抢夺等级
+     * @param ranchHero  是否拥有牧场英雄效果
      * @return 掉落数量上限
      */
-    private static int maxDropsAt(int favorLevel, int looting) {
+    private static int maxDropsAt(int favorLevel, int looting, boolean ranchHero) {
         int cap = StartaleConfig.PETTER_BASE_DROP_CAP.get()
                 + Math.max(0, looting) * StartaleConfig.PETTER_LOOTING_CAP_PER_LEVEL.get();
         for (Number level : StartaleConfig.PETTER_FAVOR_CAP_LEVELS.get()) {
             if (favorLevel >= level.intValue()) {
                 cap++;
             }
+        }
+        if (ranchHero) {
+            cap += StartaleConfig.PETTER_RANCH_HERO_CAP_BONUS.get();
         }
         return cap;
     }

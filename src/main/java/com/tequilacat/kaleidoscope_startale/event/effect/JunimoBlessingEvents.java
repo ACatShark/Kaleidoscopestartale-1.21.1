@@ -19,30 +19,39 @@ import net.neoforged.neoforge.event.level.BlockDropsEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * 祝尼魔的祝福事件类。
  * <p>
  * 祝尼魔的祝福（单级效果，不区分等级）：
- * - 破坏成熟作物时按 50% 概率额外掉一份产物；
- * - 手持镰刀或锄类农具时，连带收割周围 3×3 内的成熟作物；
+ * - 破坏成熟作物时按 40% 概率额外掉一份产物；
+ * - 手持镰刀或锄类农具时，连带收割周围 3×3 内的成熟作物（内置冷却）；
  * - 玩家 4 格范围内的掉落物自动拾取。
  */
 @EventBusSubscriber(modid = KaleidoscopeStartale.MODID)
 public final class JunimoBlessingEvents {
 
     /** 额外掉落概率。 */
-    private static final float EXTRA_DROP_CHANCE = 0.5F;
+    private static final float EXTRA_DROP_CHANCE = 0.4F;
 
     /** 范围收割半径（以方块计）。 */
     private static final int SICKLE_RADIUS = 1;
+
+    /** 范围收割的内置冷却（刻）。 */
+    private static final int SICKLE_COOLDOWN_TICKS = 20;
 
     /** 自动拾取半径（以格计）。 */
     private static final double PICKUP_RADIUS = 4.0D;
 
     /** 范围收割时避免 BlockDropsEvent 递归触发自身。 */
     private static boolean harvestingAround;
+
+    /** 各玩家下次可触发范围收割的游戏刻。 */
+    private static final Map<UUID, Long> SICKLE_COOLDOWNS = new HashMap<>();
 
     private JunimoBlessingEvents() {
     }
@@ -71,9 +80,29 @@ public final class JunimoBlessingEvents {
         BlockPos pos = event.getPos();
         addExtraDrops(event, level, pos);
 
-        if (isSickleLike(event.getTool())) {
+        if (isSickleLike(event.getTool()) && tryStartSickleHarvest(player, level.getGameTime())) {
             harvestAround(level, pos, player);
         }
+    }
+
+    /**
+     * 尝试触发一次范围收割。
+     * <p>
+     * 每个玩家在冷却结束前只会触发一次范围收割，
+     * 冷却期间仍会照常结算额外掉落。
+     *
+     * @param player   玩家
+     * @param gameTime 当前游戏刻
+     * @return 冷却已结束且本次允许收割返回 true
+     */
+    private static boolean tryStartSickleHarvest(Player player, long gameTime) {
+        UUID id = player.getUUID();
+        Long next = SICKLE_COOLDOWNS.get(id);
+        if (next != null && gameTime < next) {
+            return false;
+        }
+        SICKLE_COOLDOWNS.put(id, gameTime + SICKLE_COOLDOWN_TICKS);
+        return true;
     }
 
     /**

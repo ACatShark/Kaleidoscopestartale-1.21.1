@@ -10,13 +10,16 @@ import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 /**
  * 嗜血
  * <p>
- * 造成伤害后回复相当于该伤害 80% 的生命，
- * 期间无法自然回血，攻击速度 +20%。
+ * 造成伤害后回复相当于该伤害 70% 的生命，
+ * 期间无法自然回血，攻击速度 +50%，饥饿值消耗显著加快。
  */
 public class BloodthirstEffect extends MobEffect {
 
     /** 攻击速度加成（按总攻速的百分比叠加）。 */
-    public static final double ATTACK_SPEED_BONUS = 0.2D;
+    public static final double ATTACK_SPEED_BONUS = 0.5D;
+
+    /** 饥饿消耗倍率：拥有嗜血时，所有饱食度消耗按此倍率放大。 */
+    public static final float EXHAUSTION_MULTIPLIER = 2.0F;
 
     /**
      * 构造嗜血效果。
