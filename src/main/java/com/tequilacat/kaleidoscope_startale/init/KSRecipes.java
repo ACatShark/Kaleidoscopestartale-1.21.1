@@ -14,8 +14,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public interface KSRecipes {
     DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, KaleidoscopeStartale.MODID);
 
-    /** 榨汁机 */
-    ResourceLocation JUICER_ID = KaleidoscopeStartale.id("juicer");
     /** 冷萃 */
     ResourceLocation COLD_BREW_TEAPOT_ID = KaleidoscopeStartale.id("cold_brew_teapot");
     /** 发酵 */
@@ -28,7 +26,6 @@ public interface KSRecipes {
     ResourceLocation COLD_STEW_ID = KaleidoscopeStartale.id("cold_stew");
 
 
-    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<JuicerRecipe>> JUICER_SERIALIZER = RECIPE_SERIALIZERS.register("juicer", JuicerRecipeSerializer::new);
     DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdBrewTeapotRecipe>> COLD_BREW_TEAPOT_SERIALIZER = RECIPE_SERIALIZERS.register("cold_brew_teapot", ColdBrewTeapotRecipeSerializer::new);
     DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FermentingRecipe>> FERMENTING_SERIALIZER = RECIPE_SERIALIZERS.register("fermenting", FermentingRecipeSerializer::new);
     DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ScentingRecipe>> SCENTING_SERIALIZER = RECIPE_SERIALIZERS.register("scenting", ScentingRecipeSerializer::new);
@@ -36,7 +33,6 @@ public interface KSRecipes {
     DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdStewRecipe>> COLD_STEW_SERIALIZER = RECIPE_SERIALIZERS.register("cold_stew", ColdStewRecipeSerializer::new);
 
 
-    RecipeType<JuicerRecipe> JUICER_TYPE = RecipeType.simple(JUICER_ID);
     RecipeType<ColdBrewTeapotRecipe> COLD_BREW_TEAPOT_TYPE = RecipeType.simple(COLD_BREW_TEAPOT_ID);
     RecipeType<FermentingRecipe> FERMENTING_TYPE = RecipeType.simple(FERMENTING_ID);
     RecipeType<ScentingRecipe> SCENTING_TYPE = RecipeType.simple(SCENTING_ID);

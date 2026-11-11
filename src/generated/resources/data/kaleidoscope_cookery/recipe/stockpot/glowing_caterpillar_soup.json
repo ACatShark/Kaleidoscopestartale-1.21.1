@@ -11,10 +11,10 @@
       "tag": "kaleidoscope_cookery:caterpillars"
     },
     {
-      "item": "kaleidoscope_startale:amaranth"
+      "tag": "c:crop/amaranth"
     },
     {
-      "item": "kaleidoscope_startale:amaranth"
+      "tag": "c:crop/amaranth"
     }
   ],
   "result": {

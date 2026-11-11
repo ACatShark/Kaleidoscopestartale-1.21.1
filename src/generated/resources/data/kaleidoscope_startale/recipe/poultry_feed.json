@@ -6,16 +6,16 @@
       "item": "kaleidoscope_cookery:caterpillar"
     },
     {
-      "item": "kaleidoscope_cookery:chili_seed"
+      "tag": "c:seeds/chilipepper"
     },
     {
       "item": "kaleidoscope_cookery:wild_rice"
     },
     {
-      "item": "kaleidoscope_cookery:lettuce_seed"
+      "tag": "c:seeds/lettuce"
     },
     {
-      "item": "kaleidoscope_cookery:tomato_seed"
+      "tag": "c:seeds/tomato"
     }
   ],
   "result": {

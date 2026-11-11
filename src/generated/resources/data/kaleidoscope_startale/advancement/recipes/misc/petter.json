@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:carrot"
+            "items": "#c:crops/carrot"
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:iron_ingot"
+            "items": "#c:ingots/iron"
           }
         ]
       },

@@ -1,21 +1,23 @@
 package com.tequilacat.kaleidoscope_startale.item;
 
+import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
 import com.tequilacat.kaleidoscope_startale.data.favorability.FavorabilityTracker;
 import com.tequilacat.kaleidoscope_startale.data.tame.MobTaming;
-import com.tequilacat.kaleidoscope_startale.util.PetterCooldown;
-import com.tequilacat.kaleidoscope_startale.util.PetterSqueeze;
-import com.tequilacat.kaleidoscope_startale.init.KSEffects;
-import com.tequilacat.kaleidoscope_startale.init.KSSounds;
+import com.tequilacat.kaleidoscope_startale.util.*;
+import com.tequilacat.kaleidoscope_startale.init.*;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.Wolf;
@@ -40,27 +42,18 @@ import net.neoforged.neoforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Optional;
 
 /**
  * 拍拍器物品类。
  * <p>
  * 对已驯养且不在冷却中的生物右键，按该生物的掉落表「挤」出产物。
- * 抢夺等级与好感度等级都会提高额外掉落的概率；
- * 持有「牧场英雄」效果时额外掉落更多、拍击幅度更大。
+ * 抢夺等级、好感度等级与「牧场英雄」效果都会提高额外掉落概率与数量上限，
+ * 并影响拍击幅度；产出成功后重置冷却并增加好感度。
  */
 public class PetterItem extends Item {
 
-    /** 每级抢夺提高的额外掉落概率。 */
-    private static final float LOOTING_DROP_CHANCE_PER_LEVEL = 0.2F;
-    /** 每级好感度提高的额外掉落概率。 */
-    private static final float FAVOR_DROP_CHANCE_PER_LEVEL = 0.05F;
-    /** 牧场英雄：额外掉落概率 +35%。 */
-    private static final float RANCH_HERO_DROP_CHANCE_BONUS = 0.35F;
-    /** 牧场英雄：额外滚一次掉落表。 */
-    private static final int RANCH_HERO_EXTRA_ROLLS = 1;
-    /** 牧场英雄：拍击幅度（压扁力度）加成。 */
-    private static final int RANCH_HERO_SQUEEZE_POWER = 2;
     /** 骆驼掉落表的选项数量，均匀分布即每项 20%。 */
     private static final int CAMEL_GIFT_OPTIONS = 5;
 
@@ -103,24 +96,27 @@ public class PetterItem extends Item {
         boolean ranchHero = player.hasEffect(KSEffects.RANCH_HERO);
         if (MobTaming.isTamed(target) && !PetterCooldown.isCooling(target)) {
             List<ItemStack> drops = new ArrayList<>(rollLoot(player, target, level));
+            int looting = getLootingLevel(level, petterStack);
+            int favorLevel = favorLevelOf(target);
             if (!drops.isEmpty()) {
-                int looting = getLootingLevel(level, petterStack);
-                int favorLevel = favorLevelOf(target);
-                float extraChance = LOOTING_DROP_CHANCE_PER_LEVEL * looting
-                        + FAVOR_DROP_CHANCE_PER_LEVEL * Math.max(0, favorLevel - 1)
-                        + (ranchHero ? RANCH_HERO_DROP_CHANCE_BONUS : 0.0F);
+                double extraChance = StartaleConfig.PETTER_LOOTING_DROP_CHANCE_PER_LEVEL.get() * looting
+                        + StartaleConfig.PETTER_FAVOR_DROP_CHANCE_PER_LEVEL.get() * Math.max(0, favorLevel - 1)
+                        + (ranchHero ? StartaleConfig.PETTER_RANCH_HERO_DROP_CHANCE_BONUS.get() : 0.0D);
                 int extraRolls = 0;
-                if (level.random.nextFloat() < Math.min(1.0F, extraChance)) {
+                if (level.random.nextFloat() < Math.min(1.0D, extraChance)) {
                     extraRolls++;
                 }
                 // 牧场英雄：必定再滚一次掉落表
                 if (ranchHero) {
-                    extraRolls += RANCH_HERO_EXTRA_ROLLS;
+                    extraRolls += StartaleConfig.PETTER_RANCH_HERO_EXTRA_ROLLS.get();
                 }
                 for (int i = 0; i < extraRolls; i++) {
                     drops.addAll(rollLoot(player, target, level));
                 }
             }
+
+            // 按好感度等级与抢夺等级限制本次最多挤出的物品数量
+            drops = limitDrops(drops, maxDropsAt(favorLevel, looting), level.random);
 
             dropped = countItems(drops);
             if (dropped > 0) {
@@ -133,11 +129,69 @@ public class PetterItem extends Item {
             }
         }
 
-        playSqueeze(target, level, petterStack, ranchHero ? RANCH_HERO_SQUEEZE_POWER : 0);
+        playSqueeze(target, level, petterStack, ranchHero ? StartaleConfig.PETTER_RANCH_HERO_SQUEEZE_POWER.get() : 0);
         if (dropped > 0) {
             spawnHearts(target, level);
         }
         return dropped;
+    }
+
+    /**
+     * 计算指定好感度等级与抢夺等级下的掉落数量上限。
+     * <p>
+     * 基础上限来自配置项，抢夺等级每级按配置增加上限；
+     * 好感度达到配置中的各级阈值时各额外 +1。
+     *
+     * @param favorLevel 好感度等级
+     * @param looting    抢夺等级
+     * @return 掉落数量上限
+     */
+    private static int maxDropsAt(int favorLevel, int looting) {
+        int cap = StartaleConfig.PETTER_BASE_DROP_CAP.get()
+                + Math.max(0, looting) * StartaleConfig.PETTER_LOOTING_CAP_PER_LEVEL.get();
+        for (Number level : StartaleConfig.PETTER_FAVOR_CAP_LEVELS.get()) {
+            if (favorLevel >= level.intValue()) {
+                cap++;
+            }
+        }
+        return cap;
+    }
+
+    /**
+     * 按上限裁剪掉落物列表。
+     * <p>
+     * 先打乱顺序，避免总是偏向掉落表靠前的条目；
+     * 再按顺序取物品，最后一个物品只保留上限内允许的数量。
+     *
+     * @param drops    掉落物列表
+     * @param maxItems 物品数量上限
+     * @param random   随机源
+     * @return 裁剪后的掉落物列表
+     */
+    private static List<ItemStack> limitDrops(List<ItemStack> drops, int maxItems, RandomSource random) {
+        if (maxItems <= 0 || drops.isEmpty()) {
+            return List.of();
+        }
+
+        List<ItemStack> candidates = new ArrayList<>(drops);
+        Util.shuffle(candidates, random);
+
+        List<ItemStack> result = new ArrayList<>();
+        int total = 0;
+        for (ItemStack stack : candidates) {
+            if (total >= maxItems) {
+                break;
+            }
+            int allowed = Math.min(stack.getCount(), maxItems - total);
+            if (allowed <= 0) {
+                continue;
+            }
+            ItemStack copy = stack.copy();
+            copy.setCount(allowed);
+            result.add(copy);
+            total += allowed;
+        }
+        return result;
     }
 
     /**
@@ -375,7 +429,26 @@ public class PetterItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         tooltipComponents.add(Component.translatable("tooltip.kaleidoscope_startale.petter")
                 .withStyle(ChatFormatting.GRAY));
+//        tooltipComponents.add(dropCapTooltip().withStyle(ChatFormatting.GRAY));
         tooltipComponents.add(Component.translatable("tooltip.kaleidoscope_startale.petter.cooldown")
                 .withStyle(ChatFormatting.GRAY));
+    }
+
+    /**
+     * 按当前配置拼出掉落上限提示。
+     * <p>
+     * 基础上限、好感度触发等级与抢夺每级加成都会随配置变化，
+     * 所以这里现读配置，避免提示与实际数值脱节。
+     *
+     * @return 掉落上限提示文本
+     */
+    private static MutableComponent dropCapTooltip() {
+        String levels = StartaleConfig.PETTER_FAVOR_CAP_LEVELS.get().stream()
+                .map(level -> Integer.toString(level.intValue()))
+                .collect(Collectors.joining("/"));
+        return Component.translatable("tooltip.kaleidoscope_startale.petter.limit",
+                StartaleConfig.PETTER_BASE_DROP_CAP.get(),
+                levels,
+                StartaleConfig.PETTER_LOOTING_CAP_PER_LEVEL.get());
     }
 }

@@ -1,9 +1,0 @@
-{
-  "type": "kaleidoscope_startale:juicer",
-  "fluid": "kaleidoscope_startale:ancient_fruit_juice",
-  "ingredients": [
-    {
-      "item": "kaleidoscope_startale:ancient_fruit"
-    }
-  ]
-}

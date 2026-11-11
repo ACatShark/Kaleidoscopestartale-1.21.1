@@ -53,18 +53,11 @@ public final class KSCreativeModeTabs {
                         output.accept(KSItems.BUBBLE_ECHO_COCKTAIL.get());
                         output.accept(KSItems.SPRING_DRINK_COCKTAIL.get());
                         output.accept(KSItems.SPRING_DRINK_1_COCKTAIL.get());
-                        output.accept(KSItems.BERRY_JUICE.get());
-                        output.accept(KSItems.GLOW_BERRY_JUICE.get());
-                        output.accept(KSItems.GRAPE_JUICE.get());
-                        output.accept(KSItems.GOLD_GRAPE_JUICE.get());
-                        output.accept(KSItems.ICE_GRAPE_JUICE.get());
-                        output.accept(KSItems.GREEN_GRAPE_JUICE.get());
                         output.accept(KSItems.ENCHANTED_NIGHTCRAWLER.get());
                         output.accept(KSItems.UNIVERSAL_FEED.get());
                         output.accept(KSItems.LIVESTOCK_FEED.get());
                         output.accept(KSItems.POULTRY_FEED.get());
                         output.accept(KSItems.PETTER.get());
-                        output.accept(KSItems.JUICER.get());
 
 
 

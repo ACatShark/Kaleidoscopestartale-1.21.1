@@ -5,13 +5,13 @@
   },
   "ingredients": [
     {
-      "item": "kaleidoscope_startale:ancient_fruit"
+      "tag": "c:crop/ancient_fruit"
     },
     {
-      "item": "kaleidoscope_startale:ancient_fruit"
+      "tag": "c:crop/ancient_fruit"
     },
     {
-      "item": "kaleidoscope_startale:ancient_fruit"
+      "tag": "c:crop/ancient_fruit"
     }
   ],
   "result": {

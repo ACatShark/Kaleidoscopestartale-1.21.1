@@ -3,22 +3,22 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "kaleidoscope_cookery:lettuce"
+      "tag": "c:crops/lettuce"
     },
     {
-      "item": "kaleidoscope_cookery:lettuce"
-    },
-    {
-      "item": "kaleidoscope_cookery:rice_panicle"
+      "tag": "c:crops/lettuce"
     },
     {
       "item": "kaleidoscope_cookery:rice_panicle"
     },
     {
-      "item": "kaleidoscope_cookery:tomato"
+      "item": "kaleidoscope_cookery:rice_panicle"
     },
     {
-      "item": "kaleidoscope_cookery:tomato"
+      "tag": "c:crops/tomato"
+    },
+    {
+      "tag": "c:crops/tomato"
     }
   ],
   "result": {

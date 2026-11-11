@@ -105,6 +105,7 @@ dependencies {
     implementation "curse.maven:jei-238222:9205121"
     implementation "curse.maven:jade-324717:7545219"
 
+    localRuntime "curse.maven:advanced-loot-info-1205426:7767452"
     localRuntime "curse.maven:kubejs-238086:7278501"
     localRuntime "curse.maven:rhino-416294:7104526"
 }

@@ -5,22 +5,22 @@
   },
   "ingredients": [
     {
-      "item": "kaleidoscope_startale:rhubarb"
+      "tag": "c:crop/rhubarb"
     },
     {
-      "item": "kaleidoscope_startale:rhubarb"
+      "tag": "c:crop/rhubarb"
     },
     {
-      "item": "kaleidoscope_startale:rhubarb"
+      "tag": "c:crop/rhubarb"
     },
     {
-      "item": "kaleidoscope_startale:rhubarb"
+      "tag": "c:crop/rhubarb"
     },
     {
-      "item": "kaleidoscope_startale:rhubarb"
+      "tag": "c:crop/rhubarb"
     },
     {
-      "item": "kaleidoscope_startale:rhubarb"
+      "tag": "c:crop/rhubarb"
     }
   ],
   "result": {

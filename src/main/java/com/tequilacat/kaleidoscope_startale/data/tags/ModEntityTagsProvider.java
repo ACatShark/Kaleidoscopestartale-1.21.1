@@ -19,19 +19,31 @@ public class ModEntityTagsProvider extends EntityTypeTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
 
         tag(KSEntityTags.LIVESTOCK_FEED_MOBS)
-                .add(EntityType.COW)
-                .add(EntityType.MOOSHROOM)
-                .add(EntityType.PIG)
-                .add(EntityType.SHEEP)
-                .add(EntityType.GOAT)
-                .add(EntityType.SNIFFER);
+                .add(EntityType.COW) // 牛
+                .add(EntityType.MOOSHROOM) // 哞菇
+                .add(EntityType.PIG) // 猪
+                .add(EntityType.SHEEP) // 羊
+                .add(EntityType.GOAT) // 山羊
+                .add(EntityType.SNIFFER); // 嗅探兽
 
         tag(KSEntityTags.POULTRY_FEED_MOBS)
-                .add(EntityType.ARMADILLO)
-                .add(EntityType.RABBIT)
-                .add(EntityType.CHICKEN);
+                .add(EntityType.ARMADILLO) // 犰狳
+                .add(EntityType.RABBIT) // 兔子
+                .add(EntityType.CHICKEN) // 鸡
+                .add(EntityType.PARROT); // 鹦鹉
 
-        tag(KSEntityTags.UNIVERSAL_FEED_BLACKLIST);
+        tag(KSEntityTags.UNIVERSAL_FEED_MOBS)
+                .add(EntityType.COW) // 牛
+                .add(EntityType.MOOSHROOM) // 哞菇
+                .add(EntityType.PIG) // 猪
+                .add(EntityType.SHEEP) // 羊
+                .add(EntityType.GOAT) // 山羊
+                .add(EntityType.SNIFFER) // 嗅探兽
+
+                .add(EntityType.ARMADILLO) // 犰狳
+                .add(EntityType.RABBIT) // 兔子
+                .add(EntityType.CHICKEN) // 鸡
+                .add(EntityType.PARROT); // 鹦鹉
 
     }
 }

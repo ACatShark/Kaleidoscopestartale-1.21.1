@@ -16,11 +16,5 @@ public class KSCapabilities {
         event.registerItem(Capabilities.FluidHandler.ITEM,
                 (stack, ctx) -> new FluidBucketWrapper(stack),
                 KSItems.ANCIENT_FRUIT_JUICE_BUCKET.get());
-
-        // 榨汁机：物品槽 + 内部储罐
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK,
-                KSBlockEntities.JUICER.get(), (juicer, side) -> juicer.getItems());
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK,
-                KSBlockEntities.JUICER.get(), (juicer, side) -> juicer.getTank());
     }
 }

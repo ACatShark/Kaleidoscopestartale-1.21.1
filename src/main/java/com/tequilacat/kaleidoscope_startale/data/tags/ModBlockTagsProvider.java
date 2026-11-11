@@ -27,10 +27,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(KSBlocks.ANCIENT_FRUIT_VINE.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(KSBlocks.JUICER.get())
                 .add(KSBlocks.COLD_STOVE.get());
         tag(Tags.Blocks.NEEDS_WOOD_TOOL)
-                .add(KSBlocks.JUICER.get())
                 .add(KSBlocks.COLD_STOVE.get())
                 .add(KSBlocks.ANCIENT_FRUIT_VINE.get());
         tag(BlockTags.CROPS)

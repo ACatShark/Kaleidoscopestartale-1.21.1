@@ -6,7 +6,7 @@
   "fluid": "minecraft:water",
   "ingredients": [
     {
-      "item": "minecraft:wheat_seeds"
+      "tag": "c:seeds/wheat"
     },
     {
       "item": "minecraft:ice"

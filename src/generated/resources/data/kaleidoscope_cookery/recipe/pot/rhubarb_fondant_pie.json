@@ -17,16 +17,16 @@
       "item": "minecraft:sugar"
     },
     {
-      "item": "minecraft:pumpkin_pie"
+      "tag": "c:foods/pie"
     },
     {
-      "item": "minecraft:pumpkin_pie"
+      "tag": "c:foods/pie"
     },
     {
-      "item": "minecraft:pumpkin_pie"
+      "tag": "c:foods/pie"
     },
     {
-      "item": "minecraft:pumpkin_pie"
+      "tag": "c:foods/pie"
     },
     {
       "item": "kaleidoscope_startale:rhubarb_jam"

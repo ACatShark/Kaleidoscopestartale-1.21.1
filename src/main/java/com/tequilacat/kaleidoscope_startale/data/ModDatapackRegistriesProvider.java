@@ -1,4 +1,4 @@
-package com.tequilacat.kaleidoscope_startale.data.registries;
+package com.tequilacat.kaleidoscope_startale.data;
 
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.init.KSItemTags;
@@ -23,8 +23,6 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -64,19 +62,11 @@ public class ModDatapackRegistriesProvider extends DatapackBuiltinEntriesProvide
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
 
         context.register(Enchantments.LOOTING, Enchantment.enchantment(Enchantment.definition(
-                        // 可附魔物品
                         items.getOrThrow(KSItemTags.LOOTING_APPLICABLE),
-                        // 权重
-                        2,
-                        // 最大等级
-                        3,
-                        // 最低等级消耗
+                        2, 3,
                         Enchantment.dynamicCost(15, 9),
-                        // 最高等级消耗
                         Enchantment.dynamicCost(65, 9),
-                        // 铁砧消耗
-                        4,
-                        EquipmentSlotGroup.MAINHAND))
+                        4, EquipmentSlotGroup.MAINHAND))
                 .withEffect(EnchantmentEffectComponents.EQUIPMENT_DROPS,
                         EnchantmentTarget.ATTACKER,
                         EnchantmentTarget.VICTIM,

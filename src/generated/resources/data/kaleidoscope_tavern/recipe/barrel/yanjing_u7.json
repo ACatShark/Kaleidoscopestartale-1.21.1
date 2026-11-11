@@ -6,13 +6,13 @@
   "fluid": "minecraft:water",
   "ingredients": [
     {
-      "item": "minecraft:wheat_seeds"
+      "tag": "c:seeds/wheat"
     },
     {
-      "item": "minecraft:wheat"
+      "tag": "c:crops/wheat"
     },
     {
-      "item": "minecraft:gold_nugget"
+      "tag": "c:nuggets/gold"
     }
   ],
   "result": {

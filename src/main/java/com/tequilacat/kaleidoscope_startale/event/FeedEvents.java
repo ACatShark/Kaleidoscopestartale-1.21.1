@@ -20,6 +20,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import com.tequilacat.kaleidoscope_startale.ai.FeedTemptGoal;
+import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
 import com.tequilacat.kaleidoscope_startale.init.KSAttachments;
 import com.tequilacat.kaleidoscope_startale.data.tame.TameData;
 import com.tequilacat.kaleidoscope_startale.data.favorability.FavorabilityTracker;
@@ -39,15 +40,6 @@ public class FeedEvents {
 
     /** 诱惑 AI 的优先级。 */
     private static final int TEMPT_PRIORITY = 3;
-
-    /** 诱惑 AI 的移动速度。 */
-    private static final double TEMPT_SPEED = 1.25F;
-
-    /** 驯服概率分母（1/N 概率驯服）。 */
-    private static final int TAME_CHANCE = 3;
-
-    /** 喂食已驯养动物的治疗量。 */
-    private static final float TAME_HEAL = 2.0F;
 
     /**
      * 处理实体右键事件。
@@ -129,7 +121,7 @@ public class FeedEvents {
      */
     private static boolean feedTamed(Animal animal, Player player, ItemStack stack) {
         if (animal.getHealth() < animal.getMaxHealth()) {
-            animal.heal(TAME_HEAL);
+            animal.heal(StartaleConfig.TAME_HEAL.get().floatValue());
             stack.consume(1, player);
             animal.gameEvent(GameEvent.EAT);
             return true;
@@ -195,7 +187,7 @@ public class FeedEvents {
     private static void tryToTame(Animal animal, Player player, ItemStack stack) {
         stack.consume(1, player);
 
-        boolean tamed = animal.getRandom().nextInt(TAME_CHANCE) == 0 && !EventHooks.onAnimalTame(animal, player);
+        boolean tamed = animal.getRandom().nextInt(StartaleConfig.TAME_CHANCE.get()) == 0 && !EventHooks.onAnimalTame(animal, player);
         if (tamed) {
             animal.setData(KSAttachments.TAME.get(), new TameData(player.getUUID(), player.getName().getString()));
             animal.setPersistenceRequired();
@@ -247,7 +239,7 @@ public class FeedEvents {
         boolean alreadyInjected = animal.goalSelector.getAvailableGoals().stream()
                 .anyMatch(wrapped -> wrapped.getGoal() instanceof FeedTemptGoal);
         if (!alreadyInjected) {
-            animal.goalSelector.addGoal(TEMPT_PRIORITY, new FeedTemptGoal(animal, TEMPT_SPEED));
+            animal.goalSelector.addGoal(TEMPT_PRIORITY, new FeedTemptGoal(animal, StartaleConfig.TEMPTATION_SPEED.get()));
         }
     }
 

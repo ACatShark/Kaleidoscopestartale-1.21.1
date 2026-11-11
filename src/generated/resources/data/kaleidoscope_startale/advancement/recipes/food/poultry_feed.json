@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "kaleidoscope_cookery:chili_seed"
+            "items": "#c:seeds/chilipepper"
           }
         ]
       },
@@ -25,7 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": "kaleidoscope_cookery:lettuce_seed"
+            "items": "#c:seeds/lettuce"
           }
         ]
       },
@@ -41,7 +41,7 @@
       "conditions": {
         "items": [
           {
-            "items": "kaleidoscope_cookery:tomato_seed"
+            "items": "#c:seeds/tomato"
           }
         ]
       },

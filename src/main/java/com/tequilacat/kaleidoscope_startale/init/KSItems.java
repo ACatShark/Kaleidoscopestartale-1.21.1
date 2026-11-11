@@ -116,19 +116,7 @@ public interface KSItems {
     DeferredItem<CocktailBlockItem> SPRING_DRINK_1_COCKTAIL = ITEMS.register("spring_drink_1", () -> new CocktailBlockItem(KSBlocks.SPRING_DRINK_1_COCKTAIL.get()));
 
 
-    // ==================== 果汁 ====================
-    /** 浆果汁 */
-    DeferredItem<CocktailBlockItem> BERRY_JUICE = ITEMS.register("berry_juice", () -> new CocktailBlockItem(KSBlocks.BERRY_JUICE.get()));
-    /** 发光浆果汁 */
-    DeferredItem<CocktailBlockItem> GLOW_BERRY_JUICE = ITEMS.register("glow_berry_juice", () -> new CocktailBlockItem(KSBlocks.GLOW_BERRY_JUICE.get()));
-    /** 葡萄汁 */
-    DeferredItem<CocktailBlockItem> GRAPE_JUICE = ITEMS.register("grape_juice", () -> new CocktailBlockItem(KSBlocks.GRAPE_JUICE.get()));
-    /** 黄金葡萄汁 */
-    DeferredItem<CocktailBlockItem> GOLD_GRAPE_JUICE = ITEMS.register("gold_grape_juice", () -> new CocktailBlockItem(KSBlocks.GOLD_GRAPE_JUICE.get()));
-    /** 冰葡萄汁 */
-    DeferredItem<CocktailBlockItem> ICE_GRAPE_JUICE = ITEMS.register("ice_grape_juice", () -> new CocktailBlockItem(KSBlocks.ICE_GRAPE_JUICE.get()));
-    /** 青提葡萄汁 */
-    DeferredItem<CocktailBlockItem> GREEN_GRAPE_JUICE = ITEMS.register("green_grape_juice", () -> new CocktailBlockItem(KSBlocks.GREEN_GRAPE_JUICE.get()));
+    // ==================== 流体 ====================
     /** 上古水果汁桶 */
     DeferredItem<JuiceBucketItem> ANCIENT_FRUIT_JUICE_BUCKET = ITEMS.register("ancient_fruit_juice_bucket", () -> new JuiceBucketItem(KSFluids.ANCIENT_FRUIT_JUICE));
 
@@ -147,8 +135,6 @@ public interface KSItems {
 
 
     // ==================== 工具 ====================
-    /** 榨汁机 */
-    DeferredItem<JuicerBlockItem> JUICER = ITEMS.register("juicer", () -> new JuicerBlockItem(KSBlocks.JUICER.get(), new Item.Properties()));
     /** 拍拍器 */
     DeferredItem<PetterItem> PETTER = ITEMS.register("petter", () -> new PetterItem(new Item.Properties().stacksTo(1).durability(700)));
     /** 冷灶 */

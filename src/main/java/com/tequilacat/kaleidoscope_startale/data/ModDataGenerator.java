@@ -4,7 +4,6 @@ import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.data.loot.ModFishingLootTablesProvider;
 import com.tequilacat.kaleidoscope_startale.data.loot.ModGlobalLootModifiersProvider;
 import com.tequilacat.kaleidoscope_startale.data.loot.ModLootTablesProvider;
-import com.tequilacat.kaleidoscope_startale.data.registries.ModDatapackRegistriesProvider;
 import com.tequilacat.kaleidoscope_startale.data.tags.ModBlockTagsProvider;
 import com.tequilacat.kaleidoscope_startale.data.tags.ModEntityTagsProvider;
 import com.tequilacat.kaleidoscope_startale.data.tags.ModItemTagsProvider;

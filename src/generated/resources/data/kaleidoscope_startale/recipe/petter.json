@@ -6,10 +6,10 @@
       "item": "minecraft:light_blue_dye"
     },
     "B": {
-      "item": "minecraft:carrot"
+      "tag": "c:crops/carrot"
     },
     "C": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "D": {
       "item": "minecraft:stick"

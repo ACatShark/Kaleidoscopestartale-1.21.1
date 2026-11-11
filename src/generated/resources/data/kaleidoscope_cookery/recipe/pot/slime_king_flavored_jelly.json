@@ -5,22 +5,22 @@
   },
   "ingredients": [
     {
-      "item": "minecraft:slime_ball"
+      "tag": "c:slime_balls"
     },
     {
-      "item": "minecraft:slime_ball"
+      "tag": "c:slime_balls"
     },
     {
-      "item": "kaleidoscope_startale:ancient_fruit"
+      "tag": "c:crop/ancient_fruit"
     },
     {
-      "item": "kaleidoscope_startale:ancient_fruit"
+      "tag": "c:crop/ancient_fruit"
     },
     {
       "item": "minecraft:sweet_berries"
     },
     {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     }
   ],
   "result": {

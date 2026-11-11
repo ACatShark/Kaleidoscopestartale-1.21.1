@@ -45,7 +45,7 @@ public class ModItemModelsProvider extends ItemModelProvider {
         foodItem(KSItems.GLOWING_CATERPILLAR_SOUP.get());
         foodItem(KSItems.RHUBARB_FONDANT_PIE.get());
         foodItem(KSItems.OMELETTE_RICE.get());
-//        foodItem(KSItems.ANCIENT_FRUIT_SKEWER.get());
+        foodItem(KSItems.ANCIENT_FRUIT_SKEWER.get());
         foodItem(KSItems.EGG_BAKED_CAKE.get());
         foodItem(KSItems.IDEA_COOKIE.get());
         foodItem(KSItems.INSPIRATION_MUSHROOM.get());
@@ -65,14 +65,8 @@ public class ModItemModelsProvider extends ItemModelProvider {
         brewItem(KSItems.SPRING_DRINK_COCKTAIL.get());
         brewItem(KSItems.SPRING_DRINK_1_COCKTAIL.get());
 
-        // ==================== 果汁 ====================
-        juiceItem(KSItems.BERRY_JUICE.get());
-        juiceItem(KSItems.GLOW_BERRY_JUICE.get());
-        juiceItem(KSItems.GRAPE_JUICE.get());
-        juiceItem(KSItems.GOLD_GRAPE_JUICE.get());
-        juiceItem(KSItems.ICE_GRAPE_JUICE.get());
-        juiceItem(KSItems.GREEN_GRAPE_JUICE.get());
-        juiceItem(KSItems.ANCIENT_FRUIT_JUICE_BUCKET.get());
+        // ==================== 流体 ====================
+        fluidItem(KSItems.ANCIENT_FRUIT_JUICE_BUCKET.get());
 
         // ==================== 材料 ====================
         basicItem(KSItems.LIVESTOCK_FEED.get());
@@ -82,8 +76,7 @@ public class ModItemModelsProvider extends ItemModelProvider {
         basicItem(KSItems.CREAM.get());
 
         // ====================  工具 ====================
-//        basicItem(KSItems.JUICER.get());
-//        basicItem(KSItems.PETTER.get());
+        basicItem(KSItems.PETTER.get());
         simpleBlockItem(KSBlocks.COLD_STOVE.get());
         basicItem(KSItems.YUNOMI.get());
         basicItem(KSItems.CREAM_OIL.get());
@@ -114,11 +107,11 @@ public class ModItemModelsProvider extends ItemModelProvider {
         builder.texture("layer0", KaleidoscopeStartale.id("item/brew/" + itemName));
     }
 
-    private void juiceItem(Item item) {
+    private void fluidItem(Item item) {
         ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
         String itemName = key.getPath();
         ItemModelBuilder builder = withExistingParent(itemName, ResourceLocation.withDefaultNamespace("item/generated"));
-        builder.texture("layer0", KaleidoscopeStartale.id("item/juice/" + itemName));
+        builder.texture("layer0", KaleidoscopeStartale.id("item/fluid/" + itemName));
     }
 
     private void teaItem(Item item) {

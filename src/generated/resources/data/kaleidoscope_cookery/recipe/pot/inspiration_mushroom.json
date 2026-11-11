@@ -5,16 +5,16 @@
       "tag": "c:mushrooms"
     },
     {
-      "item": "kaleidoscope_startale:rhubarb"
+      "tag": "c:crop/rhubarb"
     },
     {
-      "item": "kaleidoscope_startale:rhubarb"
+      "tag": "c:crop/rhubarb"
     },
     {
-      "item": "kaleidoscope_startale:amaranth"
+      "tag": "c:crop/amaranth"
     },
     {
-      "item": "kaleidoscope_startale:amaranth"
+      "tag": "c:crop/amaranth"
     }
   ],
   "result": {

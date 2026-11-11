@@ -10,8 +10,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public interface KSSounds {
     DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, KaleidoscopeStartale.MODID);
 
-    DeferredHolder<SoundEvent, SoundEvent> JUICER_WORKING = SOUNDS.register("juicer_working",
-            () -> SoundEvent.createVariableRangeEvent(KaleidoscopeStartale.id("juicer_working")));
     DeferredHolder<SoundEvent, SoundEvent> PET_SQUEEZE = SOUNDS.register("pet_squeeze",
             () -> SoundEvent.createVariableRangeEvent(KaleidoscopeStartale.id("pet_squeeze")));
 

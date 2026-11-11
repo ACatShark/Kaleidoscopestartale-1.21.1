@@ -3,6 +3,7 @@ package com.tequilacat.kaleidoscope_startale.util;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 
+import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
 import com.tequilacat.kaleidoscope_startale.init.KSAttachments;
 
 /**
@@ -12,9 +13,6 @@ import com.tequilacat.kaleidoscope_startale.init.KSAttachments;
  * 冷却判定、冷却重置以及喂食缩短冷却等操作。
  */
 public class PetterCooldown {
-
-    /** 冷却总时长（刻）。 */
-    public static final int COOLDOWN_TICKS = 12000;
 
     /**
      * 获取剩余冷却时间。
@@ -51,7 +49,8 @@ public class PetterCooldown {
      * @param entity 目标实体
      */
     public static void reset(Entity entity) {
-        entity.setData(KSAttachments.PET_COOLDOWN.get(), entity.level().getGameTime() + COOLDOWN_TICKS);
+        entity.setData(KSAttachments.PET_COOLDOWN.get(),
+                entity.level().getGameTime() + StartaleConfig.PETTER_COOLDOWN_TICKS.get());
     }
 
     /**

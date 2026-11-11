@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "kaleidoscope_cookery:lettuce"
+            "items": "#c:crops/lettuce"
           }
         ]
       },
@@ -35,7 +35,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:potato"
+            "items": "#c:crops/potato"
           }
         ]
       },

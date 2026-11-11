@@ -106,45 +106,9 @@ public class ModBlockLootTablesProvider extends BlockLootSubProvider {
         add(KSBlocks.ANCIENT_FRUIT_VINE.get(), this.createMultiItemTable(ModItems.TRELLIS.get(), KSItems.ANCIENT_FRUIT.get()));
 
 
-        // ==================== 酒水 ====================
-//        dropSelf(KSBlocks.ANCIENT_FRUIT_WINE.get());
-//        dropSelf(KSBlocks.REFRESHING_BEER.get());
-//        dropSelf(KSBlocks.YANJING_U7.get());
-//        dropSelf(KSBlocks.GRAPE_FLAVORED_WINE.get());
-//        dropSelf(KSBlocks.RED_EYE_WINE.get());
-//        dropSelf(KSBlocks.JOJA_COLA.get());
-//        dropSelf(KSBlocks.RHUBARB_JAM.get());
-//
-//
-//        // ==================== 鸡尾酒 ====================
-//        dropSelf(KSBlocks.ICE_ELF_COCKTAIL.get());
-//        dropSelf(KSBlocks.BUBBLE_ECHO_COCKTAIL.get());
-//        dropSelf(KSBlocks.SPRING_DRINK_COCKTAIL.get());
-//        dropSelf(KSBlocks.SPRING_DRINK_1_COCKTAIL.get());
-//
-//
-//        // ==================== 果汁 ====================
-//        dropSelf(KSBlocks.BERRY_JUICE.get());
-//        dropSelf(KSBlocks.GLOW_BERRY_JUICE.get());
-//        dropSelf(KSBlocks.GRAPE_JUICE.get());
-//        dropSelf(KSBlocks.GOLD_GRAPE_JUICE.get());
-//        dropSelf(KSBlocks.ICE_GRAPE_JUICE.get());
-//        dropSelf(KSBlocks.GREEN_GRAPE_JUICE.get());
-//
-//
         // ==================== 工具 ====================
-        dropSelf(KSBlocks.JUICER.get());
         dropSelf(KSBlocks.COLD_STOVE.get());
-//        dropSelf(KSBlocks.CREAM_OIL.get());
-//        dropSelf(KSBlocks.YUNOMI.get());
-//
-//
-//        // ==================== 食物 ====================
-//        dropSelf(KSBlocks.RHUBARB_FONDANT_PIE.get());
-//        dropSelf(KSBlocks.OMELETTE_RICE.get());
-//        dropSelf(KSBlocks.FISH_MUSHROOM_SOUP.get());
-//        dropSelf(KSBlocks.GLOWING_CATERPILLAR_SOUP.get());
-//        dropSelf(KSBlocks.MATCHA_CAKE.get());
+        dropSelf(KSBlocks.CREAM_OIL.get());
 
     }
 

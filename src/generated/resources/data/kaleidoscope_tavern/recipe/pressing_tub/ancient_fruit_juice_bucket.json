@@ -2,6 +2,6 @@
   "type": "kaleidoscope_tavern:pressing_tub",
   "fluid": "kaleidoscope_startale:ancient_fruit_juice",
   "ingredient": {
-    "item": "kaleidoscope_startale:ancient_fruit"
+    "tag": "c:crop/ancient_fruit"
   }
 }

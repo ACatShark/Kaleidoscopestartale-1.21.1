@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.item.Item;
@@ -24,8 +23,9 @@ import java.util.Set;
  * 饲料注册与匹配工具类。
  * <p>
  * 基于物品标签与实体标签构成的分组判断饲料归属：
- * 分组饲料只喂对应分组的生物，通用饲料则喂未分组的可接受生物。
- * 支持通过实体标签与配置项设置通用饲料黑名单。
+ * 分组饲料只喂对应分组的生物；通用饲料可喂给通用饲料标签内的生物，
+ * 以及任意通过自身食物判定的动物。
+ * 通用饲料黑名单由配置项提供，改完即时生效。
  */
 public class FeedRegistry {
 
@@ -44,18 +44,6 @@ public class FeedRegistry {
     private static final List<FeedGroup> GROUPS = List.of(
             new FeedGroup(KSItemTags.LIVESTOCK_FEED, KSEntityTags.LIVESTOCK_FEED_MOBS),
             new FeedGroup(KSItemTags.POULTRY_FEED, KSEntityTags.POULTRY_FEED_MOBS));
-
-    /** 通用饲料黑名单缓存。 */
-    private static volatile Set<ResourceLocation> blacklistCache;
-
-    /**
-     * 使黑名单缓存失效。
-     * <p>
-     * 配置变更后调用，下次查询时重新解析黑名单。
-     */
-    public static void invalidateBlacklistCache() {
-        blacklistCache = null;
-    }
 
     /** 标签代次，标签每次重新绑定后自增，供依赖标签的缓存判断是否失效。 */
     private static volatile int tagGeneration;
@@ -79,58 +67,35 @@ public class FeedRegistry {
     }
 
     /**
-     * 获取配置项中的通用饲料黑名单。
-     * <p>
-     * 从配置项解析实体 ID，解析成功的加入集合；结果会被缓存。
-     *
-     * @return 黑名单实体 ID 集合
-     */
-    private static Set<ResourceLocation> blacklist() {
-        Set<ResourceLocation> cached = blacklistCache;
-        if (cached != null) {
-            return cached;
-        }
-        Set<ResourceLocation> set = new HashSet<>();
-        for (String raw : StartaleConfig.universalFeedBlacklist()) {
-            ResourceLocation rl = ResourceLocation.tryParse(raw);
-            if (rl != null) {
-                set.add(rl);
-            }
-        }
-        Set<ResourceLocation> frozen = Set.copyOf(set);
-        blacklistCache = frozen;
-        return frozen;
-    }
-
-    /**
      * 判断实体类型是否被通用饲料拉黑。
      * <p>
-     * 实体带有黑名单标签或位于配置黑名单中即视为拉黑。
+     * ID 写进了配置黑名单即视为拉黑，配置项每次现读，
+     * 保证改完配置无需重载数据。
      *
      * @param type 实体类型
      * @return 是否被拉黑
      */
     private static boolean isBlacklisted(EntityType<?> type) {
-        if (type.is(KSEntityTags.UNIVERSAL_FEED_BLACKLIST)) {
-            return true;
-        }
         ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
-        return blacklist().contains(key);
-    }
-
-    /**
-     * 判断实体类型是否属于任一分组。
-     *
-     * @param type 实体类型
-     * @return 是否属于分组
-     */
-    private static boolean isGrouped(EntityType<?> type) {
-        for (FeedGroup group : GROUPS) {
-            if (type.is(group.entityTag())) {
+        for (String raw : StartaleConfig.UNIVERSAL_FEED_BLACKLIST.get()) {
+            if (key.equals(ResourceLocation.tryParse(raw))) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * 判断实体是否认可该物品为其自身食物。
+     * <p>
+     * 仅动物类且非敌对生物，并且动物自身认可该物品为食物时返回 true。
+     *
+     * @param entity 目标实体
+     * @param stack  物品堆叠
+     * @return 是否认可为食物
+     */
+    private static boolean acceptsByFood(Entity entity, ItemStack stack) {
+        return entity instanceof Animal animal && !(entity instanceof Enemy) && animal.isFood(stack);
     }
 
     /**
@@ -170,39 +135,11 @@ public class FeedRegistry {
     }
 
     /**
-     * 判断实体是否接受通用饲料。
-     * <p>
-     * 仅动物类且非敌对生物可接受；原版可驯服动物不接受通用饲料。
-     *
-     * @param entity 目标实体
-     * @param key    实体类型 ID
-     * @return 是否接受通用饲料
-     */
-    private static boolean acceptsDefaultFeed(Entity entity, ResourceLocation key) {
-        if (!(entity instanceof Animal)) {
-            return false;
-        }
-        if (entity instanceof Enemy) {
-            return false;
-        }
-        return !(entity instanceof TamableAnimal) || !isVanilla(key);
-    }
-
-    /**
-     * 判断实体类型 ID 是否属于原版命名空间。
-     *
-     * @param key 实体类型 ID
-     * @return 是否属于原版
-     */
-    private static boolean isVanilla(ResourceLocation key) {
-        return key != null && "minecraft".equals(key.getNamespace());
-    }
-
-    /**
      * 判断物品堆叠能否喂给目标实体。
      * <p>
-     * 先排除黑名单；分组饲料只喂对应分组生物，喂错分组直接拒绝且不回退；
-     * 否则只有通用饲料且生物未分组并接受通用饲料时才可喂。
+     * 先排除空物品与黑名单实体；分组饲料只喂对应分组的生物，
+     * 喂错分组直接拒绝且不回退；否则需为通用饲料，
+     * 且生物属于通用饲料标签或自身认可该食物。
      *
      * @param stack  物品堆叠
      * @param entity 目标实体
@@ -232,8 +169,7 @@ public class FeedRegistry {
             return false;
         }
 
-        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
-        return isUniversalFeed(stack) && !isGrouped(type) && acceptsDefaultFeed(entity, key);
+        return isUniversalFeed(stack) && (type.is(KSEntityTags.UNIVERSAL_FEED_MOBS) || acceptsByFood(entity, stack));
     }
 
     /**
@@ -251,7 +187,8 @@ public class FeedRegistry {
      * 获取实体可接受的饲料集合。
      * <p>
      * 黑名单实体返回空集合；属于分组的实体返回该分组饲料标签下的物品；
-     * 否则在接受通用饲料时返回通用饲料标签下的物品。
+     * 属于通用饲料标签的实体返回通用饲料标签下的物品；
+     * 其余实体从通用饲料中筛选出自身认可的食物。
      *
      * @param entity 目标实体
      * @return 可接受的饲料集合
@@ -266,7 +203,15 @@ public class FeedRegistry {
                 return itemsIn(group.feedTag());
             }
         }
-        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
-        return acceptsDefaultFeed(entity, key) ? itemsIn(KSItemTags.UNIVERSAL_FEED) : Set.of();
+        if (type.is(KSEntityTags.UNIVERSAL_FEED_MOBS)) {
+            return itemsIn(KSItemTags.UNIVERSAL_FEED);
+        }
+        Set<Item> accepted = new HashSet<>();
+        for (Item item : itemsIn(KSItemTags.UNIVERSAL_FEED)) {
+            if (acceptsByFood(entity, new ItemStack(item))) {
+                accepted.add(item);
+            }
+        }
+        return Set.copyOf(accepted);
     }
 }

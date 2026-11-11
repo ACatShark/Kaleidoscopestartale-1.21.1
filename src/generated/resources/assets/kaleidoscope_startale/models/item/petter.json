@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "kaleidoscope_startale:item/juice/berry_juice"
+    "layer0": "kaleidoscope_startale:item/petter"
   }
 }

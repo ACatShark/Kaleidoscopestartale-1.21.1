@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "kaleidoscope_startale:item/juice/ancient_fruit_juice_bucket"
+    "layer0": "kaleidoscope_startale:item/fluid/ancient_fruit_juice_bucket"
   }
 }

@@ -2,22 +2,22 @@
   "type": "kaleidoscope_cookery:pot",
   "ingredients": [
     {
-      "item": "kaleidoscope_startale:rhubarb"
+      "tag": "c:crop/rhubarb"
     },
     {
-      "item": "kaleidoscope_startale:ancient_fruit"
+      "tag": "c:crop/ancient_fruit"
     },
     {
-      "item": "kaleidoscope_startale:amaranth"
+      "tag": "c:crop/amaranth"
     },
     {
-      "item": "minecraft:wheat"
+      "tag": "c:crops/wheat"
     },
     {
-      "item": "minecraft:wheat"
+      "tag": "c:crops/wheat"
     },
     {
-      "item": "minecraft:cocoa_beans"
+      "tag": "c:crops/cocoa_bean"
     }
   ],
   "result": {

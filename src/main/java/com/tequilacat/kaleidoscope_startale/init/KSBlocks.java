@@ -70,24 +70,7 @@ public interface KSBlocks {
     DeferredBlock<CocktailBlock> SPRING_DRINK_1_COCKTAIL = BLOCKS.register("spring_drink_1", () -> new GlowingCocktailBlock(5));
 
 
-    // ==================== 果汁 ====================
-    /** 浆果汁 */
-    DeferredBlock<JuiceGlassBlock> BERRY_JUICE = BLOCKS.register("berry_juice", () -> new JuiceGlassBlock());
-    /** 发光浆果汁 */
-    DeferredBlock<JuiceGlassBlock> GLOW_BERRY_JUICE = BLOCKS.register("glow_berry_juice", () -> new JuiceGlassBlock());
-    /** 葡萄汁 */
-    DeferredBlock<JuiceGlassBlock> GRAPE_JUICE = BLOCKS.register("grape_juice", () -> new JuiceGlassBlock());
-    /** 黄金葡萄汁 */
-    DeferredBlock<JuiceGlassBlock> GOLD_GRAPE_JUICE = BLOCKS.register("gold_grape_juice", () -> new JuiceGlassBlock());
-    /** 冰葡萄汁 */
-    DeferredBlock<JuiceGlassBlock> ICE_GRAPE_JUICE = BLOCKS.register("ice_grape_juice", () -> new JuiceGlassBlock());
-    /** 青提葡萄汁 */
-    DeferredBlock<JuiceGlassBlock> GREEN_GRAPE_JUICE = BLOCKS.register("green_grape_juice", () -> new JuiceGlassBlock());
-
-
     // ==================== 工具 ====================
-    /** 榨汁机 */
-    DeferredBlock<JuicerBlock> JUICER = BLOCKS.register("juicer", () -> new JuicerBlock(JuicerBlock.createProperties()));
     /** 冷灶 */
     DeferredBlock<Block> COLD_STOVE = BLOCKS.register("cold_stove", ColdStoveBlock::new);
     /** 奶油油壶 */

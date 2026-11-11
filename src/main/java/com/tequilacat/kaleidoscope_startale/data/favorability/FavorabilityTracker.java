@@ -1,5 +1,6 @@
 package com.tequilacat.kaleidoscope_startale.data.favorability;
 
+import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
 import com.tequilacat.kaleidoscope_startale.data.tame.MobTaming;
 import com.tequilacat.kaleidoscope_startale.init.KSAttachments;
 import net.minecraft.nbt.CompoundTag;
@@ -124,7 +125,7 @@ public class FavorabilityTracker {
      */
     public static void onPetted(LivingEntity entity) {
         settleBeforeMutation(entity);
-        addPoints(entity, Favorability.GAIN_PER_PET);
+        addPoints(entity, StartaleConfig.FAVOR_POINTS_PER_PET.get());
     }
 
     /**
@@ -146,7 +147,7 @@ public class FavorabilityTracker {
         settleBeforeMutation(entity);
         Favorability data = get(entity);
         if (data.remainingFeedsToday() > 0) {
-            set(entity, data.withPoints(data.points() + Favorability.GAIN_PER_FEED)
+            set(entity, data.withPoints(data.points() + StartaleConfig.FAVOR_POINTS_PER_FEED.get())
                     .withFeedCount(data.feedCount() + 1));
         }
     }
@@ -208,10 +209,10 @@ public class FavorabilityTracker {
         int points = data.points();
         // 隔了几天都只结算这一次，没喂就只把喂食次数归零，点数不变
         if (data.fedToday()) {
-            points += Favorability.GAIN_PER_DAY;
+            points += StartaleConfig.FAVOR_POINTS_PER_DAY.get();
         }
 
-        set(entity, new Favorability(Mth.clamp(points, 0, Favorability.MAX_POINTS), today, 0));
+        set(entity, new Favorability(Mth.clamp(points, 0, Favorability.maxPoints()), today, 0));
     }
 
     /**

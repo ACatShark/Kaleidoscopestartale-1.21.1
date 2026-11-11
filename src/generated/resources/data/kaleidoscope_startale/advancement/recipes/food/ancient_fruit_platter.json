@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "kaleidoscope_startale:ancient_fruit"
+            "items": "#c:crop/ancient_fruit"
           }
         ]
       },

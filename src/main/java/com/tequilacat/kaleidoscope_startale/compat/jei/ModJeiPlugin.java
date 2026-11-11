@@ -34,8 +34,6 @@ public class ModJeiPlugin implements IModPlugin {
      */
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(new JuicerRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
-        registration.addRecipeCategories(new JuicePouringCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ColdBrewTeapotRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FermentingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ScentingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
@@ -52,8 +50,6 @@ public class ModJeiPlugin implements IModPlugin {
      */
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(JuicerRecipeCategory.TYPE, JuicerRecipeCategory.getRecipes());
-        registration.addRecipes(JuicePouringCategory.TYPE, JuicePouringCategory.getRecipes());
         registration.addRecipes(ColdBrewTeapotRecipeCategory.TYPE, ColdBrewTeapotRecipeCategory.getRecipes());
         registration.addRecipes(FermentingRecipeCategory.TYPE, FermentingRecipeCategory.getRecipes());
         registration.addRecipes(ScentingRecipeCategory.TYPE, ScentingRecipeCategory.getRecipes());
@@ -71,13 +67,6 @@ public class ModJeiPlugin implements IModPlugin {
      */
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        // 榨汁机同时能查本模组的榨汁配方和 tavern 的压榨桶配方
-        registration.addRecipeCatalyst(KSItems.JUICER.get().getDefaultInstance(), JuicerRecipeCategory.TYPE);
-        registration.addRecipeCatalyst(KSItems.JUICER.get().getDefaultInstance(), PressingTubCategory.TYPE);
-
-        // 榨汁机 → 空酒杯灌汁
-        registration.addRecipeCatalyst(KSItems.JUICER.get().getDefaultInstance(), JuicePouringCategory.TYPE);
-
         registration.addRecipeCatalyst(ModItems.TEAPOT.get(), ColdBrewTeapotRecipeCategory.TYPE);
         registration.addRecipeCatalyst(ModBlocks.BAMBOO_TRAY.get(), FermentingRecipeCategory.TYPE);
         registration.addRecipeCatalyst(ModBlocks.BAMBOO_TRAY.get(), ScentingRecipeCategory.TYPE);

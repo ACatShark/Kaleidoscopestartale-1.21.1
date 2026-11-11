@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "kaleidoscope_cookery:lettuce"
+            "items": "#c:crops/lettuce"
           }
         ]
       },
@@ -31,7 +31,7 @@
       "conditions": {
         "items": [
           {
-            "items": "kaleidoscope_cookery:tomato"
+            "items": "#c:crops/tomato"
           }
         ]
       },

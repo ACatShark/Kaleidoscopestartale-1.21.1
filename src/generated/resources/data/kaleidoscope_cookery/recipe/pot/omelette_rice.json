@@ -17,10 +17,10 @@
       "tag": "c:crops/tomato"
     },
     {
-      "item": "kaleidoscope_cookery:lettuce"
+      "tag": "c:crops/lettuce"
     },
     {
-      "item": "minecraft:carrot"
+      "tag": "c:crops/carrot"
     }
   ],
   "result": {

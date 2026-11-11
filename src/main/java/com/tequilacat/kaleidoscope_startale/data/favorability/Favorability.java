@@ -2,6 +2,7 @@ package com.tequilacat.kaleidoscope_startale.data.favorability;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -20,30 +21,10 @@ import net.minecraft.util.Mth;
  */
 public record Favorability(int points, long lastDay, int feedCount) {
 
-    /** 每级所需的点数。 */
-    public static final int POINTS_PER_LEVEL = 100;
-
     /** 最大等级。 */
     public static final int MAX_LEVEL = 10;
-
-    /** 最大点数。 */
-    public static final int MAX_POINTS = 900;
-
-    /** 每日最大喂食次数。 */
-    public static final int MAX_FEEDS_PER_DAY = 3;
-
-    /** 每次拍击获得的点数。 */
-    public static final int GAIN_PER_PET = 10;
-
-    /** 每次喂食获得的点数。 */
-    public static final int GAIN_PER_FEED = 5;
-
-    /** 每日结算获得的点数。 */
-    public static final int GAIN_PER_DAY = 10;
-
     /** 每天的刻数。 */
     public static final long TICKS_PER_DAY = 24000L;
-
     /** 未初始化日期的标记值。 */
     public static final long UNINITIALIZED_DAY = -1L;
 
@@ -77,7 +58,25 @@ public record Favorability(int points, long lastDay, int feedCount) {
      * @return 等级（限制在 1 到最大等级之间）
      */
     public static int levelOf(int points) {
-        return Mth.clamp(1 + points / POINTS_PER_LEVEL, 1, MAX_LEVEL);
+        return Mth.clamp(1 + points / pointsPerLevel(), 1, MAX_LEVEL);
+    }
+
+    /**
+     * 获取每级所需的点数。
+     *
+     * @return 每级所需点数
+     */
+    public static int pointsPerLevel() {
+        return StartaleConfig.FAVOR_POINTS_PER_LEVEL.get();
+    }
+
+    /**
+     * 获取可累积的最大点数，即满级所需的点数。
+     *
+     * @return 最大点数
+     */
+    public static int maxPoints() {
+        return (MAX_LEVEL - 1) * pointsPerLevel();
     }
 
     /**
@@ -88,7 +87,7 @@ public record Favorability(int points, long lastDay, int feedCount) {
      */
     public static int pointsToNextLevelOf(int points) {
         int level = levelOf(points);
-        return level >= MAX_LEVEL ? 0 : level * POINTS_PER_LEVEL - points;
+        return level >= MAX_LEVEL ? 0 : level * pointsPerLevel() - points;
     }
 
     /**
@@ -133,7 +132,7 @@ public record Favorability(int points, long lastDay, int feedCount) {
      * @return 剩余喂食次数
      */
     public int remainingFeedsToday() {
-        return Math.max(0, MAX_FEEDS_PER_DAY - this.feedCount);
+        return Math.max(0, StartaleConfig.FAVOR_MAX_FEEDS_PER_DAY.get() - this.feedCount);
     }
 
     /**
@@ -145,7 +144,7 @@ public record Favorability(int points, long lastDay, int feedCount) {
      * @return 修改后的副本
      */
     public Favorability withPoints(int newPoints) {
-        return new Favorability(Mth.clamp(newPoints, 0, MAX_POINTS), this.lastDay, this.feedCount);
+        return new Favorability(Mth.clamp(newPoints, 0, maxPoints()), this.lastDay, this.feedCount);
     }
 
     /**

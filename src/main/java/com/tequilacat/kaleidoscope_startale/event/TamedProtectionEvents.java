@@ -1,5 +1,6 @@
 package com.tequilacat.kaleidoscope_startale.event;
 
+import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
 import com.tequilacat.kaleidoscope_startale.data.tame.MobTaming;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -26,15 +27,10 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 public class TamedProtectionEvents {
 
     /**
-     * 单次受伤的最大生命值比例上限。
-     */
-    public static final float MAX_DAMAGE_RATIO = 0.25F;
-
-    /**
      * 处理受到伤害事件。
      * <p>
      * 若受击者为已驯养生物且伤害不绕过无敌判定，
-     * 则将伤害限制在最大生命值的四分之一以内。
+     * 则将单次伤害限制在最大生命值的配置比例以内。
      *
      * @param event 受伤事件
      */
@@ -48,7 +44,7 @@ public class TamedProtectionEvents {
             return;
         }
 
-        float cap = entity.getMaxHealth() * MAX_DAMAGE_RATIO;
+        float cap = entity.getMaxHealth() * StartaleConfig.TAMED_MAX_DAMAGE_RATIO.get().floatValue();
         if (event.getAmount() > cap) {
             event.setAmount(cap);
         }

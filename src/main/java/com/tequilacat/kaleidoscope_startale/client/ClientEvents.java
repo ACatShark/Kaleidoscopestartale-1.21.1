@@ -6,8 +6,6 @@ import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedArmad
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedChickenModel;
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedCowModel;
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedPigModel;
-import com.tequilacat.kaleidoscope_startale.client.renderer.block.JuicerItemStackRenderer;
-import com.tequilacat.kaleidoscope_startale.client.renderer.block.JuicerRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedArmadilloRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedChickenRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedCowRenderer;
@@ -34,11 +32,6 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 public class ClientEvents {
 
     /**
-     * 榨汁机物品渲染器实例，首次使用时创建并复用。
-     */
-    private static JuicerItemStackRenderer juicerItemRenderer;
-
-    /**
      * 注册模型层定义。
      * <p>
      * 为已驯养的猪、鸡、牛、犰狳模型注册身体层。
@@ -63,31 +56,10 @@ public class ClientEvents {
      */
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(KSBlockEntities.JUICER.get(), JuicerRenderer::new);
         event.registerEntityRenderer(EntityType.PIG, TamedPigRenderer::new);
         event.registerEntityRenderer(EntityType.CHICKEN, TamedChickenRenderer::new);
         event.registerEntityRenderer(EntityType.COW, TamedCowRenderer::new);
         event.registerEntityRenderer(EntityType.ARMADILLO, TamedArmadilloRenderer::new);
     }
 
-    /**
-     * 注册物品客户端扩展。
-     * <p>
-     * 用于替代已弃用的 {@code Item#initializeClient(Consumer)}，
-     * 为榨汁机物品提供手持与物品栏中的自定义渲染器。
-     *
-     * @param event 客户端扩展注册事件
-     */
-    @SubscribeEvent
-    public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerItem(new IClientItemExtensions() {
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                if (juicerItemRenderer == null) {
-                    juicerItemRenderer = new JuicerItemStackRenderer();
-                }
-                return juicerItemRenderer;
-            }
-        }, KSItems.JUICER.get());
-    }
 }

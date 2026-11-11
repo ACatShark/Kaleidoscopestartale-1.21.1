@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "kaleidoscope_startale:juicer"
+          "name": "kaleidoscope_startale:cream_oil"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "kaleidoscope_startale:blocks/juicer"
+  "random_sequence": "kaleidoscope_startale:blocks/cream_oil"
 }
