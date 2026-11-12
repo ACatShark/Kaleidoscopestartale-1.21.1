@@ -347,7 +347,7 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
                 .save(output);
         BarrelBuilder.builder()
                 .setFluid(ModFluids.GRAPE_JUICE.get())
-                .addIngredient(com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems.WINE.get())
+                .addIngredient(com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems.GRAPE.get())
                 .addIngredient(com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems.GOLD_GRAPE.get())
                 .addIngredient(com.github.ysbbbbbb.kaleidoscopetavern.init.ModItems.ICE_GRAPE.get())
                 .setResult(KSItems.GRAPE_FLAVORED_WINE.get())

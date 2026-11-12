@@ -6,7 +6,7 @@
   "fluid": "kaleidoscope_tavern:grape_juice",
   "ingredients": [
     {
-      "item": "kaleidoscope_tavern:wine"
+      "item": "kaleidoscope_tavern:grape"
     },
     {
       "item": "kaleidoscope_tavern:gold_grape"
