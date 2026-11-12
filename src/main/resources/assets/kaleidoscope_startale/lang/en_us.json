@@ -127,6 +127,16 @@
   "config.jade.plugin_kaleidoscope_startale.animal_owner": "Animal Owner",
   "config.jade.plugin_kaleidoscope_startale.petter_cooldown": "Petter Cooldown",
 
+  "_comment.hud": "Tamed Info Panel",
+  "hud.kaleidoscope_startale.owner": "Owner",
+  "hud.kaleidoscope_startale.petter_cooldown": "Cooldown",
+  "hud.kaleidoscope_startale.feed": "Fed Today",
+  "hud.kaleidoscope_startale.favorability": "Affection",
+  "hud.kaleidoscope_startale.progress": "Progress",
+  "hud.kaleidoscope_startale.ready": "Ready",
+  "hud.kaleidoscope_startale.max_level": "Max Level",
+  "hud.kaleidoscope_startale.unknown_owner": "Unknown",
+
   "_comment.jei": "JEI",
   "jei.kaleidoscope_startale.cold_brew_teapot.title": "Cold Brew Teapot",
   "jei.kaleidoscope_startale.cold_brew_teapot.time": "Time: %s sec",

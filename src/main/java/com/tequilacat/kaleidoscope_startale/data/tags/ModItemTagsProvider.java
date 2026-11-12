@@ -1,5 +1,6 @@
 package com.tequilacat.kaleidoscope_startale.data.tags;
 
+import com.github.ysbbbbbb.kaleidoscopecookery.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.tag.TagMod;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.init.KSItemTags;
@@ -36,6 +37,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(KSItemTags.LOOTING_APPLICABLE)
                 .add(KSItems.PETTER.get())
                 .addOptionalTag(ResourceLocation.fromNamespaceAndPath("minecraft", "enchantable/sword"));
+        tag(KSItemTags.TAMED_DATA_DISPLAY_HAT)
+                .add(ModItems.STRAW_HAT.get())
+                .add(ModItems.STRAW_HAT_FLOWER.get());
 
 
         // ==================== 原版 ====================

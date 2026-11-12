@@ -11,6 +11,7 @@ import net.neoforged.bus.api.IEventBus;
 public interface KSBlockEntities {
     DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, KaleidoscopeStartale.MODID);
 
+    /** 奶油壶方块实体 */
     DeferredHolder<BlockEntityType<?>, BlockEntityType<CreamOilBlockEntity>> CREAM_OIL =
             BLOCK_ENTITIES.register("cream_oil", () -> BlockEntityType.Builder
                     .of(CreamOilBlockEntity::new, KSBlocks.CREAM_OIL.get())

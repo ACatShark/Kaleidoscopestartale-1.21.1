@@ -7,10 +7,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 
 @EventBusSubscriber(modid = KaleidoscopeStartale.MODID)
-public class KSBlockEntityTypes {
+public interface KSBlockEntityTypes {
 
     @SubscribeEvent
-    public static void addValidBlocks(BlockEntityTypeAddBlocksEvent event) {
+    static void addValidBlocks(BlockEntityTypeAddBlocksEvent event) {
         event.modify(ModBlocks.DRINK_BE.get(),
                 KSBlocks.ANCIENT_FRUIT_WINE.get(),
                 KSBlocks.REFRESHING_BEER.get(),

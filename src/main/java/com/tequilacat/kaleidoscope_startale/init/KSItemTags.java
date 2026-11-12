@@ -15,7 +15,10 @@ public interface KSItemTags {
     TagKey<Item> POULTRY_FEED = modTag("poultry_feed");
     /** 通用饲料类物品 */
     TagKey<Item> UNIVERSAL_FEED = modTag("universal_feed");
+    /** 抢夺额外掉落。 */
     TagKey<Item> LOOTING_APPLICABLE = modTag("looting_applicable");
+    /** 允许显示该面板的头部装备。 */
+    TagKey<Item> TAMED_DATA_DISPLAY_HAT = modTag("tamed_data_display_hat");
 
 
     // ==================== 作物 ====================

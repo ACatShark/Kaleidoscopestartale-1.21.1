@@ -1,6 +1,7 @@
 package com.tequilacat.kaleidoscope_startale.client;
 
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
+import com.tequilacat.kaleidoscope_startale.client.hud.TamedInfoOverlay;
 import com.tequilacat.kaleidoscope_startale.client.model.ModModelLayers;
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedArmadilloModel;
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedChickenModel;
@@ -18,6 +19,8 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
@@ -60,6 +63,19 @@ public class ClientEvents {
         event.registerEntityRenderer(EntityType.CHICKEN, TamedChickenRenderer::new);
         event.registerEntityRenderer(EntityType.COW, TamedCowRenderer::new);
         event.registerEntityRenderer(EntityType.ARMADILLO, TamedArmadilloRenderer::new);
+    }
+
+    /**
+     * 注册界面浮层。
+     * <p>
+     * 把驯养信息面板挂到准星之上，使其绘制在准星之后。
+     *
+     * @param event 界面浮层注册事件
+     */
+    @SubscribeEvent
+    public static void registerGuiLayers(RegisterGuiLayersEvent event) {
+        event.registerAbove(VanillaGuiLayers.CROSSHAIR, KaleidoscopeStartale.id("tamed_info"),
+                new TamedInfoOverlay());
     }
 
 }

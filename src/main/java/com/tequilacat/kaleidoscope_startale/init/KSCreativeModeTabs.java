@@ -14,11 +14,10 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public final class KSCreativeModeTabs {
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
-            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, KaleidoscopeStartale.MODID);
+public interface KSCreativeModeTabs {
+    DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, KaleidoscopeStartale.MODID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> STARTALE_TAB =
+    DeferredHolder<CreativeModeTab, CreativeModeTab> STARTALE_TAB =
             CREATIVE_MODE_TABS.register("startale_tab", () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(KSItems.ANCIENT_FRUIT.get()))
                     .title(Component.translatable("itemGroup." + KaleidoscopeStartale.MODID))
@@ -96,7 +95,7 @@ public final class KSCreativeModeTabs {
         return new ItemStack(item);
     }
 
-    public static void register(IEventBus bus){
+    static void register(IEventBus bus){
         CREATIVE_MODE_TABS.register(bus);
     }
 }

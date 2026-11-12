@@ -127,6 +127,16 @@
   "config.jade.plugin_kaleidoscope_startale.animal_owner": "主人",
   "config.jade.plugin_kaleidoscope_startale.petter_cooldown": "拍拍冷却",
 
+  "_comment.hud": "驯养信息面板",
+  "hud.kaleidoscope_startale.owner": "主人",
+  "hud.kaleidoscope_startale.petter_cooldown": "拍拍冷却",
+  "hud.kaleidoscope_startale.feed": "今日喂食",
+  "hud.kaleidoscope_startale.favorability": "好感度",
+  "hud.kaleidoscope_startale.progress": "升级进度",
+  "hud.kaleidoscope_startale.ready": "就绪",
+  "hud.kaleidoscope_startale.max_level": "已满级",
+  "hud.kaleidoscope_startale.unknown_owner": "未知",
+
   "_comment.jei": "JEI",
   "jei.kaleidoscope_startale.cold_brew_teapot.title": "冷萃茶壶",
   "jei.kaleidoscope_startale.cold_brew_teapot.time": "时间: %s 秒",

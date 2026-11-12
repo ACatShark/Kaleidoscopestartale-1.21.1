@@ -8,10 +8,10 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
 
 @EventBusSubscriber(modid = KaleidoscopeStartale.MODID)
-public class KSCapabilities {
+public interface KSCapabilities {
 
     @SubscribeEvent
-    public static void registerItemHandlers(RegisterCapabilitiesEvent event) {
+    static void registerItemHandlers(RegisterCapabilitiesEvent event) {
         // 上古水果汁桶：可被任意流体容器抽取 / 灌入
         event.registerItem(Capabilities.FluidHandler.ITEM,
                 (stack, ctx) -> new FluidBucketWrapper(stack),

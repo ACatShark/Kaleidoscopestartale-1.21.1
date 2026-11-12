@@ -16,18 +16,15 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
  * 注册实体附件类型：驯养归属、拍拍冷却、挤压起始时刻与力度、
  * 灵感标记以及好感度数据，并按需配置序列化、同步与死亡保留。
  */
-public final class KSAttachments {
-
-    /** 附件类型注册器。 */
-    public static final DeferredRegister<AttachmentType<?>> TYPES =
-            DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, KaleidoscopeStartale.MODID);
+public interface KSAttachments {
+    DeferredRegister<AttachmentType<?>> TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, KaleidoscopeStartale.MODID);
 
     /**
      * 驯养归属。
      * <p>
      * 存档保存并同步到客户端，供 Jade 与渲染器使用；死亡时保留。
      */
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<TameData>> TAME =
+    DeferredHolder<AttachmentType<?>, AttachmentType<TameData>> TAME =
             TYPES.register("livestock", () -> AttachmentType.builder(() -> TameData.EMPTY)
                     .serialize(TameData.CODEC)
                     .sync(TameData.STREAM_CODEC)
@@ -37,11 +34,12 @@ public final class KSAttachments {
     /**
      * 拍拍冷却到期时间（游戏刻）。
      * <p>
-     * 仅存档保存。
+     * 存档保存并同步到客户端，供驯养信息面板显示剩余冷却。
      */
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Long>> PET_COOLDOWN =
+    DeferredHolder<AttachmentType<?>, AttachmentType<Long>> PET_COOLDOWN =
             TYPES.register("pet_cooldown", () -> AttachmentType.builder(() -> 0L)
                     .serialize(Codec.LONG)
+                    .sync(ByteBufCodecs.VAR_LONG)
                     .build());
 
     /**
@@ -49,7 +47,7 @@ public final class KSAttachments {
      * <p>
      * 仅客户端渲染需要，同步即可。
      */
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Long>> SQUEEZE_START =
+    DeferredHolder<AttachmentType<?>, AttachmentType<Long>> SQUEEZE_START =
             TYPES.register("squeeze_start", () -> AttachmentType.builder(() -> 0L)
                     .sync(ByteBufCodecs.VAR_LONG)
                     .build());
@@ -59,7 +57,7 @@ public final class KSAttachments {
      * <p>
      * 客户端据此加深压扁程度。
      */
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> SQUEEZE_POWER =
+    DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> SQUEEZE_POWER =
             TYPES.register("squeeze_power", () -> AttachmentType.builder(() -> 0)
                     .sync(ByteBufCodecs.VAR_INT)
                     .build());
@@ -69,7 +67,7 @@ public final class KSAttachments {
      * <p>
      * 用于判定效果结束并施加「灵感枯竭」，无需保存与同步。
      */
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> HAD_INSPIRATION =
+    DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> HAD_INSPIRATION =
             TYPES.register("had_inspiration", () -> AttachmentType.builder(() -> Boolean.FALSE).build());
 
     /**
@@ -77,7 +75,7 @@ public final class KSAttachments {
      * <p>
      * 存档保存并同步到客户端，死亡时保留。
      */
-    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Favorability>> FAVORABILITY =
+    DeferredHolder<AttachmentType<?>, AttachmentType<Favorability>> FAVORABILITY =
             TYPES.register("favorability", () -> AttachmentType.builder(() -> Favorability.EMPTY)
                     .serialize(Favorability.CODEC)
                     .sync(Favorability.STREAM_CODEC)

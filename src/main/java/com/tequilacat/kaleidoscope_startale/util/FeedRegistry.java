@@ -29,6 +29,9 @@ import java.util.Set;
  */
 public class FeedRegistry {
 
+    /** 标签代次，标签每次重新绑定后自增，供依赖标签的缓存判断是否失效。 */
+    private static volatile int tagGeneration;
+
     /**
      * 饲料分组，将饲料物品标签与其对应的生物实体标签配对。
      *
@@ -45,8 +48,17 @@ public class FeedRegistry {
             new FeedGroup(KSItemTags.LIVESTOCK_FEED, KSEntityTags.LIVESTOCK_FEED_MOBS),
             new FeedGroup(KSItemTags.POULTRY_FEED, KSEntityTags.POULTRY_FEED_MOBS));
 
-    /** 标签代次，标签每次重新绑定后自增，供依赖标签的缓存判断是否失效。 */
-    private static volatile int tagGeneration;
+    /**
+     * 硬编码的通用饲料黑名单。
+     * <p>
+     * 这些生物不会被通用饲料吸引或驯服。
+     */
+    private static final Set<ResourceLocation> BUILTIN_BLACKLIST = Set.of(
+            ResourceLocation.fromNamespaceAndPath("touhou_little_maid", "maid"),
+            ResourceLocation.fromNamespaceAndPath("touhou_little_maid", "fairy"),
+            ResourceLocation.fromNamespaceAndPath("cataclysm", "the_baby_leviathan"),
+            ResourceLocation.fromNamespaceAndPath("cataclysm", "modern_remnant"),
+            ResourceLocation.fromNamespaceAndPath("cataclysm", "netherite_ministrosity"));
 
     /**
      * 获取当前标签代次。
@@ -69,14 +81,16 @@ public class FeedRegistry {
     /**
      * 判断实体类型是否被通用饲料拉黑。
      * <p>
-     * ID 写进了配置黑名单即视为拉黑，配置项每次现读，
-     * 保证改完配置无需重载数据。
+     * 内置黑名单硬编码，配置里的条目在此基础上追加，每次现读，改完无需重载数据。
      *
      * @param type 实体类型
      * @return 是否被拉黑
      */
     private static boolean isBlacklisted(EntityType<?> type) {
         ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(type);
+        if (BUILTIN_BLACKLIST.contains(key)) {
+            return true;
+        }
         for (String raw : StartaleConfig.UNIVERSAL_FEED_BLACKLIST.get()) {
             if (key.equals(ResourceLocation.tryParse(raw))) {
                 return true;

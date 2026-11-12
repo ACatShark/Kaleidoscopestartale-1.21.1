@@ -8,10 +8,10 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.function.Supplier;
 
-public class KSFluidTypes {
-    public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, KaleidoscopeStartale.MODID);
+public interface KSFluidTypes {
+    DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, KaleidoscopeStartale.MODID);
 
     /** 上古水果汁 */
-    public static final Supplier<FluidType> ANCIENT_FRUIT_JUICE_TYPE = FLUID_TYPES.register("ancient_fruit_juice",
+    Supplier<FluidType> ANCIENT_FRUIT_JUICE_TYPE = FLUID_TYPES.register("ancient_fruit_juice",
             () -> new JuiceFluidType(KSFluids.ANCIENT_FRUIT_JUICE_ID, 0));
 }
