@@ -19,18 +19,18 @@ public interface KSItems {
     DeferredRegister.Items ITEMS = DeferredRegister.createItems(KaleidoscopeStartale.MODID);
 
     // ==================== 作物 ====================
-    /** 苋菜种子 */
-    DeferredItem<SeedItem> AMARANTH_SEEDS = ITEMS.register("amaranth_seeds", () -> new SeedItem(KSBlocks.AMARANTH_CROP.get(), new Item.Properties()));
-    /** 大黄种子 */
-    DeferredItem<SeedItem> RHUBARB_SEEDS = ITEMS.register("rhubarb_seeds", () -> new SeedItem(KSBlocks.RHUBARB_CROP.get(), new Item.Properties()));
     /** 大黄 */
     DeferredItem<Item> RHUBARB = ITEMS.register("rhubarb", () -> new Item(new Item.Properties().food(KSFoods.RHUBARB)));
+    /** 大黄种子 */
+    DeferredItem<SeedItem> RHUBARB_SEEDS = ITEMS.register("rhubarb_seeds", () -> new SeedItem(KSBlocks.RHUBARB_CROP.get(), new Item.Properties()));
     /** 苋菜 */
     DeferredItem<Item> AMARANTH = ITEMS.register("amaranth", () -> new Item(new Item.Properties()));
-    /** 上古水果藤 */
-    DeferredItem<Item> ANCIENT_FRUIT_VINE = ITEMS.register("ancient_fruit_vine", () -> new Item(new Item.Properties()));
+    /** 苋菜种子 */
+    DeferredItem<SeedItem> AMARANTH_SEEDS = ITEMS.register("amaranth_seeds", () -> new SeedItem(KSBlocks.AMARANTH_CROP.get(), new Item.Properties()));
     /** 上古水果 */
     DeferredItem<Item> ANCIENT_FRUIT = ITEMS.register("ancient_fruit", () -> new Item(new Item.Properties().food(KSFoods.ANCIENT_FRUIT)));
+    /** 上古水果藤 */
+    DeferredItem<Item> ANCIENT_FRUIT_VINE = ITEMS.register("ancient_fruit_vine", () -> new Item(new Item.Properties()));
 
 
     // ==================== 食物 ====================

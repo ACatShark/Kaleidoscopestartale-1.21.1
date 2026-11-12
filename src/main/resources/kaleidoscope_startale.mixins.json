@@ -3,6 +3,8 @@
   "package": "com.tequilacat.kaleidoscope_startale.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "client.CreativeModeInventoryScreenInvoker",
+    "client.CreativeSectionButtonsMixin",
     "client.EntityRenderDispatcherMixin"
   ],
   "mixins": [

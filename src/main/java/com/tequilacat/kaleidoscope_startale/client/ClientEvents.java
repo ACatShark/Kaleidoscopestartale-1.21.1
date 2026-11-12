@@ -11,9 +11,6 @@ import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedA
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedChickenRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedCowRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedPigRenderer;
-import com.tequilacat.kaleidoscope_startale.init.KSBlockEntities;
-import com.tequilacat.kaleidoscope_startale.init.KSItems;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -21,8 +18,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 /**
  * 客户端事件类。
@@ -77,5 +72,20 @@ public class ClientEvents {
         event.registerAbove(VanillaGuiLayers.CROSSHAIR, KaleidoscopeStartale.id("tamed_info"),
                 new TamedInfoOverlay());
     }
+
+//    /**
+//     * 绘制创造模式物品栏的横幅。
+//     * <p>
+//     * 横幅占位是空物品格，需要在物品格画完之后、物品堆叠与提示框之前覆盖上去。
+//     *
+//     * @param event 容器界面前景渲染事件
+//     */
+//    @SubscribeEvent
+//    public static void renderCreativeSections(ContainerScreenEvent.Render.Foreground event) {
+//        if (event.getContainerScreen() instanceof CreativeTabSectionHost host) {
+//            CreativeTabSectionRenderer.render(event.getGuiGraphics(), host, Minecraft.getInstance().font,
+//                    event.getMouseX(), event.getMouseY());
+//        }
+//    }
 
 }

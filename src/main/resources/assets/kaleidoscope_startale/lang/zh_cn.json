@@ -149,6 +149,15 @@
   "jei.kaleidoscope_startale.cold_stew.title": "冷炖",
   "jei.kaleidoscope_startale.cold_stew.time": "时间: %s 秒",
 
+  "_comment.creative_tab": "创造模式物品栏横幅",
+  "creative_tab.kaleidoscope_startale.crops": "作物",
+  "creative_tab.kaleidoscope_startale.food": "食物",
+  "creative_tab.kaleidoscope_startale.drinks": "酒水",
+  "creative_tab.kaleidoscope_startale.tea": "茶水",
+  "creative_tab.kaleidoscope_startale.materials": "材料",
+  "creative_tab.kaleidoscope_startale.tools": "工具",
+  "creative_tab.kaleidoscope_startale.shift_hint": "按住Shift可选择多个分类",
+
   "_comment.tooltip": "提示",
   "tooltip.kaleidoscope_startale.effect_chance": "%s（%s%% 概率）",
   "tooltip.kaleidoscope_startale.ancient_fruit_juice_bucket": "用于酿造上古水果酒",
