@@ -150,12 +150,10 @@
   "jei.kaleidoscope_startale.cold_stew.time": "Time: %s sec",
 
   "_comment.creative_tab": "Creative Tab Sections",
-  "creative_tab.kaleidoscope_startale.crops": "Crops",
-  "creative_tab.kaleidoscope_startale.food": "Food",
-  "creative_tab.kaleidoscope_startale.drinks": "Drinks",
-  "creative_tab.kaleidoscope_startale.tea": "Tea",
   "creative_tab.kaleidoscope_startale.materials": "Materials",
   "creative_tab.kaleidoscope_startale.tools": "Tools",
+  "creative_tab.kaleidoscope_startale.foods": "Foods",
+  "creative_tab.kaleidoscope_startale.drinks": "Drinks",
   "creative_tab.kaleidoscope_startale.shift_hint": "Hold Shift to select multiple sections",
 
   "_comment.tooltip": "Tooltip",

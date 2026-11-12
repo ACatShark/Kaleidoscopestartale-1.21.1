@@ -49,6 +49,7 @@ public final class KSCreativeSections {
      * 全部分区定义，顺序即按钮与物品显示顺序。
      */
     private static final List<Section> SECTIONS = List.of(
+            /* 材料分区 */
             new Section("materials", () -> new ItemStack(KSItems.ANCIENT_FRUIT_JUICE_BUCKET.get()), output -> {
                 output.accept(KSItems.ANCIENT_FRUIT_JUICE_BUCKET.get());
                 output.accept(KSItems.LIVESTOCK_FEED.get());
@@ -59,6 +60,7 @@ public final class KSCreativeSections {
                 output.accept(KSItems.GREEN_TEA_LEAVES);
                 output.accept(KSItems.ROSE_TEA_BAG);
             }),
+            /* 工具分区 */
             new Section("tools", () -> new ItemStack(KSItems.PETTER.get()), output -> {
                 output.accept(KSItems.PETTER.get());
                 output.accept(KSItems.COLD_STOVE.get());
@@ -67,15 +69,17 @@ public final class KSCreativeSections {
                 CreamOilBlock.writeCreamCount(new ItemStack(KSItems.CREAM_OIL.get()),
                         CreamOilBlockEntity.MAX_CREAM_COUNT);
             }),
-            new Section("crops", () -> new ItemStack(KSItems.RHUBARB.get()), output -> {
+            /* 食物分区 */
+            new Section("foods", () -> new ItemStack(KSItems.SLIME_KING_FLAVORED_JELLY.get()), output -> {
+                // ==================== 作物 ====================
                 output.accept(KSItems.RHUBARB.get());
                 output.accept(KSItems.RHUBARB_SEEDS.get());
                 output.accept(KSItems.AMARANTH.get());
                 output.accept(KSItems.AMARANTH_SEEDS.get());
                 output.accept(KSItems.ANCIENT_FRUIT.get());
                 output.accept(KSItems.ANCIENT_FRUIT_VINE.get());
-            }),
-            new Section("food", () -> new ItemStack(KSItems.GOLDFISH.get()), output -> {
+
+                // ==================== 食物 ====================
                 output.accept(KSItems.GOLDFISH.get());
                 output.accept(KSItems.ENCHANTED_NIGHTCRAWLER.get());
                 output.accept(KSItems.ANCIENT_FRUIT_PLATTER.get());
@@ -95,7 +99,9 @@ public final class KSCreativeSections {
                 output.accept(KSItems.MATCHA_CAKE_SLICE);
                 output.accept(KSItems.MATCHA_CAKE);
             }),
-            new Section("drinks", () -> new ItemStack(KSItems.RHUBARB_JAM.get()), output -> {
+            /* 饮品分区 */
+            new Section("drinks", () -> new ItemStack(KSItems.ICE_ELF_COCKTAIL.get()), output -> {
+                // ==================== 酒水 ====================
                 output.accept(KSItems.RHUBARB_JAM.get());
                 output.accept(KSItems.ICE_ELF_COCKTAIL.get());
                 output.accept(KSItems.BUBBLE_ECHO_COCKTAIL.get());
@@ -107,10 +113,11 @@ public final class KSCreativeSections {
                 output.accept(brewed(KSItems.GRAPE_FLAVORED_WINE.get()));
                 output.accept(brewed(KSItems.JOJA_COLA.get()));
                 output.accept(brewed(KSItems.RED_EYE_WINE.get()));
-            }),
-            new Section("tea", () -> new ItemStack(TeacupRegistry.getItem(KSTeacups.MATCHA_TEA)), output -> {
+
+                // ==================== 茶水 ====================
                 output.accept(TeacupRegistry.getItem(KSTeacups.MATCHA_TEA));
                 output.accept(TeacupRegistry.getItem(KSTeacups.ROSE_TEA));
+
             }));
 
     /** 当前激活的分区下标，默认全选。 */
