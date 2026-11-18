@@ -7,6 +7,7 @@
   "block.kaleidoscope_startale.yunomi": "汤吞",
   "item.kaleidoscope_startale.cream_oil": "奶油壶",
   "block.kaleidoscope_startale.cream_oil": "奶油壶",
+  "block.kaleidoscope_startale.carton": "纸盒",
 
   "_comment.items": "物品",
   "item.kaleidoscope_startale.universal_feed": "通用饲料",
@@ -17,6 +18,7 @@
   "item.kaleidoscope_startale.cream": "奶油",
 
   "_comment.foods": "食物",
+  "block.kaleidoscope_startale.milk_carton": "纸盒牛奶",
   "item.kaleidoscope_startale.goldfish": "金鱼",
   "item.kaleidoscope_startale.rhubarb_jam": "大黄酱",
   "item.kaleidoscope_startale.ancient_fruit_platter": "上古水果拼盘",
@@ -68,6 +70,7 @@
   "block.kaleidoscope_startale.omelette_rice": "蛋包饭",
   "block.kaleidoscope_startale.rhubarb_fondant_pie": "大黄翻糖派",
   "block.kaleidoscope_startale.matcha_cake": "抹茶蛋糕",
+  "block.kaleidoscope_startale.slime_king_flavored_jelly": "史莱姆王风味果冻",
 
   "_comment.items_tea_ingredients": "茶材料",
   "item.kaleidoscope_startale.green_tea_leaves": "绿茶茶叶",

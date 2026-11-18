@@ -1,5 +1,6 @@
 package com.tequilacat.kaleidoscope_startale.event;
 
+import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
@@ -14,13 +15,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.TagsUpdatedEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import com.tequilacat.kaleidoscope_startale.ai.FeedTemptGoal;
-import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
+import com.tequilacat.kaleidoscope_startale.config.KSServerConfig;
 import com.tequilacat.kaleidoscope_startale.init.KSAttachments;
 import com.tequilacat.kaleidoscope_startale.data.tame.TameData;
 import com.tequilacat.kaleidoscope_startale.data.favorability.FavorabilityTracker;
@@ -36,6 +38,7 @@ import com.tequilacat.kaleidoscope_startale.data.tame.TamingCompat;
  * 未驯养动物按概率驯服并记录主人；同时对生物注入通用饲料的诱惑 AI，
  * 并兼容原版与模组自带的驯养体系。
  */
+@EventBusSubscriber(modid = KaleidoscopeStartale.MODID)
 public class FeedEvents {
 
     /** 诱惑 AI 的优先级。 */
@@ -121,7 +124,7 @@ public class FeedEvents {
      */
     private static boolean feedTamed(Animal animal, Player player, ItemStack stack) {
         if (animal.getHealth() < animal.getMaxHealth()) {
-            animal.heal(StartaleConfig.TAME_HEAL.get().floatValue());
+            animal.heal(KSServerConfig.TAME_HEAL.get().floatValue());
             stack.consume(1, player);
             animal.gameEvent(GameEvent.EAT);
             return true;
@@ -187,7 +190,7 @@ public class FeedEvents {
     private static void tryToTame(Animal animal, Player player, ItemStack stack) {
         stack.consume(1, player);
 
-        boolean tamed = animal.getRandom().nextInt(StartaleConfig.TAME_CHANCE.get()) == 0 && !EventHooks.onAnimalTame(animal, player);
+        boolean tamed = animal.getRandom().nextInt(KSServerConfig.TAME_CHANCE.get()) == 0 && !EventHooks.onAnimalTame(animal, player);
         if (tamed) {
             animal.setData(KSAttachments.TAME.get(), new TameData(player.getUUID(), player.getName().getString()));
             animal.setPersistenceRequired();
@@ -239,7 +242,7 @@ public class FeedEvents {
         boolean alreadyInjected = animal.goalSelector.getAvailableGoals().stream()
                 .anyMatch(wrapped -> wrapped.getGoal() instanceof FeedTemptGoal);
         if (!alreadyInjected) {
-            animal.goalSelector.addGoal(TEMPT_PRIORITY, new FeedTemptGoal(animal, StartaleConfig.TEMPTATION_SPEED.get()));
+            animal.goalSelector.addGoal(TEMPT_PRIORITY, new FeedTemptGoal(animal, KSServerConfig.TEMPTATION_SPEED.get()));
         }
     }
 

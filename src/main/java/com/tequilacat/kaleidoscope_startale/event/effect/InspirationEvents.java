@@ -1,11 +1,13 @@
 package com.tequilacat.kaleidoscope_startale.event.effect;
 
+import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
@@ -20,6 +22,7 @@ import com.tequilacat.kaleidoscope_startale.init.KSEffects;
  * 灵感结束后施加持续 180 秒的灵感枯竭效果，
  * 且灵感枯竭期间无法再次获得灵感。
  */
+@EventBusSubscriber(modid = KaleidoscopeStartale.MODID)
 public class InspirationEvents {
 
     /** 每点伤害消耗的经验值。 */

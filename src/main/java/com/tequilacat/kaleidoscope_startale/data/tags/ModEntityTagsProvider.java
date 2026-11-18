@@ -24,7 +24,8 @@ public class ModEntityTagsProvider extends EntityTypeTagsProvider {
                 .add(EntityType.PIG) // 猪
                 .add(EntityType.SHEEP) // 羊
                 .add(EntityType.GOAT) // 山羊
-                .add(EntityType.SNIFFER); // 嗅探兽
+                .add(EntityType.SNIFFER) // 嗅探兽
+                .add(EntityType.CAMEL); // 骆驼
 
         tag(KSEntityTags.POULTRY_FEED_MOBS)
                 .add(EntityType.ARMADILLO) // 犰狳
@@ -39,6 +40,7 @@ public class ModEntityTagsProvider extends EntityTypeTagsProvider {
                 .add(EntityType.SHEEP) // 羊
                 .add(EntityType.GOAT) // 山羊
                 .add(EntityType.SNIFFER) // 嗅探兽
+                .add(EntityType.CAMEL) // 骆驼
 
                 .add(EntityType.ARMADILLO) // 犰狳
                 .add(EntityType.RABBIT) // 兔子

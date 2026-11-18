@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "kaleidoscope_startale:block/food/milk_carton"
+    },
+    "facing=east": {
+      "model": "kaleidoscope_startale:block/food/milk_carton",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "kaleidoscope_startale:block/food/milk_carton",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "kaleidoscope_startale:block/food/milk_carton",
+      "y": 270
+    }
+  }
+}

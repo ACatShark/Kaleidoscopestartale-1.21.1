@@ -1,0 +1,126 @@
+{
+	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "kaleidoscope_startale:block/food/slime_king_flavored_jelly",
+		"particle": "kaleidoscope_startale:block/food/slime_king_flavored_jelly"
+	},
+	"elements": [
+		{
+			"name": "wanguan",
+			"from": [5, 9.6, 5],
+			"to": [11, 11.6, 11],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 10.6, 8]},
+			"faces": {
+				"north": {"uv": [4.5, 11.5, 6, 12], "texture": "#0"},
+				"east": {"uv": [6, 11.5, 7.5, 12], "texture": "#0"},
+				"south": {"uv": [1.5, 11.5, 3, 12], "texture": "#0"},
+				"west": {"uv": [3, 11.5, 4.5, 12], "texture": "#0"},
+				"up": {"uv": [9.5, 7, 11, 8.5], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [0, 10, 1.5, 11.5], "rotation": 180, "texture": "#0"}
+			}
+		},
+		{
+			"name": "wanguan",
+			"from": [5, 11.6, 5],
+			"to": [11, 14.6, 11],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 10.6, 8]},
+			"faces": {
+				"north": {"uv": [4.5, 10.75, 6, 11.5], "texture": "#0"},
+				"east": {"uv": [6, 10.75, 7.5, 11.5], "texture": "#0"},
+				"south": {"uv": [1.5, 10.75, 3, 11.5], "texture": "#0"},
+				"west": {"uv": [3, 10.75, 4.5, 11.5], "texture": "#0"},
+				"up": {"uv": [9.5, 7, 11, 8.5], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [0, 10, 1.5, 11.5], "rotation": 180, "texture": "#0"}
+			}
+		},
+		{
+			"name": "wanguan",
+			"from": [11, 9.6, 5],
+			"to": [5, 14.6, 11],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 10.6, 8]},
+			"faces": {
+				"north": {"uv": [4.5, 10.75, 6, 12], "texture": "#0"},
+				"east": {"uv": [6, 10.75, 7.5, 12], "texture": "#0"},
+				"south": {"uv": [1.5, 10.75, 3, 12], "texture": "#0"},
+				"west": {"uv": [3, 10.75, 4.5, 12], "texture": "#0"},
+				"up": {"uv": [9.5, 7, 11, 8.5], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [0, 10, 1.5, 11.5], "rotation": 180, "texture": "#0"}
+			}
+		},
+		{
+			"name": "benti",
+			"from": [3, 2, 8],
+			"to": [8, 9, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 2, 3]},
+			"faces": {
+				"north": {"uv": [10.75, 0, 12, 1.75], "texture": "#0"},
+				"east": {"uv": [9.5, 1.75, 10.75, 3.5], "texture": "#0"},
+				"south": {"uv": [9.5, 3.5, 10.75, 5.25], "texture": "#0"},
+				"west": {"uv": [10.75, 5.25, 12, 7], "texture": "#0"},
+				"up": {"uv": [7, 1.25, 8.25, 2.5], "texture": "#0"},
+				"down": {"uv": [7, 2.5, 8.25, 3.75], "texture": "#0"}
+			}
+		},
+		{
+			"name": "dibu",
+			"from": [2, 0, 2],
+			"to": [14, 1, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
+			"faces": {
+				"north": {"uv": [7.5, 11, 10.5, 11.25], "texture": "#0"},
+				"east": {"uv": [11, 7.5, 14, 7.75], "texture": "#0"},
+				"south": {"uv": [11, 7.75, 14, 8], "texture": "#0"},
+				"west": {"uv": [11, 8, 14, 8.25], "texture": "#0"},
+				"up": {"uv": [4, 0, 7, 3], "texture": "#0"},
+				"down": {"uv": [4, 3, 7, 6], "texture": "#0"}
+			}
+		},
+		{
+			"name": "smian",
+			"from": [0, 1, 0],
+			"to": [16, 2, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 7]},
+			"faces": {
+				"north": {"uv": [9.5, 8.5, 13.5, 8.75], "texture": "#0"},
+				"east": {"uv": [7.5, 10.75, 11.5, 11], "texture": "#0"},
+				"south": {"uv": [11, 7, 15, 7.25], "texture": "#0"},
+				"west": {"uv": [11, 7.25, 15, 7.5], "texture": "#0"},
+				"up": {"uv": [0, 0, 4, 4], "texture": "#0"},
+				"down": {"uv": [0, 4, 4, 8], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "slime_king",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [
+				{
+					"name": "king",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 0,
+					"children": [0, 1, 2]
+				},
+				{
+					"name": "slime",
+					"origin": [8, 0, 7],
+					"scope": 0,
+					"color": 0,
+					"children": [3]
+				},
+				{
+					"name": "panzi",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 0,
+					"children": [4, 5]
+				}
+			]
+		}
+	]
+}

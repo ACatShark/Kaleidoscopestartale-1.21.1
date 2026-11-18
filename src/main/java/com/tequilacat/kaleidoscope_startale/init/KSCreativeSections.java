@@ -59,6 +59,7 @@ public final class KSCreativeSections {
                 output.accept(KSItems.CREAM.get());
                 output.accept(KSItems.GREEN_TEA_LEAVES);
                 output.accept(KSItems.ROSE_TEA_BAG);
+                output.accept(KSItems.CARTON.get());
             }),
             /* 工具分区 */
             new Section("tools", () -> new ItemStack(KSItems.PETTER.get()), output -> {
@@ -80,6 +81,7 @@ public final class KSCreativeSections {
                 output.accept(KSItems.ANCIENT_FRUIT_VINE.get());
 
                 // ==================== 食物 ====================
+                output.accept(KSItems.MILK_CARTON.get());
                 output.accept(KSItems.GOLDFISH.get());
                 output.accept(KSItems.ENCHANTED_NIGHTCRAWLER.get());
                 output.accept(KSItems.ANCIENT_FRUIT_PLATTER.get());

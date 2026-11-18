@@ -1,5 +1,6 @@
 package com.tequilacat.kaleidoscope_startale.event;
 
+import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.item.PetterItem;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -7,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 /**
@@ -15,6 +17,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
  * 监听玩家对实体右键事件，当手持拍拍器右键生物时，
  * 触发拍击行为并按本次产出的物品总数扣除拍拍器耐久。
  */
+@EventBusSubscriber(modid = KaleidoscopeStartale.MODID)
 public class PetterEvents {
 
     /**

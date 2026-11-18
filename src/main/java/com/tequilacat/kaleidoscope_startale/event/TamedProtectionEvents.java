@@ -1,6 +1,7 @@
 package com.tequilacat.kaleidoscope_startale.event;
 
-import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
+import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
+import com.tequilacat.kaleidoscope_startale.config.KSServerConfig;
 import com.tequilacat.kaleidoscope_startale.data.tame.MobTaming;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.Saddleable;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
@@ -24,6 +26,7 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
  * 阻止有害状态效果生效、阻止将主人设为目标，
  * 并在每刻清除着火与对主人的仇恨。
  */
+@EventBusSubscriber(modid = KaleidoscopeStartale.MODID)
 public class TamedProtectionEvents {
 
     /**
@@ -44,7 +47,7 @@ public class TamedProtectionEvents {
             return;
         }
 
-        float cap = entity.getMaxHealth() * StartaleConfig.TAMED_MAX_DAMAGE_RATIO.get().floatValue();
+        float cap = entity.getMaxHealth() * KSServerConfig.TAMED_MAX_DAMAGE_RATIO.get().floatValue();
         if (event.getAmount() > cap) {
             event.setAmount(cap);
         }

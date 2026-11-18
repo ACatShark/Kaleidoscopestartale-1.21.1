@@ -66,8 +66,8 @@ public class TamedChickenModel extends ChickenModel<Chicken> {
 
         head.addOrReplaceChild("cap",
                 CubeListBuilder.create()
-                        .texOffs(49, 22).addBox(-2.0F, -18.0F, -6.0F, 4.0F, 2.0F, 4.0F, new CubeDeformation(0.0F))
-                        .texOffs(47, 20).addBox(-2.0F, -16.0F, -8.0F, 4.0F, 1.0F, 6.0F, new CubeDeformation(0.0F)),
+                        .texOffs(50, 26).addBox(-2.0F, -18.0F, -6.0F, 4.0F, 3.0F, 3.0F, new CubeDeformation(0.0F))
+                        .texOffs(29, 28).addBox(-2.0F, -16.0F, -9.0F, 4.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(0.0F, 9.0F, 4.0F));
 
         return LayerDefinition.create(mesh, 64, 32);

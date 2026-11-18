@@ -2,7 +2,8 @@ package com.tequilacat.kaleidoscope_startale.client.hud;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
-import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
+import com.tequilacat.kaleidoscope_startale.config.KSClientConfig;
+import com.tequilacat.kaleidoscope_startale.config.KSServerConfig;
 import com.tequilacat.kaleidoscope_startale.data.favorability.Favorability;
 import com.tequilacat.kaleidoscope_startale.data.favorability.FavorabilityTracker;
 import com.tequilacat.kaleidoscope_startale.data.tame.MobTaming;
@@ -15,7 +16,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -26,8 +26,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Set;
 
 /**
  * 驯养信息浮层。
@@ -121,7 +119,7 @@ public final class TamedInfoOverlay implements LayeredDraw.Layer {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level == null || minecraft.player == null || minecraft.screen != null
                 || minecraft.options.hideGui || minecraft.getDebugOverlay().showDebugScreen()
-                || !StartaleConfig.HUD_ENABLED.get() || !wearsStrawHat(minecraft.player)) {
+                || !KSClientConfig.HUD_ENABLED.get() || !wearsStrawHat(minecraft.player)) {
             alpha = 0.0F;
             return;
         }
@@ -131,7 +129,7 @@ public final class TamedInfoOverlay implements LayeredDraw.Layer {
             snapshot = capture(target);
         }
 
-        float step = Math.min(1.0F, StartaleConfig.HUD_FADE_SPEED.get().floatValue() * deltaTracker.getRealtimeDeltaTicks() / 20.0F);
+        float step = Math.min(1.0F, KSClientConfig.HUD_FADE_SPEED.get().floatValue() * deltaTracker.getRealtimeDeltaTicks() / 20.0F);
         alpha = target != null ? Math.min(1.0F, alpha + step) : Math.max(0.0F, alpha - step);
         if (alpha <= 0.01F || snapshot == null) {
             return;
@@ -152,11 +150,11 @@ public final class TamedInfoOverlay implements LayeredDraw.Layer {
             return null;
         }
         Vec3 start = player.getEyePosition(1.0F);
-        Vec3 end = start.add(player.getViewVector(1.0F).scale(StartaleConfig.HUD_PICK_RANGE.get()));
+        Vec3 end = start.add(player.getViewVector(1.0F).scale(KSClientConfig.HUD_PICK_RANGE.get()));
         AABB box = player.getBoundingBox().expandTowards(end.subtract(start)).inflate(1.0D);
         EntityHitResult hit = ProjectileUtil.getEntityHitResult(player, start, end, box,
                 entity -> entity instanceof LivingEntity && !entity.isSpectator() && entity.isPickable(),
-                StartaleConfig.HUD_PICK_RANGE.get() * StartaleConfig.HUD_PICK_RANGE.get());
+                KSClientConfig.HUD_PICK_RANGE.get() * KSClientConfig.HUD_PICK_RANGE.get());
         if (hit == null || !(hit.getEntity() instanceof LivingEntity living)) {
             return null;
         }
@@ -199,7 +197,7 @@ public final class TamedInfoOverlay implements LayeredDraw.Layer {
                 ? Component.literal(String.format("%d:%02d", remaining / 20 / 60, remaining / 20 % 60))
                 : TEXT_READY;
 
-        int feedTotal = Math.max(1, StartaleConfig.FAVOR_MAX_FEEDS_PER_DAY.get());
+        int feedTotal = Math.max(1, KSServerConfig.FAVOR_MAX_FEEDS_PER_DAY.get());
         int feedUsed = Math.min(favor.feedCount(), feedTotal);
         Component feedText = Component.literal(feedUsed + " / " + feedTotal);
 
@@ -391,7 +389,7 @@ public final class TamedInfoOverlay implements LayeredDraw.Layer {
     private static void drawPanel(GuiGraphics graphics, int x, int y) {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha * StartaleConfig.HUD_PANEL_OPACITY.get().floatValue());
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, alpha * KSClientConfig.HUD_PANEL_OPACITY.get().floatValue());
         graphics.blitSprite(PANEL_TEXTURE, x, y, PANEL_WIDTH, PANEL_HEIGHT);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.disableBlend();

@@ -21,6 +21,8 @@ public final class ModModelLayers {
     public static final ModelLayerLocation TAMED_COW = create("tamed_cow");
     /** 已驯养犰狳模型层。 */
     public static final ModelLayerLocation TAMED_ARMADILLO = create("tamed_armadillo");
+    /** 已驯养骆驼模型层。 */
+    public static final ModelLayerLocation TAMED_CAMEL = create("tamed_camel");
 
     /**
      * 创建模型层位置。

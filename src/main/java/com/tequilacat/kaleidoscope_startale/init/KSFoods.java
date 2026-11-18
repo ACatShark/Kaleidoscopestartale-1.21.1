@@ -56,7 +56,8 @@ public interface KSFoods {
     FoodProperties INSPIRATION_MUSHROOM_FOOD = FoodBuilderHelper.simple(5, 0.7F,
             EffectPair.of(() -> new MobEffectInstance(KSEffects.INSPIRATION, 400), 1.0F));
     /** 史莱姆王风味果冻 */
-    FoodProperties SLIME_KING_FLAVORED_JELLY_FOOD = FoodBuilderHelper.simple(28, 1.2F);
+    FoodProperties SLIME_KING_FLAVORED_JELLY_ITEM_FOOD = FoodBuilderHelper.simple(28, 1.2F);
+    FoodProperties SLIME_KING_FLAVORED_JELLY_BLOCK_FOOD = FoodBuilderHelper.simpleAlwaysEdible(5, 1.1F);
     /** 附魔夜行者 */
     FoodProperties ENCHANTED_NIGHTCRAWLER_FOOD = FoodBuilderHelper.simpleAlwaysEdible(18, 0.4F,
             EffectPair.of(() -> new MobEffectInstance(MobEffects.CONFUSION, 200), 1.0F));
@@ -70,5 +71,7 @@ public interface KSFoods {
     FoodProperties CAKE_SLICE = new FoodProperties.Builder().nutrition(8).saturationModifier(0.4f).build();
     /* 蛋糕 */
     FoodProperties CAKE = new FoodProperties.Builder().nutrition(56).saturationModifier(2.8f).build();
+    /** 纸盒牛奶 */
+    FoodProperties MILK_CARTON_FOOD = FoodBuilderHelper.simpleAlwaysEdible(4, 1.0F);
 
 }

@@ -29,6 +29,7 @@ public class ModItemModelsProvider extends ItemModelProvider {
         cropItem(KSItems.ANCIENT_FRUIT.get());
 
         // ==================== 食物 ====================
+        foodItem(KSBlocks.MILK_CARTON.get().asItem());
         foodItem(KSItems.GOLDFISH.get());
         foodItem(KSItems.MATCHA_BB.get());
         foodItem(KSItems.MATCHA_PARFAIT.get());
@@ -74,6 +75,7 @@ public class ModItemModelsProvider extends ItemModelProvider {
         basicItem(KSItems.UNIVERSAL_FEED.get());
         basicItem(KSItems.MATCHA_POWDER.get());
         basicItem(KSItems.CREAM.get());
+        basicItem(KSBlocks.CARTON.get().asItem());
 
         // ====================  工具 ====================
         basicItem(KSItems.PETTER.get());
