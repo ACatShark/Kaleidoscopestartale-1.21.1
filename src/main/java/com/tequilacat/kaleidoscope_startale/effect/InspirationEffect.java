@@ -3,7 +3,6 @@ package com.tequilacat.kaleidoscope_startale.effect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
-/** 灵感充沛：受伤时用经验抵扣伤害。 */
 /**
  * 灵感充沛。
  * <p>

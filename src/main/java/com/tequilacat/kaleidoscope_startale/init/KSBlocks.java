@@ -1,7 +1,6 @@
 package com.tequilacat.kaleidoscope_startale.init;
 
 import com.github.ysbbbbbb.kaleidoscopecookery.block.food.FoodBiteBlock;
-import com.github.ysbbbbbb.kaleidoscopecookery.init.registry.FoodBiteAnimateTicks;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.brew.DrinkBlock;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.mixology.CocktailBlock;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
@@ -75,15 +74,6 @@ public interface KSBlocks {
     DeferredBlock<CocktailBlock> SPRING_DRINK_1_COCKTAIL = BLOCKS.register("spring_drink_1", () -> new GlowingCocktailBlock(5));
 
 
-    // ==================== 工具 ====================
-    /** 冷灶 */
-    DeferredBlock<Block> COLD_STOVE = BLOCKS.register("cold_stove", ColdStoveBlock::new);
-    /** 奶油油壶 */
-    DeferredBlock<Block> CREAM_OIL = BLOCKS.register("cream_oil", CreamOilBlock::new);
-    /** 汤吞 */
-    DeferredBlock<Block> YUNOMI = BLOCKS.register("yunomi", YunomiBlock::new);
-
-
     // ==================== 食物 ====================
     /** 大黄软糖派 */
     DeferredBlock<FoodBiteBlock> RHUBARB_FONDANT_PIE = BLOCKS.register("rhubarb_fondant_pie",
@@ -107,6 +97,17 @@ public interface KSBlocks {
     // ==================== 材料 ====================
     /** 纸盒 */
     DeferredBlock<Block> CARTON = BLOCKS.register("carton", () -> new CartonBlock());
+
+
+    // ==================== 工具 ====================
+    /** 冷灶 */
+    DeferredBlock<Block> COLD_STOVE = BLOCKS.register("cold_stove", ColdStoveBlock::new);
+    /** 奶油油壶 */
+    DeferredBlock<Block> CREAM_OIL = BLOCKS.register("cream_oil", CreamOilBlock::new);
+    /** 汤吞 */
+    DeferredBlock<Block> YUNOMI = BLOCKS.register("yunomi", YunomiBlock::new);
+    /** 转台 */
+    DeferredBlock<Block> TURNTABLE = BLOCKS.register("turntable", TurntableBlock::new);
 
 
     private static ItemLike lazyItem(Supplier<? extends Item> supplier) {

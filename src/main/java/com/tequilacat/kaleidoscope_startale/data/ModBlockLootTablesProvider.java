@@ -114,6 +114,7 @@ public class ModBlockLootTablesProvider extends BlockLootSubProvider {
         // ==================== 工具 ====================
         dropSelf(KSBlocks.COLD_STOVE.get());
         dropSelf(KSBlocks.CREAM_OIL.get());
+        dropSelf(KSBlocks.TURNTABLE.get());
 
     }
 

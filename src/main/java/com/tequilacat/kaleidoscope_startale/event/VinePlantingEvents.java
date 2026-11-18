@@ -39,7 +39,7 @@ public class VinePlantingEvents {
      * @param event 右键方块事件
      */
     @SubscribeEvent
-    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         if (event.getHand() != InteractionHand.MAIN_HAND) {
             return;
         }

@@ -54,7 +54,7 @@ public class FeedEvents {
      * @param event 实体右键事件
      */
     @SubscribeEvent
-    public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         if (!(event.getTarget() instanceof Animal animal)) {
             return;
         }
@@ -234,7 +234,7 @@ public class FeedEvents {
      * @param event 实体加入世界事件
      */
     @SubscribeEvent
-    public void onEntityJoinLevel(EntityJoinLevelEvent event) {
+    public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
         if (!(event.getEntity() instanceof Animal animal)) {
             return;
         }
@@ -254,7 +254,7 @@ public class FeedEvents {
      * @param event 标签重载事件
      */
     @SubscribeEvent
-    public void onTagsUpdated(TagsUpdatedEvent event) {
+    public static void onTagsUpdated(TagsUpdatedEvent event) {
         FeedRegistry.onTagsUpdated();
     }
 }

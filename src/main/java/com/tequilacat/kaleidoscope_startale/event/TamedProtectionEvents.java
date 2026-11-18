@@ -38,7 +38,7 @@ public class TamedProtectionEvents {
      * @param event 受伤事件
      */
     @SubscribeEvent
-    public void onIncomingDamage(LivingIncomingDamageEvent event) {
+    public static void onIncomingDamage(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity();
         if (!MobTaming.isTamed(entity)) {
             return;
@@ -62,7 +62,7 @@ public class TamedProtectionEvents {
      * @param event 状态效果生效事件
      */
     @SubscribeEvent
-    public void onEffectApplicable(MobEffectEvent.Applicable event) {
+    public static void onEffectApplicable(MobEffectEvent.Applicable event) {
         LivingEntity entity = event.getEntity();
         if (!MobTaming.isTamed(entity)) {
             return;
@@ -88,7 +88,7 @@ public class TamedProtectionEvents {
      * @param event 目标变更事件
      */
     @SubscribeEvent
-    public void onChangeTarget(LivingChangeTargetEvent event) {
+    public static void onChangeTarget(LivingChangeTargetEvent event) {
         if (event.getTargetType() != LivingChangeTargetEvent.LivingTargetType.MOB_TARGET) {
             return;
         }
@@ -112,7 +112,7 @@ public class TamedProtectionEvents {
      * @param event 实体每刻更新事件
      */
     @SubscribeEvent
-    public void onEntityTick(EntityTickEvent.Post event) {
+    public static void onEntityTick(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof LivingEntity living)) {
             return;
         }

@@ -29,7 +29,7 @@ public class PetterEvents {
      * @param event 实体右键事件
      */
     @SubscribeEvent
-    public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         if (!(event.getTarget() instanceof LivingEntity target)) {
             return;
         }

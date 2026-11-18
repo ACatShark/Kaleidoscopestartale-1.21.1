@@ -46,7 +46,7 @@ public class InspirationEvents {
      * @param event 受伤前事件
      */
     @SubscribeEvent
-    public void onDamagePre(LivingDamageEvent.Pre event) {
+    public static void onDamagePre(LivingDamageEvent.Pre event) {
         if (!(event.getEntity() instanceof Player player)) {
             return;
         }
@@ -82,7 +82,7 @@ public class InspirationEvents {
      * @param event 状态效果生效事件
      */
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onEffectApplicable(MobEffectEvent.Applicable event) {
+    public static void onEffectApplicable(MobEffectEvent.Applicable event) {
         if (!(event.getEntity() instanceof Player player)) {
             return;
         }
@@ -105,7 +105,7 @@ public class InspirationEvents {
      * @param event 实体每刻更新事件
      */
     @SubscribeEvent
-    public void onEntityTick(EntityTickEvent.Post event) {
+    public static void onEntityTick(EntityTickEvent.Post event) {
         if (!(event.getEntity() instanceof Player player)) {
             return;
         }

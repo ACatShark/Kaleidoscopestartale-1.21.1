@@ -82,6 +82,7 @@ public class ModItemModelsProvider extends ItemModelProvider {
         simpleBlockItem(KSBlocks.COLD_STOVE.get());
         basicItem(KSItems.YUNOMI.get());
         basicItem(KSItems.CREAM_OIL.get());
+        simpleBlockItem(KSBlocks.TURNTABLE.get());
 
         // ==================== 茶叶 ====================
         basicItem(KSItems.GREEN_TEA_LEAVES.get());

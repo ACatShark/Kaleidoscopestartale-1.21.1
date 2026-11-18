@@ -147,6 +147,8 @@ public interface KSItems {
     DeferredItem<Item> YUNOMI = ITEMS.register("yunomi", YunomiItem::new);
     /** 奶油油壶 */
     DeferredItem<BlockItem> CREAM_OIL = ITEMS.register("cream_oil", () -> new CreamOilBlockItem(KSBlocks.CREAM_OIL.get(), new Item.Properties().stacksTo(1)));
+    /** 转台 */
+    DeferredItem<Item> TURNTABLE = ITEMS.register("turntable", () -> new BlockItem(KSBlocks.TURNTABLE.get(), new Item.Properties()));
 
 
     // ==================== 茶叶 ====================

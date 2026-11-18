@@ -69,6 +69,7 @@ public final class KSCreativeSections {
                 output.accept(KSItems.CREAM_OIL.get());
                 CreamOilBlock.writeCreamCount(new ItemStack(KSItems.CREAM_OIL.get()),
                         CreamOilBlockEntity.MAX_CREAM_COUNT);
+                output.accept(KSItems.TURNTABLE.get());
             }),
             /* 食物分区 */
             new Section("foods", () -> new ItemStack(KSItems.SLIME_KING_FLAVORED_JELLY.get()), output -> {
