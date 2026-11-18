@@ -8,15 +8,10 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 import com.tequilacat.kaleidoscope_startale.data.favorability.Favorability;
 
-public class StartaleConfig {
+public class KSServerConfig {
     public static final ModConfigSpec SPEC;
 
     public static final ModConfigSpec.ConfigValue<List<? extends String>> UNIVERSAL_FEED_BLACKLIST;
-
-    public static final ModConfigSpec.BooleanValue HUD_ENABLED;
-    public static final ModConfigSpec.DoubleValue HUD_PANEL_OPACITY;
-    public static final ModConfigSpec.DoubleValue HUD_PICK_RANGE;
-    public static final ModConfigSpec.DoubleValue HUD_FADE_SPEED;
 
     public static final ModConfigSpec.IntValue PETTER_BASE_DROP_CAP;
     public static final ModConfigSpec.IntValue PETTER_LOOTING_CAP_PER_LEVEL;
@@ -41,6 +36,13 @@ public class StartaleConfig {
 
     public static final ModConfigSpec.DoubleValue TAMED_MAX_DAMAGE_RATIO;
 
+    public static final ModConfigSpec.DoubleValue ANCIENT_FRUIT_VINE_CHEST_CHANCE;
+    public static final ModConfigSpec.IntValue ANCIENT_FRUIT_VINE_CHEST_COUNT;
+
+    public static final ModConfigSpec.IntValue WANDERER_VINE_EMERALD_COST;
+    public static final ModConfigSpec.IntValue WANDERER_VINE_COUNT;
+    public static final ModConfigSpec.IntValue WANDERER_VINE_MAX_USES;
+
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
@@ -50,25 +52,6 @@ public class StartaleConfig {
                 .comment("General feed blacklist; hostile mobs and vanilla tamable animals are ignored by default.")
                 .defineListAllowEmpty("blacklist", List.of(),
                         obj -> obj instanceof String s && ResourceLocation.tryParse(s) != null);
-        builder.pop();
-
-        builder.comment("界面配置").push("Hud");
-        HUD_ENABLED = builder
-                .comment("是否在准星右侧显示已驯养生物的信息（需要佩戴草帽）")
-                .comment("Show tamed mob info next to the crosshair (requires a straw hat)")
-                .define("enabled", true);
-        HUD_PANEL_OPACITY = builder
-                .comment("信息面板的不透明度，0 为完全透明，1 为完全不透明")
-                .comment("Info panel opacity, 0 is fully transparent and 1 is fully opaque")
-                .defineInRange("panelOpacity", 0.5D, 0.0D, 1.0D);
-        HUD_PICK_RANGE = builder
-                .comment("准星检索距离（格）")
-                .comment("Pick range in blocks")
-                .defineInRange("pickRange", 4.0D, 0.0D, Integer.MAX_VALUE);
-        HUD_FADE_SPEED = builder
-                .comment("淡入淡出速度（每秒）")
-                .comment("Fade speed in seconds per tick")
-                .defineInRange("fadeSpeed", 6.0F, 0.0F, Integer.MAX_VALUE);
         builder.pop();
 
         builder.comment("拍拍器配置").push("Petter");
@@ -160,6 +143,37 @@ public class StartaleConfig {
                 .comment("单次受伤的最大生命值比例，1.0 表示不限制")
                 .comment("Max damage per hit as a fraction of max health, 1.0 disables the cap")
                 .defineInRange("maxDamageRatio", 0.25D, 0.0D, 1.0D);
+        builder.pop();
+
+
+        builder.comment("战利品配置").push("Loot");
+
+        builder.comment("战利品箱").push("Chests Loot");
+        ANCIENT_FRUIT_VINE_CHEST_CHANCE = builder
+                .comment("古城战利品箱中出现上古水果藤的概率，0 表示不掉落")
+                .comment("Chance for an ancient fruit vine in ancient city chests, 0 disables it")
+                .defineInRange("ancientFruitVineChestChance", 0.1D, 0.0D, 1.0D);
+        ANCIENT_FRUIT_VINE_CHEST_COUNT = builder
+                .comment("触发时掉落的远古果实藤蔓数量")
+                .comment("Amount of ancient fruit vines dropped when the roll succeeds")
+                .defineInRange("ancientFruitVineChestCount", 1, 1, 64);
+        builder.pop();
+
+        builder.comment("村民交易").push("Villager Trade");
+        WANDERER_VINE_EMERALD_COST = builder
+                .comment("流浪商人出售上古水果藤时收取的绿宝石数量")
+                .comment("Emeralds charged by wandering traders for an ancient fruit vine")
+                .defineInRange("wandererVineEmeraldCost", 32, 1, 64);
+        WANDERER_VINE_COUNT = builder
+                .comment("流浪商人一次出售的上古水果藤数量")
+                .comment("Ancient fruit vines offered per wandering trader trade")
+                .defineInRange("wandererVineCount", 1, 1, 64);
+        WANDERER_VINE_MAX_USES = builder
+                .comment("该交易的最大使用次数")
+                .comment("Max uses of the wandering trader vine trade")
+                .defineInRange("wandererVineMaxUses", 1, 1, Integer.MAX_VALUE);
+        builder.pop();
+
         builder.pop();
 
         SPEC = builder.build();

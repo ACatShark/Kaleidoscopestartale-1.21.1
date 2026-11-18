@@ -1,49 +1,32 @@
 package com.tequilacat.kaleidoscope_startale.item;
 
-import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
+import com.tequilacat.kaleidoscope_startale.config.KSServerConfig;
 import com.tequilacat.kaleidoscope_startale.data.favorability.FavorabilityTracker;
 import com.tequilacat.kaleidoscope_startale.data.tame.MobTaming;
 import com.tequilacat.kaleidoscope_startale.util.*;
 import com.tequilacat.kaleidoscope_startale.init.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
-import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.animal.camel.Camel;
-import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.neoforged.neoforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Optional;
 
 /**
  * 拍拍器物品类。
@@ -53,9 +36,6 @@ import java.util.Optional;
  * 并影响拍击幅度；产出成功后重置冷却并增加好感度。
  */
 public class PetterItem extends Item {
-
-    /** 骆驼掉落表的选项数量，均匀分布即每项 20%。 */
-    private static final int CAMEL_GIFT_OPTIONS = 5;
 
     /**
      * 构造拍拍器物品。
@@ -95,23 +75,23 @@ public class PetterItem extends Item {
         int dropped = 0;
         boolean ranchHero = player.hasEffect(KSEffects.RANCH_HERO);
         if (MobTaming.isTamed(target) && !PetterCooldown.isCooling(target)) {
-            List<ItemStack> drops = new ArrayList<>(rollLoot(player, target, level));
+            List<ItemStack> drops = new ArrayList<>(PetterLoot.roll(player, target, level));
             int looting = getLootingLevel(level, petterStack);
             int favorLevel = favorLevelOf(target);
             if (!drops.isEmpty()) {
-                double extraChance = StartaleConfig.PETTER_LOOTING_DROP_CHANCE_PER_LEVEL.get() * looting
-                        + StartaleConfig.PETTER_FAVOR_DROP_CHANCE_PER_LEVEL.get() * Math.max(0, favorLevel - 1)
-                        + (ranchHero ? StartaleConfig.PETTER_RANCH_HERO_DROP_CHANCE_BONUS.get() : 0.0D);
+                double extraChance = KSServerConfig.PETTER_LOOTING_DROP_CHANCE_PER_LEVEL.get() * looting
+                        + KSServerConfig.PETTER_FAVOR_DROP_CHANCE_PER_LEVEL.get() * Math.max(0, favorLevel - 1)
+                        + (ranchHero ? KSServerConfig.PETTER_RANCH_HERO_DROP_CHANCE_BONUS.get() : 0.0D);
                 int extraRolls = 0;
                 if (level.random.nextFloat() < Math.min(1.0D, extraChance)) {
                     extraRolls++;
                 }
                 // 牧场英雄：必定再滚一次掉落表
                 if (ranchHero) {
-                    extraRolls += StartaleConfig.PETTER_RANCH_HERO_EXTRA_ROLLS.get();
+                    extraRolls += KSServerConfig.PETTER_RANCH_HERO_EXTRA_ROLLS.get();
                 }
                 for (int i = 0; i < extraRolls; i++) {
-                    drops.addAll(rollLoot(player, target, level));
+                    drops.addAll(PetterLoot.roll(player, target, level));
                 }
             }
 
@@ -129,7 +109,7 @@ public class PetterItem extends Item {
             }
         }
 
-        playSqueeze(target, level, petterStack, ranchHero ? StartaleConfig.PETTER_RANCH_HERO_SQUEEZE_POWER.get() : 0);
+        playSqueeze(target, level, petterStack, ranchHero ? KSServerConfig.PETTER_RANCH_HERO_SQUEEZE_POWER.get() : 0);
         if (dropped > 0) {
             spawnHearts(target, level);
         }
@@ -149,15 +129,15 @@ public class PetterItem extends Item {
      * @return 掉落数量上限
      */
     private static int maxDropsAt(int favorLevel, int looting, boolean ranchHero) {
-        int cap = StartaleConfig.PETTER_BASE_DROP_CAP.get()
-                + Math.max(0, looting) * StartaleConfig.PETTER_LOOTING_CAP_PER_LEVEL.get();
-        for (Number level : StartaleConfig.PETTER_FAVOR_CAP_LEVELS.get()) {
+        int cap = KSServerConfig.PETTER_BASE_DROP_CAP.get()
+                + Math.max(0, looting) * KSServerConfig.PETTER_LOOTING_CAP_PER_LEVEL.get();
+        for (Number level : KSServerConfig.PETTER_FAVOR_CAP_LEVELS.get()) {
             if (favorLevel >= level.intValue()) {
                 cap++;
             }
         }
         if (ranchHero) {
-            cap += StartaleConfig.PETTER_RANCH_HERO_CAP_BONUS.get();
+            cap += KSServerConfig.PETTER_RANCH_HERO_CAP_BONUS.get();
         }
         return cap;
     }
@@ -285,128 +265,6 @@ public class PetterItem extends Item {
     }
 
     /**
-     * 根据生物类型滚取掉落表。
-     * <p>
-     * 骆驼、猫、狼使用各自特殊掉落逻辑，嗅探兽额外滚取挖掘表，
-     * 其余生物使用实体掉落表。
-     *
-     * @param player 玩家
-     * @param pet    目标生物
-     * @param level  服务端世界
-     * @return 掉落物列表
-     */
-    private static List<ItemStack> rollLoot(Player player, LivingEntity pet, ServerLevel level) {
-        if (pet instanceof Camel) {
-            return randomCamelGift(level);
-        }
-        if (pet instanceof Cat) {
-            LootParams params = new LootParams.Builder(level)
-                    .withParameter(LootContextParams.THIS_ENTITY, pet)
-                    .withParameter(LootContextParams.ORIGIN, pet.position())
-                    .create(LootContextParamSets.GIFT);
-            return randomItems(level, BuiltInLootTables.CAT_MORNING_GIFT, params);
-        }
-        if (pet instanceof Wolf) {
-            return randomRawMeat(level);
-        }
-
-        List<ItemStack> drops = new ArrayList<>(rollEntityLoot(player, pet, level));
-        if (pet instanceof Sniffer) {
-            // 嗅探兽：挖掘表 + 击杀表各滚一次
-            drops.addAll(rollDiggingLoot(pet, level));
-        }
-        return drops;
-    }
-
-    /**
-     * 滚取实体的击杀掉落表。
-     * <p>
-     * 以玩家攻击作为伤害来源构造掉落参数，并计入玩家幸运值。
-     *
-     * @param player 玩家
-     * @param pet    目标生物
-     * @param level  服务端世界
-     * @return 掉落物列表
-     */
-    private static List<ItemStack> rollEntityLoot(Player player, LivingEntity pet, ServerLevel level) {
-        ResourceKey<LootTable> lootTable = pet.getLootTable();
-        LootParams params = new LootParams.Builder(level)
-                .withParameter(LootContextParams.THIS_ENTITY, pet)
-                .withParameter(LootContextParams.ORIGIN, pet.position())
-                .withParameter(LootContextParams.DAMAGE_SOURCE, level.damageSources().playerAttack(player))
-                .withParameter(LootContextParams.ATTACKING_ENTITY, player)
-                .withParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, player)
-                .withParameter(LootContextParams.LAST_DAMAGE_PLAYER, player)
-                .withLuck(player.getLuck())
-                .create(LootContextParamSets.ENTITY);
-        return randomItems(level, lootTable, params);
-    }
-
-    /**
-     * 嗅探兽的挖掘掉落表（原版刨地用的那套）。
-     */
-    private static List<ItemStack> rollDiggingLoot(LivingEntity pet, ServerLevel level) {
-        LootParams params = new LootParams.Builder(level)
-                .withParameter(LootContextParams.THIS_ENTITY, pet)
-                .withParameter(LootContextParams.ORIGIN, pet.position())
-                .create(LootContextParamSets.GIFT);
-        return randomItems(level, BuiltInLootTables.SNIFFER_DIGGING, params);
-    }
-
-    /**
-     * 骆驼：发光地衣 / 草 / 蕨 / 仙人掌 / 随机药水，五项各 20%。
-     */
-    private static List<ItemStack> randomCamelGift(ServerLevel level) {
-        return switch (level.getRandom().nextInt(CAMEL_GIFT_OPTIONS)) {
-            case 0 -> List.of(new ItemStack(Items.GLOW_LICHEN));
-            case 1 -> List.of(new ItemStack(Items.SHORT_GRASS));
-            case 2 -> List.of(new ItemStack(Items.FERN));
-            case 3 -> List.of(new ItemStack(Items.CACTUS));
-            default -> List.of(randomPotion(level));
-        };
-    }
-
-    /**
-     * 从药水注册表里随机挑一瓶。
-     */
-    private static ItemStack randomPotion(ServerLevel level) {
-        Optional<Holder.Reference<Potion>> pick = BuiltInRegistries.POTION.getRandom(level.getRandom());
-        if (pick.isEmpty()) {
-            return new ItemStack(Items.POTION);
-        }
-
-        ItemStack stack = new ItemStack(Items.POTION);
-        stack.set(DataComponents.POTION_CONTENTS, new PotionContents(pick.get()));
-        return stack;
-    }
-
-    /**
-     * 随机获取一种生肉。
-     * <p>
-     * 从生肉标签中随机挑选一个物品，标签为空时记录警告并返回空列表。
-     *
-     * @param level 服务端世界
-     * @return 掉落物列表
-     */
-    private static List<ItemStack> randomRawMeat(ServerLevel level) {
-        Optional<Holder<Item>> pick = BuiltInRegistries.ITEM.getRandomElementOf(Tags.Items.FOODS_RAW_MEAT, level.getRandom());
-        return pick.map(itemHolder -> List.of(new ItemStack(itemHolder.value()))).orElseGet(List::of);
-    }
-
-    /**
-     * 从指定掉落表随机获取物品。
-     *
-     * @param level  服务端世界
-     * @param key    掉落表键
-     * @param params 掉落参数
-     * @return 掉落物列表
-     */
-    private static List<ItemStack> randomItems(ServerLevel level, ResourceKey<LootTable> key, LootParams params) {
-        LootTable table = level.getServer().reloadableRegistries().getLootTable(key);
-        return List.copyOf(table.getRandomItems(params));
-    }
-
-    /**
      * 判断是否为有效修复材料。
      * <p>
      * 铁砧修复材料为蓝色羊毛。
@@ -448,12 +306,12 @@ public class PetterItem extends Item {
      * @return 掉落上限提示文本
      */
     private static MutableComponent dropCapTooltip() {
-        String levels = StartaleConfig.PETTER_FAVOR_CAP_LEVELS.get().stream()
+        String levels = KSServerConfig.PETTER_FAVOR_CAP_LEVELS.get().stream()
                 .map(level -> Integer.toString(level.intValue()))
                 .collect(Collectors.joining("/"));
         return Component.translatable("tooltip.kaleidoscope_startale.petter.limit",
-                StartaleConfig.PETTER_BASE_DROP_CAP.get(),
+                KSServerConfig.PETTER_BASE_DROP_CAP.get(),
                 levels,
-                StartaleConfig.PETTER_LOOTING_CAP_PER_LEVEL.get());
+                KSServerConfig.PETTER_LOOTING_CAP_PER_LEVEL.get());
     }
 }

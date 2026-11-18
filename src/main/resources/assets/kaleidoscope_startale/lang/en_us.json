@@ -7,6 +7,7 @@
   "block.kaleidoscope_startale.yunomi": "Yunomi",
   "item.kaleidoscope_startale.cream_oil": "Cream Pitcher",
   "block.kaleidoscope_startale.cream_oil": "Cream Pitcher",
+  "block.kaleidoscope_startale.carton": "Paper Carton",
 
   "_comment.items": "Items",
   "item.kaleidoscope_startale.universal_feed": "Universal Feed",
@@ -17,6 +18,7 @@
   "item.kaleidoscope_startale.cream": "Cream",
 
   "_comment.foods": "Foods",
+  "block.kaleidoscope_startale.milk_carton": "Milk Carton",
   "item.kaleidoscope_startale.goldfish": "Goldfish",
   "item.kaleidoscope_startale.rhubarb_jam": "Rhubarb Jam",
   "item.kaleidoscope_startale.ancient_fruit_platter": "Ancient Fruit Platter",
@@ -68,6 +70,7 @@
   "block.kaleidoscope_startale.omelette_rice": "Omelette Rice",
   "block.kaleidoscope_startale.rhubarb_fondant_pie": "Rhubarb Fondant Pie",
   "block.kaleidoscope_startale.matcha_cake": "Matcha Cake",
+  "block.kaleidoscope_startale.slime_king_flavored_jelly": "Slime King Flavored Jelly",
 
   "_comment.items_tea_ingredients": "Tea Ingredients",
   "item.kaleidoscope_startale.green_tea_leaves": "Green Tea Leaves",

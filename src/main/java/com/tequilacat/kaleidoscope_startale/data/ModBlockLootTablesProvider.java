@@ -105,6 +105,11 @@ public class ModBlockLootTablesProvider extends BlockLootSubProvider {
         /* 上古水果藤：可从藤架向上 / 向水平蔓延，并在下方结果。 */
         add(KSBlocks.ANCIENT_FRUIT_VINE.get(), this.createMultiItemTable(ModItems.TRELLIS.get(), KSItems.ANCIENT_FRUIT.get()));
 
+        // ==================== 食物 ====================
+        dropSelf(KSBlocks.CARTON.get());
+
+        // ==================== 材料 ====================
+        dropSelf(KSBlocks.MILK_CARTON.get());
 
         // ==================== 工具 ====================
         dropSelf(KSBlocks.COLD_STOVE.get());

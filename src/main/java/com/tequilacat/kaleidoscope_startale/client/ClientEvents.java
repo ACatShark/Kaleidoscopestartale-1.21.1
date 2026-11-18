@@ -4,10 +4,12 @@ import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.client.hud.TamedInfoOverlay;
 import com.tequilacat.kaleidoscope_startale.client.model.ModModelLayers;
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedArmadilloModel;
+import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedCamelModel;
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedChickenModel;
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedCowModel;
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedPigModel;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedArmadilloRenderer;
+import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedCamelRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedChickenRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedCowRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedPigRenderer;
@@ -42,6 +44,7 @@ public class ClientEvents {
         event.registerLayerDefinition(ModModelLayers.TAMED_CHICKEN, TamedChickenModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.TAMED_COW, TamedCowModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.TAMED_ARMADILLO, TamedArmadilloModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.TAMED_CAMEL, TamedCamelModel::createBodyLayer);
     }
 
     /**
@@ -58,6 +61,7 @@ public class ClientEvents {
         event.registerEntityRenderer(EntityType.CHICKEN, TamedChickenRenderer::new);
         event.registerEntityRenderer(EntityType.COW, TamedCowRenderer::new);
         event.registerEntityRenderer(EntityType.ARMADILLO, TamedArmadilloRenderer::new);
+        event.registerEntityRenderer(EntityType.CAMEL, TamedCamelRenderer::new);
     }
 
     /**
@@ -72,20 +76,5 @@ public class ClientEvents {
         event.registerAbove(VanillaGuiLayers.CROSSHAIR, KaleidoscopeStartale.id("tamed_info"),
                 new TamedInfoOverlay());
     }
-
-//    /**
-//     * 绘制创造模式物品栏的横幅。
-//     * <p>
-//     * 横幅占位是空物品格，需要在物品格画完之后、物品堆叠与提示框之前覆盖上去。
-//     *
-//     * @param event 容器界面前景渲染事件
-//     */
-//    @SubscribeEvent
-//    public static void renderCreativeSections(ContainerScreenEvent.Render.Foreground event) {
-//        if (event.getContainerScreen() instanceof CreativeTabSectionHost host) {
-//            CreativeTabSectionRenderer.render(event.getGuiGraphics(), host, Minecraft.getInstance().font,
-//                    event.getMouseX(), event.getMouseY());
-//        }
-//    }
 
 }

@@ -3,6 +3,7 @@ package com.tequilacat.kaleidoscope_startale.event;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.plant.ITrellis;
 import com.github.ysbbbbbb.kaleidoscopetavern.block.properties.TrellisType;
 import com.github.ysbbbbbb.kaleidoscopetavern.init.ModBlocks;
+import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.block.crop.ancientFruit.AncientFruitVineBlock;
 import com.tequilacat.kaleidoscope_startale.init.KSBlocks;
 import com.tequilacat.kaleidoscope_startale.init.KSItems;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 /**
@@ -25,6 +27,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
  * 监听玩家右键方块事件，当手持远古果实藤蔓对单格酒馆棚架使用，
  * 且棚架下方为泥土类方块时，将棚架替换为可种植的藤蔓方块。
  */
+@EventBusSubscriber(modid = KaleidoscopeStartale.MODID)
 public class VinePlantingEvents {
 
     /**

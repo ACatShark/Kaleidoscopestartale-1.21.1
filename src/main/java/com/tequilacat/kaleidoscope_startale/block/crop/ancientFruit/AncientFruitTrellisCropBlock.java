@@ -21,7 +21,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -38,9 +37,10 @@ import net.neoforged.neoforge.common.ItemAbilities;
 /**
  * 上古水果棚架作物方块。
  * <p>
- * 依附成熟藤蔓生长，可催熟，成熟后可用剪刀采收产物。
+ * 依附成熟藤蔓生长，成熟后可用剪刀采收产物。
+ * 只能靠随机刻自然成熟。
  */
-public class AncientFruitTrellisCropBlock extends Block implements BonemealableBlock {
+public class AncientFruitTrellisCropBlock extends Block {
 
     /** 生长阶段属性。 */
     public static final IntegerProperty AGE = BlockStateProperties.AGE_1;
@@ -190,49 +190,6 @@ public class AncientFruitTrellisCropBlock extends Block implements BonemealableB
      */
     public boolean isMaxAge(BlockState state) {
         return state.getValue(AGE) >= MAX_AGE;
-    }
-
-    /**
-     * 判断是否为有效的骨粉使用目标。
-     *
-     * @param level 世界读取器
-     * @param pos   方块位置
-     * @param state 方块状态
-     * @return 是否为有效目标
-     */
-    @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-        return !this.isMaxAge(state);
-    }
-
-    /**
-     * 判断骨粉是否催熟成功。
-     *
-     * @param level  世界
-     * @param random 随机源
-     * @param pos    方块位置
-     * @param state  方块状态
-     * @return 恒为 true
-     */
-    @Override
-    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state) {
-        return true;
-    }
-
-    /**
-     * 执行骨粉催熟。
-     * <p>
-     * 随机提升 1 到 2 个阶段，且不超过最大阶段。
-     *
-     * @param level  服务端世界
-     * @param random 随机源
-     * @param pos    方块位置
-     * @param state  方块状态
-     */
-    @Override
-    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        int newAge = Math.min(state.getValue(AGE) + random.nextInt(1, 3), MAX_AGE);
-        level.setBlockAndUpdate(pos, state.setValue(AGE, newAge));
     }
 
     /**

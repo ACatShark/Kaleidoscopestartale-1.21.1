@@ -3,7 +3,7 @@ package com.tequilacat.kaleidoscope_startale.util;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 
-import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
+import com.tequilacat.kaleidoscope_startale.config.KSServerConfig;
 import com.tequilacat.kaleidoscope_startale.init.KSAttachments;
 
 /**
@@ -50,7 +50,7 @@ public class PetterCooldown {
      */
     public static void reset(Entity entity) {
         entity.setData(KSAttachments.PET_COOLDOWN.get(),
-                entity.level().getGameTime() + StartaleConfig.PETTER_COOLDOWN_TICKS.get());
+                entity.level().getGameTime() + KSServerConfig.PETTER_COOLDOWN_TICKS.get());
     }
 
     /**

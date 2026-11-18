@@ -1,6 +1,7 @@
 package com.tequilacat.kaleidoscope_startale.data.loot;
 
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
+import com.tequilacat.kaleidoscope_startale.loot.ChestLootModifier;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -47,5 +48,19 @@ public class ModGlobalLootModifiersProvider extends GlobalLootModifierProvider {
                 },
                 ResourceKey.create(Registries.LOOT_TABLE, KaleidoscopeStartale.id("straw_hat_seed_drop"))
         ), List.of());
+
+        // 古城战利品箱
+        this.add("ancient_city_ancient_fruit_vine", new ChestLootModifier(
+                new LootItemCondition[]{
+                        LootTableIdCondition.builder(
+                                ResourceLocation.withDefaultNamespace("chests/ancient_city")).build()
+                }), List.of());
+
+        // 古城冰窖箱
+        this.add("ancient_city_ice_box_ancient_fruit_vine", new ChestLootModifier(
+                new LootItemCondition[]{
+                        LootTableIdCondition.builder(
+                                ResourceLocation.withDefaultNamespace("chests/ancient_city_ice_box")).build()
+                }), List.of());
     }
 }

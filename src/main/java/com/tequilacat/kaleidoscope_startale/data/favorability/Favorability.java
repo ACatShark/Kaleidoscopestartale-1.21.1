@@ -2,7 +2,7 @@ package com.tequilacat.kaleidoscope_startale.data.favorability;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
+import com.tequilacat.kaleidoscope_startale.config.KSServerConfig;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -67,7 +67,7 @@ public record Favorability(int points, long lastDay, int feedCount) {
      * @return 每级所需点数
      */
     public static int pointsPerLevel() {
-        return StartaleConfig.FAVOR_POINTS_PER_LEVEL.get();
+        return KSServerConfig.FAVOR_POINTS_PER_LEVEL.get();
     }
 
     /**
@@ -132,7 +132,7 @@ public record Favorability(int points, long lastDay, int feedCount) {
      * @return 剩余喂食次数
      */
     public int remainingFeedsToday() {
-        return Math.max(0, StartaleConfig.FAVOR_MAX_FEEDS_PER_DAY.get() - this.feedCount);
+        return Math.max(0, KSServerConfig.FAVOR_MAX_FEEDS_PER_DAY.get() - this.feedCount);
     }
 
     /**

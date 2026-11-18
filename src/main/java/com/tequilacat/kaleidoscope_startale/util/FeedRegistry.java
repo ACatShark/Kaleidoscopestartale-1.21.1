@@ -1,6 +1,6 @@
 package com.tequilacat.kaleidoscope_startale.util;
 
-import com.tequilacat.kaleidoscope_startale.config.StartaleConfig;
+import com.tequilacat.kaleidoscope_startale.config.KSServerConfig;
 import com.tequilacat.kaleidoscope_startale.init.KSEntityTags;
 import com.tequilacat.kaleidoscope_startale.init.KSItemTags;
 import net.minecraft.core.HolderSet;
@@ -91,7 +91,7 @@ public class FeedRegistry {
         if (BUILTIN_BLACKLIST.contains(key)) {
             return true;
         }
-        for (String raw : StartaleConfig.UNIVERSAL_FEED_BLACKLIST.get()) {
+        for (String raw : KSServerConfig.UNIVERSAL_FEED_BLACKLIST.get()) {
             if (key.equals(ResourceLocation.tryParse(raw))) {
                 return true;
             }

@@ -37,9 +37,14 @@ public interface KSBlocks {
     /** 上古水果：需要长在上古水果藤（熟）下方才能存活，剪刀采集。 */
     DeferredBlock<AncientFruitTrellisCropBlock> ANCIENT_FRUIT_CROP = BLOCKS.register("ancient_fruit_crop",
             () -> new AncientFruitTrellisCropBlock(KSBlocks::ancientFruitVineBlock, KSItems.ANCIENT_FRUIT, 2, vineCropProperties()));
-    /** 上古水果藤：可从藤架向上 / 向水平蔓延，并在下方结果。 */
+    /** 上古水果藤：可从藤架向上 / 向水平蔓延，并在下方结果。骨粉催熟概率为 0，只能自然生长。 */
     DeferredBlock<AncientFruitVineBlock> ANCIENT_FRUIT_VINE = BLOCKS.register("ancient_fruit_vine",
-            () -> new AncientFruitVineBlock(0.05F, 0.1F, KSBlocks::ancientFruitCropBlock, KSItems.ANCIENT_FRUIT_VINE));
+            () -> new AncientFruitVineBlock(0.05F, 0.0F, KSBlocks::ancientFruitCropBlock, KSItems.ANCIENT_FRUIT_VINE));
+
+
+    // ==================== 食物 ====================
+    /** 纸盒牛奶 */
+    DeferredBlock<Block> MILK_CARTON = BLOCKS.register("milk_carton", () -> new CartonBlock());
 
 
     // ==================== 酒水 ====================
@@ -82,18 +87,26 @@ public interface KSBlocks {
     // ==================== 食物 ====================
     /** 大黄软糖派 */
     DeferredBlock<FoodBiteBlock> RHUBARB_FONDANT_PIE = BLOCKS.register("rhubarb_fondant_pie",
-            () -> new FoodBiteBlock(KSFoods.RHUBARB_FONDANT_PIE_BLOCK_FOOD, 4, (FoodBiteAnimateTicks.AnimateTick) null));
+            () -> new FoodBiteBlock(KSFoods.RHUBARB_FONDANT_PIE_BLOCK_FOOD, 4, null));
     /** 蛋包饭 */
     DeferredBlock<FoodBiteBlock> OMELETTE_RICE = BLOCKS.register("omelette_rice",
-            () -> new FoodBiteBlock(KSFoods.OMELETTE_RICE_BLOCK_FOOD, 3, (FoodBiteAnimateTicks.AnimateTick) null));
+            () -> new FoodBiteBlock(KSFoods.OMELETTE_RICE_BLOCK_FOOD, 3, null));
     /** 鱼菇煲 */
     DeferredBlock<FoodBiteBlock> FISH_MUSHROOM_SOUP = BLOCKS.register("fish_mushroom_soup",
-            () -> new FoodBiteBlock(KSFoods.FISH_MUSHROOM_SOUP_BLOCK_FOOD, 4, (FoodBiteAnimateTicks.AnimateTick) null));
+            () -> new FoodBiteBlock(KSFoods.FISH_MUSHROOM_SOUP_BLOCK_FOOD, 4, null));
     /** 闪亮猪儿虫浓汤 */
     DeferredBlock<FoodBiteBlock> GLOWING_CATERPILLAR_SOUP = BLOCKS.register("glowing_caterpillar_soup",
-            () -> new FoodBiteBlock(KSFoods.GLOWING_CATERPILLAR_SOUP_BLOCK_FOOD, 4, (FoodBiteAnimateTicks.AnimateTick) null));
+            () -> new FoodBiteBlock(KSFoods.GLOWING_CATERPILLAR_SOUP_BLOCK_FOOD, 4, null));
+    /** 史莱姆王风味果冻 */
+    DeferredBlock<FoodBiteBlock> SLIME_KING_FLAVORED_JELLY = BLOCKS.register("slime_king_flavored_jelly",
+            () -> new FoodBiteBlock(KSFoods.SLIME_KING_FLAVORED_JELLY_BLOCK_FOOD, 4, null));
     /** 抹茶蛋糕 */
     DeferredBlock<Block> MATCHA_CAKE = BLOCKS.register("matcha_cake", MatchaCake::new);
+
+
+    // ==================== 材料 ====================
+    /** 纸盒 */
+    DeferredBlock<Block> CARTON = BLOCKS.register("carton", () -> new CartonBlock());
 
 
     private static ItemLike lazyItem(Supplier<? extends Item> supplier) {

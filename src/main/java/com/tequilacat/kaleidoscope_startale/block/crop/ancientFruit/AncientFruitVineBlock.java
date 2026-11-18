@@ -49,8 +49,8 @@ import java.util.function.Supplier;
  * 上古水果藤蔓方块。
  * <p>
  * 依附于棚架生长：可随随机刻成长、向周围棚架蔓延，
- * 成熟后可在下方结出果实。支持骨粉催熟、剪刀剪取藤蔓、
- * 含水状态以及随棚架连接变化更新类型。
+ * 成熟后可在下方结出果实。支持剪刀剪取藤蔓、含水状态以及随棚架连接变化更新类型。
+ * 上古水果生长速度远低于普通作物：随机刻生长概率很低，且骨粉催熟概率默认为 0，
  */
 public class AncientFruitVineBlock extends Block implements SimpleWaterloggedBlock, ITrellis, BonemealableBlock {
 

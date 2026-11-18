@@ -53,7 +53,6 @@ public class TamedCowModel extends CowModel<Cow> {
                         .texOffs(52, 0).addBox(-2.0F, 2.0F, -8.0F, 4.0F, 6.0F, 1.0F, new CubeDeformation(0.0F)),
                 PartPose.offsetAndRotation(0.0F, 5.0F, 2.0F, (float) Math.PI / 2F, 0.0F, 0.0F));
 
-        // 1.21 的四足模型部件名是 right_hind_leg 等，Blockbench 旧模板导出的 leg1~leg4 必须改名
         root.addOrReplaceChild("right_hind_leg",
                 CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(-4.0F, 12.0F, 7.0F));
@@ -67,7 +66,6 @@ public class TamedCowModel extends CowModel<Cow> {
                 CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, 0.0F, -1.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(4.0F, 12.0F, -6.0F));
 
-        // Blockbench 导出时草帽挂在 root 上（不动），这里挂到 head 下（跟随头部转动）并换算偏移。
         PartDefinition body2 = head.addOrReplaceChild("body2", CubeListBuilder.create(), PartPose.offset(0.0F, 3.0F, -3.0F));
         PartDefinition head2 = body2.addOrReplaceChild("head2", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
         head2.addOrReplaceChild("helmet",

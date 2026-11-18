@@ -34,6 +34,8 @@ public interface KSItems {
 
 
     // ==================== 食物 ====================
+    /** 纸盒牛奶 */
+    DeferredItem<MilkCartonItem> MILK_CARTON = ITEMS.register("milk_carton", () -> new MilkCartonItem(KSBlocks.MILK_CARTON.get()));
     /** 金鱼 */
     DeferredItem<Item> GOLDFISH = ITEMS.register("goldfish", () -> new Item(new Item.Properties().food(KSFoods.GOLDFISH)));
     /** 抹茶棒冰 */
@@ -86,8 +88,8 @@ public interface KSItems {
     DeferredItem<EffectFoodItem> INSPIRATION_MUSHROOM = ITEMS.register("inspiration_mushroom",
             () -> new EffectFoodItem(new Item.Properties().food(KSFoods.INSPIRATION_MUSHROOM_FOOD)));
     /** 史莱姆王风味果冻 */
-    DeferredItem<Item> SLIME_KING_FLAVORED_JELLY = ITEMS.register("slime_king_flavored_jelly",
-            () -> new Item(new Item.Properties().food(KSFoods.SLIME_KING_FLAVORED_JELLY_FOOD)));
+    DeferredItem<BowlFoodBlockItem> SLIME_KING_FLAVORED_JELLY = registerBowlFood("slime_king_flavored_jelly",
+            KSBlocks.SLIME_KING_FLAVORED_JELLY, KSFoods.SLIME_KING_FLAVORED_JELLY_ITEM_FOOD);
 
 
     // ==================== 酒水 ====================
@@ -132,6 +134,8 @@ public interface KSItems {
     DeferredItem<Item> MATCHA_POWDER = ITEMS.register("matcha_powder", () -> new Item(new Item.Properties()));
     /** 奶油 */
     DeferredItem<Item> CREAM = ITEMS.register("cream", () -> new CreamItem(new Item.Properties()));
+    /** 纸盒 */
+    DeferredItem<CartonItem> CARTON = ITEMS.register("carton", () -> new CartonItem(KSBlocks.CARTON.get()));
 
 
     // ==================== 工具 ====================

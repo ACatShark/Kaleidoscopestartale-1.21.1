@@ -105,6 +105,21 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
                 .unlockedBy(getHasName(Items.PAPER), has(Items.PAPER))
                 .save(output);
 
+        // ==================== 纸盒 ====================
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, KSItems.CARTON.get(), 8)
+                .requires(Items.PAPER, 4)
+                .unlockedBy(getHasName(Items.PAPER), has(Items.PAPER))
+                .save(output);
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, KSItems.MILK_CARTON.get(), 8)
+                .pattern("AAA")
+                .pattern("ABA")
+                .pattern("AAA")
+                .define('A', KSItems.CARTON.get())
+                .define('B', Items.MILK_BUCKET)
+                .unlockedBy(getHasName(KSItems.CARTON.get()), has(KSItems.CARTON.get()))
+                .unlockedBy(getHasName(Items.MILK_BUCKET), has(Items.MILK_BUCKET))
+                .save(output);
+
     }
 
     /** 冷萃配方 */
