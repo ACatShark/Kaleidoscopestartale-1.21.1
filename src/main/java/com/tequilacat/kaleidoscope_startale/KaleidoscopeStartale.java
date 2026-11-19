@@ -33,6 +33,7 @@ public class KaleidoscopeStartale {
         KSTeacups.init();
         KSEffects.register(modEventBus);
         KSLootModifiers.register(modEventBus);
+        KSEntities.register(modEventBus);
     }
 
     public static ResourceLocation id(String name) {

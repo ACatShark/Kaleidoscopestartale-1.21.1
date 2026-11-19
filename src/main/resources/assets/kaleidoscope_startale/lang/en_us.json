@@ -1,6 +1,5 @@
 {
   "itemGroup.kaleidoscope_startale": "Kaleidoscope Startale",
-
   "_comment.tools": "Tools",
   "item.kaleidoscope_startale.petter": "Petter",
   "block.kaleidoscope_startale.cold_stove": "Cold Stove",
@@ -10,7 +9,6 @@
   "block.kaleidoscope_startale.cream_oil": "Cream Pitcher",
   "block.kaleidoscope_startale.carton": "Paper Carton",
   "block.kaleidoscope_startale.turntable": "Turntable",
-
   "_comment.item_materials": "Item Materials",
   "item.kaleidoscope_startale.universal_feed": "Universal Feed",
   "item.kaleidoscope_startale.livestock_feed": "Livestock Feed",
@@ -19,7 +17,6 @@
   "item.kaleidoscope_startale.cream": "Cream",
   "item.kaleidoscope_startale.green_tea_leaves": "Green Tea Leaves",
   "item.kaleidoscope_startale.rose_tea_bag": "Rose Tea Bag",
-
   "_comment.crops": "Crops",
   "item.kaleidoscope_startale.rhubarb_seeds": "Rhubarb Seeds",
   "item.kaleidoscope_startale.rhubarb": "Rhubarb",
@@ -30,7 +27,6 @@
   "item.kaleidoscope_startale.ancient_fruit": "Ancient Fruit",
   "item.kaleidoscope_startale.ancient_fruit_vine": "Ancient Fruit Vine",
   "block.kaleidoscope_startale.ancient_fruit_crop": "Ancient Fruit",
-
   "_comment.foods": "Foods",
   "item.kaleidoscope_startale.milk_carton": "Milk Carton",
   "block.kaleidoscope_startale.milk_carton": "Milk Carton",
@@ -61,11 +57,9 @@
   "item.kaleidoscope_startale.matcha_cake_slice": "Matcha Cake Slice",
   "item.kaleidoscope_startale.matcha_cake": "Matcha Cake",
   "block.kaleidoscope_startale.matcha_cake": "Matcha Cake",
-
   "_comment.blocks": "Blocks",
   "block.kaleidoscope_startale.ancient_fruit_vine": "Ancient Fruit Vine",
   "block.kaleidoscope_startale.ancient_fruit_juice": "Ancient Fruit Juice",
-
   "_comment.drinks": "饮品",
   "item.kaleidoscope_startale.ice_elf_cocktail": "§bIce Elf Cocktail",
   "block.kaleidoscope_startale.ice_elf_cocktail": "§bIce Elf Cocktail",
@@ -91,7 +85,6 @@
   "block.kaleidoscope_startale.matcha_tea": "Matcha",
   "item.kaleidoscope_startale.rose_tea": "Rose Tea",
   "block.kaleidoscope_startale.rose_tea": "Rose Tea",
-
   "_comment.effects": "Effects",
   "effect.kaleidoscope_startale.inspiration": "Inspiration Surge",
   "effect.kaleidoscope_startale.inspiration.desc": "Spend experience to offset incoming damage",
@@ -117,10 +110,8 @@
   "effect.kaleidoscope_startale.invigorating.desc": "Grants immunity to some negative effects.",
   "effect.kaleidoscope_startale.lingering": "Lingering",
   "effect.kaleidoscope_startale.lingering.desc": "Periodically restores hunger and health.",
-
   "_comment.subtitles": "Subtitles",
   "subtitles.kaleidoscope_startale.pet_squeeze": "Creature squeaks",
-
   "_comment.jade": "Jade",
   "jade.kaleidoscope_startale.favorability": "Favorability: %s",
   "jade.kaleidoscope_startale.favorability_next": "%s more to level up",
@@ -129,7 +120,6 @@
   "config.jade.plugin_kaleidoscope_startale.favorability": "Kaleidoscope Startale",
   "config.jade.plugin_kaleidoscope_startale.animal_owner": "Animal Owner",
   "config.jade.plugin_kaleidoscope_startale.petter_cooldown": "Petter Cooldown",
-
   "_comment.hud": "Tamed Info Panel",
   "hud.kaleidoscope_startale.owner": "Owner",
   "hud.kaleidoscope_startale.petter_cooldown": "Cooldown",
@@ -139,7 +129,6 @@
   "hud.kaleidoscope_startale.ready": "Ready",
   "hud.kaleidoscope_startale.max_level": "Max Level",
   "hud.kaleidoscope_startale.unknown_owner": "Unknown",
-
   "_comment.jei": "JEI",
   "jei.kaleidoscope_startale.cold_brew_teapot.title": "Cold Brew Teapot",
   "jei.kaleidoscope_startale.cold_brew_teapot.time": "Time: %s sec",
@@ -151,14 +140,12 @@
   "jei.kaleidoscope_startale.cold_toss.time": "Toss %d times",
   "jei.kaleidoscope_startale.cold_stew.title": "Cold Stew",
   "jei.kaleidoscope_startale.cold_stew.time": "Time: %s sec",
-
   "_comment.creative_tab": "Creative Tab Sections",
   "creative_tab.kaleidoscope_startale.materials": "Materials",
   "creative_tab.kaleidoscope_startale.tools": "Tools",
   "creative_tab.kaleidoscope_startale.foods": "Foods",
   "creative_tab.kaleidoscope_startale.drinks": "Drinks",
   "creative_tab.kaleidoscope_startale.shift_hint": "Hold Shift to select multiple sections",
-
   "_comment.tooltip": "Tooltip",
   "tooltip.kaleidoscope_startale.effect_chance": "%s (%s%% chance)",
   "tooltip.kaleidoscope_startale.ancient_fruit_juice_bucket": "Used to brew Ancient Fruit Wine",
@@ -172,5 +159,16 @@
   "tooltip.kaleidoscope_startale.cream_oil.empty": "Empty Cream Oil Bucket",
   "tooltip.kaleidoscope_startale.cold_stove": "Use a fire to activate the stove stove.",
   "tooltip.kaleidoscope_startale.matcha_tea.maxim": "Tea, fragrant leaves, tender buds. Admired by poets, loved by monks.",
-  "tooltip.kaleidoscope_startale.rose_tea.maxim": "Flowers bloom and fall without cease; spring comes and goes, all the same."
+  "tooltip.kaleidoscope_startale.rose_tea.maxim": "Flowers bloom and fall without cease; spring comes and goes, all the same.",
+  "entity.kaleidoscope_startale.rolling_kitchen": "Rolling Kitchen",
+  "key.categories.kaleidoscope_startale.vehicle": "Vehicles",
+  "key.kaleidoscope_startale.rolling_kitchen.forward": "Forward",
+  "key.kaleidoscope_startale.rolling_kitchen.backward": "Backward",
+  "key.kaleidoscope_startale.rolling_kitchen.left": "Turn Left",
+  "key.kaleidoscope_startale.rolling_kitchen.right": "Turn Right",
+  "key.kaleidoscope_startale.wiggle_car.left": "Wiggle Left",
+  "key.kaleidoscope_startale.wiggle_car.right": "Wiggle Right",
+  "entity.kaleidoscope_startale.wiggle_car": "Wiggle Car",
+  "item.kaleidoscope_startale.rolling_kitchen": "Rolling Kitchen",
+  "item.kaleidoscope_startale.wiggle_car": "Wiggle Car"
 }

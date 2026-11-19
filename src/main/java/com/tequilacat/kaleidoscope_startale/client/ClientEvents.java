@@ -8,11 +8,16 @@ import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedCamel
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedChickenModel;
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedCowModel;
 import com.tequilacat.kaleidoscope_startale.client.model.entity.tamed.TamedPigModel;
+import com.tequilacat.kaleidoscope_startale.client.model.entity.vehicle.RollingKitchenModel;
+import com.tequilacat.kaleidoscope_startale.client.model.entity.vehicle.WiggleCarModel;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedArmadilloRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedCamelRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedChickenRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedCowRenderer;
 import com.tequilacat.kaleidoscope_startale.client.renderer.entity.animal.TamedPigRenderer;
+import com.tequilacat.kaleidoscope_startale.client.renderer.entity.vehicle.RollingKitchenRenderer;
+import com.tequilacat.kaleidoscope_startale.client.renderer.entity.vehicle.WiggleCarRenderer;
+import com.tequilacat.kaleidoscope_startale.init.KSEntities;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -45,6 +50,8 @@ public class ClientEvents {
         event.registerLayerDefinition(ModModelLayers.TAMED_COW, TamedCowModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.TAMED_ARMADILLO, TamedArmadilloModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.TAMED_CAMEL, TamedCamelModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.ROLLING_KITCHEN, RollingKitchenModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.WIGGLE_CAR, WiggleCarModel::createBodyLayer);
     }
 
     /**
@@ -62,6 +69,8 @@ public class ClientEvents {
         event.registerEntityRenderer(EntityType.COW, TamedCowRenderer::new);
         event.registerEntityRenderer(EntityType.ARMADILLO, TamedArmadilloRenderer::new);
         event.registerEntityRenderer(EntityType.CAMEL, TamedCamelRenderer::new);
+        event.registerEntityRenderer(KSEntities.ROLLING_KITCHEN.get(), RollingKitchenRenderer::new);
+        event.registerEntityRenderer(KSEntities.WIGGLE_CAR.get(), WiggleCarRenderer::new);
     }
 
     /**

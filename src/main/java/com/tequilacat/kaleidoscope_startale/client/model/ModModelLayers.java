@@ -23,6 +23,10 @@ public final class ModModelLayers {
     public static final ModelLayerLocation TAMED_ARMADILLO = create("tamed_armadillo");
     /** 已驯养骆驼模型层。 */
     public static final ModelLayerLocation TAMED_CAMEL = create("tamed_camel");
+    /** 流动小厨载具模型层。 */
+    public static final ModelLayerLocation ROLLING_KITCHEN = create("rolling_kitchen");
+    /** 扭扭车载具模型层。 */
+    public static final ModelLayerLocation WIGGLE_CAR = create("wiggle_car");
 
     /**
      * 创建模型层位置。
