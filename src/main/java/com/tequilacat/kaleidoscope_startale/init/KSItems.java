@@ -155,9 +155,9 @@ public interface KSItems {
     /** 流动小厨 */
     DeferredItem<VehicleItem> ROLLING_KITCHEN = ITEMS.register("rolling_kitchen",
             () -> new VehicleItem(new Item.Properties().stacksTo(1), KSEntities.ROLLING_KITCHEN));
-    /** 扭扭车 */
-    DeferredItem<VehicleItem> WIGGLE_CAR = ITEMS.register("wiggle_car",
-            () -> new VehicleItem(new Item.Properties().stacksTo(1), KSEntities.WIGGLE_CAR));
+//    /** 扭扭车 */
+//    DeferredItem<VehicleItem> WIGGLE_CAR = ITEMS.register("wiggle_car",
+//            () -> new VehicleItem(new Item.Properties().stacksTo(1), KSEntities.WIGGLE_CAR));
 
 
     // ==================== 茶叶 ====================

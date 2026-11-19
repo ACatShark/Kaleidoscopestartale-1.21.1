@@ -1,4 +1,4 @@
-package com.tequilacat.kaleidoscope_startale.loot;
+package com.tequilacat.kaleidoscope_startale.data.loot;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

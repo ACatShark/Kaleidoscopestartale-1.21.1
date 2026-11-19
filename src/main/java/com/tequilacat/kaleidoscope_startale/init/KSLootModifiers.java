@@ -2,7 +2,7 @@ package com.tequilacat.kaleidoscope_startale.init;
 
 import com.mojang.serialization.MapCodec;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
-import com.tequilacat.kaleidoscope_startale.loot.ChestLootModifier;
+import com.tequilacat.kaleidoscope_startale.data.loot.ChestLootModifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.registries.DeferredHolder;

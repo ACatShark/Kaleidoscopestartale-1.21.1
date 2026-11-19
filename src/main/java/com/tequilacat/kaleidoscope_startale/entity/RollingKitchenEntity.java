@@ -6,15 +6,21 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerEntity;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -42,6 +48,10 @@ public class RollingKitchenEntity extends Entity {
     private static final double MAX_SPEED = 0.36D;
     /** 重力。 */
     private static final double GRAVITY = 0.08D;
+    /** 车内物品槽数量。 */
+    public static final int CARGO_SIZE = 1;
+    /** 下落速度上限。 */
+    private static final double MAX_FALL_SPEED = 2.0D;
     /** 驾驶座相对实体原点的偏移。 */
     private static final Vec3 SEAT_OFFSET = new Vec3(0.0D, 1.12D, 1.9D);
 
@@ -55,6 +65,8 @@ public class RollingKitchenEntity extends Entity {
     private boolean inputDown;
     /** 本刻的转向增量，用于同步转动乘客。 */
     private float deltaRotation;
+    /** 车内物品（后续用于放置工作方块）。 */
+    private final NonNullList<ItemStack> cargo = NonNullList.withSize(CARGO_SIZE, ItemStack.EMPTY);
 
     /**
      * 构造流动小厨载具实体。
@@ -107,7 +119,7 @@ public class RollingKitchenEntity extends Entity {
      */
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
-        // 暂时没有额外数据
+        ContainerHelper.loadAllItems(compound, this.cargo, this.registryAccess());
     }
 
     /**
@@ -119,7 +131,7 @@ public class RollingKitchenEntity extends Entity {
      */
     @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
-        // 暂时没有额外数据
+        ContainerHelper.saveAllItems(compound, this.cargo, this.registryAccess());
     }
 
     /**
@@ -141,6 +153,54 @@ public class RollingKitchenEntity extends Entity {
     @Override
     public boolean isPickable() {
         return true;
+    }
+
+    /**
+     * 处理伤害：载具不防火，遇到火焰、岩浆、爆炸等直接销毁。
+     *
+     * @param source 伤害来源
+     * @param amount 伤害值
+     * @return 是否造成了伤害
+     */
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.level().isClientSide) {
+            return false;
+        }
+        if (source.is(DamageTypeTags.IS_FIRE) || source.is(DamageTypeTags.IS_EXPLOSION)
+                || source.is(DamageTypeTags.IS_LIGHTNING)) {
+            this.ejectPassengers();
+            this.playSound(SoundEvents.GENERIC_BURN, 0.6F, 1.6F);
+            this.dropCargo();
+            this.discard();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 获取车内物品列表。
+     *
+     * @return 物品列表
+     */
+    public NonNullList<ItemStack> getCargo() {
+        return this.cargo;
+    }
+
+    /**
+     * 把车里存放的物品全部掉落到地上。
+     */
+    protected void dropCargo() {
+        if (this.level().isClientSide) {
+            return;
+        }
+        for (int i = 0; i < this.cargo.size(); i++) {
+            ItemStack stack = this.cargo.get(i);
+            if (!stack.isEmpty()) {
+                this.spawnAtLocation(stack.copy());
+                this.cargo.set(i, ItemStack.EMPTY);
+            }
+        }
     }
 
     /**
@@ -337,14 +397,20 @@ public class RollingKitchenEntity extends Entity {
     private void applyPhysics() {
         Vec3 movement = this.getDeltaMovement();
         boolean onGround = this.onGround();
-        double dy = onGround ? 0.0D : movement.y - GRAVITY;
-        this.move(MoverType.SELF, new Vec3(movement.x, dy, movement.z));
+
+        double vy = onGround ? 0.0D : movement.y - GRAVITY;
+        if (vy < -MAX_FALL_SPEED) {
+            vy = -MAX_FALL_SPEED;
+        }
+
+        this.move(MoverType.SELF, new Vec3(movement.x, vy, movement.z));
 
         double drag = onGround ? GROUND_DRAG : AIR_DRAG;
         Vec3 updated = this.getDeltaMovement();
         double vx = updated.x * drag;
         double vz = updated.z * drag;
-        double vy = onGround ? 0.0D : updated.y * 0.98D;
+        // 落到地面的当刻把竖直速度清零，避免残留
+        double newVy = this.onGround() ? 0.0D : vy;
 
         double speed = Math.sqrt(vx * vx + vz * vz);
         if (speed > MAX_SPEED) {
@@ -352,7 +418,7 @@ public class RollingKitchenEntity extends Entity {
             vx *= scale;
             vz *= scale;
         }
-        this.setDeltaMovement(vx, vy, vz);
+        this.setDeltaMovement(vx, newVy, vz);
     }
 
     /**

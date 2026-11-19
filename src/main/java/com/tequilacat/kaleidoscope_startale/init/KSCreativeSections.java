@@ -71,7 +71,7 @@ public final class KSCreativeSections {
                         CreamOilBlockEntity.MAX_CREAM_COUNT);
                 output.accept(KSItems.TURNTABLE.get());
                 output.accept(KSItems.ROLLING_KITCHEN.get());
-                output.accept(KSItems.WIGGLE_CAR.get());
+//                output.accept(KSItems.WIGGLE_CAR.get());
             }),
             /* 食物分区 */
             new Section("foods", () -> new ItemStack(KSItems.SLIME_KING_FLAVORED_JELLY.get()), output -> {
