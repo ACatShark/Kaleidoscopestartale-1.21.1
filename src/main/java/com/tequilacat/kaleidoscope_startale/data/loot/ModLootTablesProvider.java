@@ -63,7 +63,7 @@ public class ModLootTablesProvider implements LootTableSubProvider {
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
         Holder<Enchantment> fortune = this.registries.lookupOrThrow(Registries.ENCHANTMENT)
                 .getOrThrow(Enchantments.FORTUNE);
-        // 只有头上戴着草帽的生物才会掉落（厨师模组的自定义战利品条件）
+        // 只有头上戴着草帽的生物才会掉落
         LootItemCondition.Builder wearingStrawHat = AdvanceBlockMatchTool.toolMatches(
                 EquipmentSlot.HEAD,
                 ItemPredicate.Builder.item().of(STRAW_HAT).build());

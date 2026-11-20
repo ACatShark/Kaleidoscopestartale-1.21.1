@@ -10,6 +10,8 @@ public class KSClientConfig {
     public static final ModConfigSpec.DoubleValue HUD_PICK_RANGE;
     public static final ModConfigSpec.DoubleValue HUD_FADE_SPEED;
 
+    public static final ModConfigSpec.BooleanValue COLOR_UPGRADED_ENCHANT_NAME;
+
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
@@ -30,6 +32,13 @@ public class KSClientConfig {
                 .comment("淡入淡出速度（每秒）")
                 .comment("Fade speed in seconds per tick")
                 .defineInRange("fadeSpeed", 6.0F, 0.0F, Integer.MAX_VALUE);
+        builder.pop();
+
+        builder.comment("物品提示配置").push("Tooltip");
+        COLOR_UPGRADED_ENCHANT_NAME = builder
+                .comment("是否把升级过的附魔名显示为紫色")
+                .comment("Render upgraded enchantment names in purple")
+                .define("colorUpgradedEnchantName", true);
         builder.pop();
 
         SPEC = builder.build();

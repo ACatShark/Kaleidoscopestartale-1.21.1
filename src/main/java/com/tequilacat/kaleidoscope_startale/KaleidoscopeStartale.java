@@ -36,6 +36,7 @@ public class KaleidoscopeStartale {
         KSEffects.register(modEventBus);
         KSLootModifiers.register(modEventBus);
         KSEntities.register(modEventBus);
+        KSDataComponents.register(modEventBus);
 
         SoupBaseManager.registerSoupBase(PowderSnowSoupBase.INSTANCE);
     }
