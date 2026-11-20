@@ -100,12 +100,6 @@ public interface KSBlocks {
 
 
     // ==================== 工具 ====================
-    /** 冷灶 */
-    DeferredBlock<Block> COLD_STOVE = BLOCKS.register("cold_stove", ColdStoveBlock::new);
-    /** 奶油油壶 */
-    DeferredBlock<Block> CREAM_OIL = BLOCKS.register("cream_oil", CreamOilBlock::new);
-    /** 汤吞 */
-    DeferredBlock<Block> YUNOMI = BLOCKS.register("yunomi", YunomiBlock::new);
     /** 转台 */
     DeferredBlock<Block> TURNTABLE = BLOCKS.register("turntable", TurntableBlock::new);
 

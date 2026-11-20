@@ -1,7 +1,9 @@
 package com.tequilacat.kaleidoscope_startale;
 
+import com.github.ysbbbbbb.kaleidoscopecookery.crafting.soupbase.SoupBaseManager;
 import com.mojang.logging.LogUtils;
 import com.tequilacat.kaleidoscope_startale.config.KSClientConfig;
+import com.tequilacat.kaleidoscope_startale.crafting.soupbase.PowderSnowSoupBase;
 import com.tequilacat.kaleidoscope_startale.init.KSAttachments;
 import com.tequilacat.kaleidoscope_startale.config.KSServerConfig;
 import com.tequilacat.kaleidoscope_startale.init.KSFluids;
@@ -34,6 +36,8 @@ public class KaleidoscopeStartale {
         KSEffects.register(modEventBus);
         KSLootModifiers.register(modEventBus);
         KSEntities.register(modEventBus);
+
+        SoupBaseManager.registerSoupBase(PowderSnowSoupBase.INSTANCE);
     }
 
     public static ResourceLocation id(String name) {

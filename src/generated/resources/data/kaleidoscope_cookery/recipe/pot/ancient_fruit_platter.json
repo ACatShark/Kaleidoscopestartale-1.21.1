@@ -1,0 +1,25 @@
+{
+  "type": "kaleidoscope_cookery:pot",
+  "carrier": {
+    "item": "minecraft:bowl"
+  },
+  "ingredients": [
+    {
+      "tag": "c:crop/ancient_fruit"
+    },
+    {
+      "tag": "c:crop/ancient_fruit"
+    },
+    {
+      "tag": "c:crop/ancient_fruit"
+    },
+    {
+      "tag": "c:crop/ancient_fruit"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "kaleidoscope_startale:ancient_fruit_platter"
+  },
+  "stir_fry_count": 5
+}

@@ -15,10 +15,7 @@
     "ItemStackMixin",
     "LivingEntityMixin",
     "PlayerMixin",
-    "TeapotBlockEntityMixin",
-    "PotBlockEntityMixin",
-    "OilPotBlockMixin",
-    "StockpotBlockEntityMixin"
+    "TeapotBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

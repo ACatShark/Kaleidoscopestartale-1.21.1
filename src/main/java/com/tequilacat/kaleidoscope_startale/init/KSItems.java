@@ -24,7 +24,7 @@ public interface KSItems {
     /** 大黄种子 */
     DeferredItem<SeedItem> RHUBARB_SEEDS = ITEMS.register("rhubarb_seeds", () -> new SeedItem(KSBlocks.RHUBARB_CROP.get(), new Item.Properties()));
     /** 苋菜 */
-    DeferredItem<Item> AMARANTH = ITEMS.register("amaranth", () -> new Item(new Item.Properties()));
+    DeferredItem<Item> AMARANTH = ITEMS.register("amaranth", () -> new Item(new Item.Properties().food(KSFoods.AMARANTH)));
     /** 苋菜种子 */
     DeferredItem<SeedItem> AMARANTH_SEEDS = ITEMS.register("amaranth_seeds", () -> new SeedItem(KSBlocks.AMARANTH_CROP.get(), new Item.Properties()));
     /** 上古水果 */
@@ -133,20 +133,16 @@ public interface KSItems {
     /** 抹茶粉 */
     DeferredItem<Item> MATCHA_POWDER = ITEMS.register("matcha_powder", () -> new Item(new Item.Properties()));
     /** 奶油 */
-    DeferredItem<Item> CREAM = ITEMS.register("cream", () -> new CreamItem(new Item.Properties()));
+    DeferredItem<Item> CREAM = ITEMS.register("cream", () -> new Item(new Item.Properties()));
     /** 纸盒 */
     DeferredItem<CartonItem> CARTON = ITEMS.register("carton", () -> new CartonItem(KSBlocks.CARTON.get()));
+    /** 金蛋 */
+    DeferredItem<Item> GOLDEN_EGG = ITEMS.register("golden_egg", () -> new Item(new Item.Properties()));
 
 
     // ==================== 工具 ====================
     /** 拍拍器 */
     DeferredItem<PetterItem> PETTER = ITEMS.register("petter", () -> new PetterItem(new Item.Properties().stacksTo(1).durability(700)));
-    /** 冷灶 */
-    DeferredItem<Item> COLD_STOVE = ITEMS.register("cold_stove", () -> new BlockItem(KSBlocks.COLD_STOVE.get(), new Item.Properties()));
-    /** 云吞 */
-    DeferredItem<Item> YUNOMI = ITEMS.register("yunomi", YunomiItem::new);
-    /** 奶油油壶 */
-    DeferredItem<BlockItem> CREAM_OIL = ITEMS.register("cream_oil", () -> new CreamOilBlockItem(KSBlocks.CREAM_OIL.get(), new Item.Properties().stacksTo(1)));
     /** 转台 */
     DeferredItem<Item> TURNTABLE = ITEMS.register("turntable", () -> new BlockItem(KSBlocks.TURNTABLE.get(), new Item.Properties()));
 

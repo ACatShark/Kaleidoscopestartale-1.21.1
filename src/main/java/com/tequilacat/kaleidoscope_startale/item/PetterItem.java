@@ -73,30 +73,25 @@ public class PetterItem extends Item {
         }
 
         int dropped = 0;
-        boolean ranchHero = player.hasEffect(KSEffects.RANCH_HERO);
+        boolean amaranthInsight = player.hasEffect(KSEffects.AMARANTH_INSIGHT);
         if (MobTaming.isTamed(target) && !PetterCooldown.isCooling(target)) {
             List<ItemStack> drops = new ArrayList<>(PetterLoot.roll(player, target, level));
             int looting = getLootingLevel(level, petterStack);
             int favorLevel = favorLevelOf(target);
             if (!drops.isEmpty()) {
                 double extraChance = KSServerConfig.PETTER_LOOTING_DROP_CHANCE_PER_LEVEL.get() * looting
-                        + KSServerConfig.PETTER_FAVOR_DROP_CHANCE_PER_LEVEL.get() * Math.max(0, favorLevel - 1)
-                        + (ranchHero ? KSServerConfig.PETTER_RANCH_HERO_DROP_CHANCE_BONUS.get() : 0.0D);
+                        + KSServerConfig.PETTER_FAVOR_DROP_CHANCE_PER_LEVEL.get() * Math.max(0, favorLevel - 1);
                 int extraRolls = 0;
                 if (level.random.nextFloat() < Math.min(1.0D, extraChance)) {
                     extraRolls++;
-                }
-                // 牧场英雄：必定再滚一次掉落表
-                if (ranchHero) {
-                    extraRolls += KSServerConfig.PETTER_RANCH_HERO_EXTRA_ROLLS.get();
                 }
                 for (int i = 0; i < extraRolls; i++) {
                     drops.addAll(PetterLoot.roll(player, target, level));
                 }
             }
 
-            // 按好感度等级、抢夺等级与牧场英雄限制本次最多挤出的物品数量
-            drops = limitDrops(drops, maxDropsAt(favorLevel, looting, ranchHero), level.random);
+            // 按好感度等级、抢夺等级与苋见之明效果限制本次最多挤出的物品数量
+            drops = limitDrops(drops, maxDropsAt(favorLevel, looting, amaranthInsight), level.random);
 
             dropped = countItems(drops);
             if (dropped > 0) {
@@ -109,7 +104,7 @@ public class PetterItem extends Item {
             }
         }
 
-        playSqueeze(target, level, petterStack, ranchHero ? KSServerConfig.PETTER_RANCH_HERO_SQUEEZE_POWER.get() : 0);
+        playSqueeze(target, level, petterStack, amaranthInsight ? KSServerConfig.PETTER_AMARANTH_INSIGHT_SQUEEZE_POWER.get() : 0);
         if (dropped > 0) {
             spawnHearts(target, level);
         }
@@ -121,14 +116,14 @@ public class PetterItem extends Item {
      * <p>
      * 基础上限来自配置项，抢夺等级每级按配置增加上限；
      * 好感度达到配置中的各级阈值时各额外 +1；
-     * 拥有牧场英雄时再按配置额外提高上限。
+     * 拥有苋见之明效果时再按配置额外提高上限。
      *
      * @param favorLevel 好感度等级
      * @param looting    抢夺等级
-     * @param ranchHero  是否拥有牧场英雄效果
+     * @param amaranthInsight 是否拥有苋见之明效果
      * @return 掉落数量上限
      */
-    private static int maxDropsAt(int favorLevel, int looting, boolean ranchHero) {
+    private static int maxDropsAt(int favorLevel, int looting, boolean amaranthInsight) {
         int cap = KSServerConfig.PETTER_BASE_DROP_CAP.get()
                 + Math.max(0, looting) * KSServerConfig.PETTER_LOOTING_CAP_PER_LEVEL.get();
         for (Number level : KSServerConfig.PETTER_FAVOR_CAP_LEVELS.get()) {
@@ -136,8 +131,8 @@ public class PetterItem extends Item {
                 cap++;
             }
         }
-        if (ranchHero) {
-            cap += KSServerConfig.PETTER_RANCH_HERO_CAP_BONUS.get();
+        if (amaranthInsight) {
+            cap += KSServerConfig.PETTER_AMARANTH_INSIGHT_CAP_BONUS.get();
         }
         return cap;
     }

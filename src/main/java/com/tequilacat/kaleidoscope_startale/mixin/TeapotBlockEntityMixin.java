@@ -8,7 +8,6 @@ import com.github.ysbbbbbb.kaleidoscopecookery.crafting.serializer.TeapotRecipeS
 import com.tequilacat.kaleidoscope_startale.crafting.recipe.ColdBrewTeapotRecipe;
 import com.tequilacat.kaleidoscope_startale.init.KSRecipes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.item.ItemStack;
@@ -198,12 +197,27 @@ public abstract class TeapotBlockEntityMixin {
         }
     }
 
-    /** 冷灶方块的缓存引用，避免每次 tick 都查询注册表 */
+    /**
+     * 检查茶壶下方是否为灵魂火源（灵魂营火需点燃，灵魂火方块）。
+     *
+     * @param level 世界实例
+     * @return 下方为有效灵魂火源返回 true
+     */
     @Unique
-    private static Block KS$coldStoveBlock;
+    private boolean KS(Level level) {
+        BlockPos belowPos = ((BlockEntity) (Object) this).getBlockPos().below();
+        BlockState belowState = level.getBlockState(belowPos);
+        if (belowState.is(Blocks.SOUL_CAMPFIRE)) {
+            return belowState.hasProperty(BlockStateProperties.LIT) && belowState.getValue(BlockStateProperties.LIT);
+        }
+        if (belowState.is(Blocks.SOUL_FIRE)) {
+            return true;
+        }
+        return false;
+    }
 
     /**
-     * 检查茶壶下方是否为灵魂火源（灵魂营火需点燃，灵魂火方块，或本模组的冷灶需点燃）。
+     * 检查茶壶下方是否为灵魂火源（灵魂营火需点燃，灵魂火方块）。
      *
      * @param level 世界实例
      * @return 下方为有效灵魂火源返回 true
@@ -218,26 +232,7 @@ public abstract class TeapotBlockEntityMixin {
         if (belowState.is(Blocks.SOUL_FIRE)) {
             return true;
         }
-        // 识别本模组的冷灶作为冷萃热源
-        if (belowState.is(KS$getColdStoveBlock())) {
-            return belowState.hasProperty(BlockStateProperties.LIT) && belowState.getValue(BlockStateProperties.LIT);
-        }
         return false;
-    }
-
-    /**
-     * 懒加载冷灶方块实例。
-     *
-     * @return 冷灶方块实例
-     */
-    @Unique
-    private static Block KS$getColdStoveBlock() {
-        if (KS$coldStoveBlock == null) {
-            KS$coldStoveBlock = BuiltInRegistries.BLOCK.get(
-                    ResourceLocation.fromNamespaceAndPath("kaleidoscope_teachronicles", "cold_stove")
-            );
-        }
-        return KS$coldStoveBlock;
     }
 
     /**

@@ -41,8 +41,6 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
         ColdBrewTeapotRecipes(output);
         FermentingRecipes(output);
         ScentingRecipes(output);
-        ColdTossRecipes(output);
-        ColdStewRecipes(output);
         StockpotRecipes(output);
         PotRecipes(output);
         ShakerRecipes(output);
@@ -65,12 +63,6 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
                 .unlockedBy(getHasName(Items.CARROT), has(Tags.Items.CROPS_CARROT))
                 .unlockedBy(getHasName(Items.IRON_INGOT), has(Tags.Items.INGOTS_IRON))
                 .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
-                .save(output);
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, KSItems.ANCIENT_FRUIT_PLATTER.get())
-                .requires(Items.BOWL)
-                .requires(Ingredient.of(KSItemTags.CROPS_ANCIENT_FRUIT),4)
-                .unlockedBy(getHasName(Items.BOWL), has(Items.BOWL))
-                .unlockedBy(getHasName(KSItems.ANCIENT_FRUIT), has(KSItemTags.CROPS_ANCIENT_FRUIT))
                 .save(output);
         ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, KSItems.LIVESTOCK_FEED.get())
                 .requires(Ingredient.of(TagCommon.CROPS_LETTUCE), 2)
@@ -132,7 +124,6 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
 //                .setIngredient(Ingredient.of(KSItems.MATCHA_POWDER.get()))
 //                .setIngredientCount(1)
 //                .setResult(new ItemStack(TeacupRegistry.getItem(KSTeacups.MATCHA_TEA)))
-//                .setContainer(Ingredient.of(KSItems.YUNOMI.get()))
 //                .setTime(240)
 //                .save(output);
 
@@ -167,48 +158,8 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
     }
 
     /** 冷炒配方 */
-    private void ColdTossRecipes(RecipeOutput output) {
-
-        // ====================== 临时配方 ======================
-        // 铁锭 → 铁块
-//        ColdTossRecipeBuilder.builder()
-//                .addIngredient(Ingredient.of(Items.IRON_INGOT))
-//                .setResult(new ItemStack(Items.IRON_BLOCK))
-//                .setStirFryCount(5)
-//                .setCarrier(Ingredient.of(Items.BOWL))
-//                .save(output);
-
-        // 钻石 → 钻石块
-//        ColdTossRecipeBuilder.builder()
-//                .addIngredient(Ingredient.of(Items.DIAMOND))
-//                .setResult(new ItemStack(Items.DIAMOND_BLOCK))
-//                .setStirFryCount(5)
-//                .save(output);
-
-    }
 
     /** 冷炖配方 */
-    private void ColdStewRecipes(RecipeOutput output) {
-
-        // ====================== 临时配方 ======================
-        // 牛奶 + 牛肉 → 熟牛肉
-//        ColdStewRecipeBuilder.builder()
-//                .setSoupBase(Ingredient.of(Items.MILK_BUCKET))
-//                .addIngredient(Ingredient.of(Items.BEEF))
-//                .setResult(new ItemStack(Items.COOKED_BEEF))
-//                .setDuration(600)
-//                .save(output);
-
-        // 细雪桶 + 钻石 + 抹茶粉 → 蘑菇煲
-//        ColdStewRecipeBuilder.builder()
-//                .setSoupBase(Ingredient.of(Items.POWDER_SNOW_BUCKET))
-//                .addIngredient(Ingredient.of(Items.DIAMOND))
-//                .addIngredient(Ingredient.of(KSItems.MATCHA_POWDER.get()))
-//                .setResult(new ItemStack(Items.MUSHROOM_STEW))
-//                .setDuration(800)
-//                .save(output);
-
-    }
 
     /** 森罗物语：厨房 - 汤锅 */
     private void StockpotRecipes(RecipeOutput output) {
@@ -307,6 +258,15 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
                 .setStirFryCount(5)
                 .setResult(KSItems.SLIME_KING_FLAVORED_JELLY.get())
                 .save(output);
+        PotRecipeBuilder.builder()
+                .addInput(
+                        KSItemTags.CROPS_ANCIENT_FRUIT, KSItemTags.CROPS_ANCIENT_FRUIT,
+                        KSItemTags.CROPS_ANCIENT_FRUIT, KSItemTags.CROPS_ANCIENT_FRUIT
+                )
+                .setCarrier(Items.BOWL)
+                .setStirFryCount(5)
+                .setResult(KSItems.ANCIENT_FRUIT_PLATTER.get())
+                .save(output);
 
     }
 
@@ -358,6 +318,7 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
                 .setFluid(KSFluids.ANCIENT_FRUIT_JUICE.get())
                 .addIngredient(Items.GLOW_BERRIES)
                 .addIngredient(ItemTags.FLOWERS)
+                .addIngredient(Items.SUGAR)
                 .setResult(KSItems.ANCIENT_FRUIT_WINE.get())
                 .save(output);
         BarrelBuilder.builder()
@@ -378,7 +339,7 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
                 .setFluid(ModFluids.SWEET_BERRIES_JUICE.get())
                 .addIngredient(Items.FERMENTED_SPIDER_EYE)
                 .addIngredient(Tags.Items.CROPS_NETHER_WART)
-                .addIngredient(Tags.Items.DUSTS_REDSTONE)
+                .addIngredient(Items.APPLE)
                 .addIngredient(TagCommon.RAW_MEATS)
                 .setResult(KSItems.RED_EYE_WINE.get())
                 .save(output);
@@ -386,6 +347,7 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
                 .setFluid(Fluids.WATER)
                 .addIngredient(Tags.Items.SEEDS_WHEAT)
                 .addIngredient(Items.ICE)
+                .addIngredient(KSItemTags.FERN)
                 .setResult(KSItems.REFRESHING_BEER.get())
                 .save(output);
         BarrelBuilder.builder()

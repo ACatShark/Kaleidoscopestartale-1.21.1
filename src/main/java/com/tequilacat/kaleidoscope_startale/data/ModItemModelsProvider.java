@@ -76,12 +76,10 @@ public class ModItemModelsProvider extends ItemModelProvider {
         basicItem(KSItems.MATCHA_POWDER.get());
         basicItem(KSItems.CREAM.get());
         basicItem(KSBlocks.CARTON.get().asItem());
+        basicItem(KSItems.GOLDEN_EGG.get());
 
         // ====================  工具 ====================
         basicItem(KSItems.PETTER.get());
-        simpleBlockItem(KSBlocks.COLD_STOVE.get());
-        basicItem(KSItems.YUNOMI.get());
-        basicItem(KSItems.CREAM_OIL.get());
         simpleBlockItem(KSBlocks.TURNTABLE.get());
         basicItem(KSItems.ROLLING_KITCHEN.get());
 //        basicItem(KSItems.WIGGLE_CAR.get());

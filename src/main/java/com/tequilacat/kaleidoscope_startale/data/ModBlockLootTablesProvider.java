@@ -63,13 +63,13 @@ public class ModBlockLootTablesProvider extends BlockLootSubProvider {
                         .setRolls(ConstantValue.exactly(1))
                         .when(mature)
                         .add(LootItem.lootTableItem(KSItems.RHUBARB.get())))
-                // 池 4：成熟 + 夜晚(13000~23000) 时 10% 掉附魔夜行者
+                // 池 4：成熟 + 夜晚(13000~23000) 时低概率掉附魔夜行者
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .when(mature)
                         .when(TimeCheck.time(IntRange.range(13000, 23000)).setPeriod(24000L))
                         .add(LootItem.lootTableItem(KSItems.ENCHANTED_NIGHTCRAWLER.get())
-                                .when(LootItemRandomChanceCondition.randomChance(0.1f)))));
+                                .when(LootItemRandomChanceCondition.randomChance(0.03f)))));
 
         /* 苋菜 */
         LootItemCondition.Builder amaranthMature = LootItemBlockStatePropertyCondition
@@ -112,8 +112,6 @@ public class ModBlockLootTablesProvider extends BlockLootSubProvider {
         dropSelf(KSBlocks.MILK_CARTON.get());
 
         // ==================== 工具 ====================
-        dropSelf(KSBlocks.COLD_STOVE.get());
-        dropSelf(KSBlocks.CREAM_OIL.get());
         dropSelf(KSBlocks.TURNTABLE.get());
 
     }

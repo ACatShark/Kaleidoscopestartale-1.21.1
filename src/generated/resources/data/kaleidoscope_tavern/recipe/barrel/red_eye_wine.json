@@ -12,7 +12,7 @@
       "tag": "c:crops/nether_wart"
     },
     {
-      "tag": "c:dusts/redstone"
+      "item": "minecraft:apple"
     },
     {
       "tag": "c:raw_meats"

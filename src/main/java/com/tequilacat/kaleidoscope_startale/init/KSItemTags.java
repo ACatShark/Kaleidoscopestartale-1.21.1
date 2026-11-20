@@ -19,6 +19,8 @@ public interface KSItemTags {
     TagKey<Item> LOOTING_APPLICABLE = modTag("looting_applicable");
     /** 允许显示该面板的头部装备。 */
     TagKey<Item> TAMED_DATA_DISPLAY_HAT = modTag("tamed_data_display_hat");
+    /** 撅类植物。 */
+    TagKey<Item> FERN = modTag("fern");
 
 
     // ==================== 作物 ====================

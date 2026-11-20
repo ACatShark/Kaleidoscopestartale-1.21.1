@@ -3,8 +3,6 @@ package com.tequilacat.kaleidoscope_startale.init;
 import com.github.ysbbbbbb.kaleidoscopecookery.init.registry.TeacupRegistry;
 import com.github.ysbbbbbb.kaleidoscopetavern.item.BottleBlockItem;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
-import com.tequilacat.kaleidoscope_startale.block.CreamOilBlock;
-import com.tequilacat.kaleidoscope_startale.blockentity.CreamOilBlockEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -60,15 +58,11 @@ public final class KSCreativeSections {
                 output.accept(KSItems.GREEN_TEA_LEAVES);
                 output.accept(KSItems.ROSE_TEA_BAG);
                 output.accept(KSItems.CARTON.get());
+                output.accept(KSItems.GOLDEN_EGG.get());
             }),
             /* 工具分区 */
             new Section("tools", () -> new ItemStack(KSItems.PETTER.get()), output -> {
                 output.accept(KSItems.PETTER.get());
-                output.accept(KSItems.COLD_STOVE.get());
-                output.accept(KSItems.YUNOMI.get());
-                output.accept(KSItems.CREAM_OIL.get());
-                CreamOilBlock.writeCreamCount(new ItemStack(KSItems.CREAM_OIL.get()),
-                        CreamOilBlockEntity.MAX_CREAM_COUNT);
                 output.accept(KSItems.TURNTABLE.get());
                 output.accept(KSItems.ROLLING_KITCHEN.get());
 //                output.accept(KSItems.WIGGLE_CAR.get());

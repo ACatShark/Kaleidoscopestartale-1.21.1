@@ -19,6 +19,6 @@ public class KSTeacups {
         MATCHA_TEA = registry.registerTeacupData(KaleidoscopeStartale.id("matcha_tea"),
                 TeacupRegistry.TeacupData.create(4).addEffect(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 2 * 60 * 20)));
         ROSE_TEA = registry.registerTeacupData(KaleidoscopeStartale.id("rose_tea"),
-                TeacupRegistry.TeacupData.create(4).addEffect(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 2 * 60 * 20)));
+                TeacupRegistry.TeacupData.create(4).addEffect(() -> new MobEffectInstance(KSEffects.ILLUSION, 90)));
     }
 }

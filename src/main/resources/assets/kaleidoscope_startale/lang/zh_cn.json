@@ -1,22 +1,23 @@
 {
   "itemGroup.kaleidoscope_startale": "森罗物语：牧星",
+
   "_comment.tools": "工具",
   "item.kaleidoscope_startale.petter": "拍拍器",
-  "block.kaleidoscope_startale.cold_stove": "冷灶",
-  "item.kaleidoscope_startale.yunomi": "汤吞",
-  "block.kaleidoscope_startale.yunomi": "汤吞",
-  "item.kaleidoscope_startale.cream_oil": "奶油壶",
-  "block.kaleidoscope_startale.cream_oil": "奶油壶",
   "block.kaleidoscope_startale.carton": "纸盒",
   "block.kaleidoscope_startale.turntable": "转台",
+  "item.kaleidoscope_startale.rolling_kitchen": "流动小厨",
+  "item.kaleidoscope_startale.wiggle_car": "扭扭车",
+
   "_comment.item_materials": "材料",
   "item.kaleidoscope_startale.universal_feed": "通用饲料",
   "item.kaleidoscope_startale.livestock_feed": "杂蔬饲料",
   "item.kaleidoscope_startale.poultry_feed": "八宝肥虫饲料",
   "item.kaleidoscope_startale.matcha_powder": "抹茶粉",
   "item.kaleidoscope_startale.cream": "奶油",
+  "item.kaleidoscope_startale.golden_egg": "金蛋",
   "item.kaleidoscope_startale.green_tea_leaves": "绿茶茶叶",
   "item.kaleidoscope_startale.rose_tea_bag": "玫瑰花茶茶包",
+
   "_comment.crops": "作物",
   "item.kaleidoscope_startale.rhubarb_seeds": "大黄种子",
   "item.kaleidoscope_startale.rhubarb": "大黄",
@@ -27,6 +28,7 @@
   "item.kaleidoscope_startale.ancient_fruit": "上古水果",
   "item.kaleidoscope_startale.ancient_fruit_vine": "上古水果藤",
   "block.kaleidoscope_startale.ancient_fruit_crop": "上古水果",
+
   "_comment.foods": "食物",
   "item.kaleidoscope_startale.milk_carton": "纸盒牛奶",
   "block.kaleidoscope_startale.milk_carton": "纸盒牛奶",
@@ -57,9 +59,11 @@
   "item.kaleidoscope_startale.matcha_cake_slice": "抹茶蛋糕片",
   "item.kaleidoscope_startale.matcha_cake": "抹茶蛋糕",
   "block.kaleidoscope_startale.matcha_cake": "抹茶蛋糕",
+
   "_comment.blocks": "方块",
   "block.kaleidoscope_startale.ancient_fruit_vine": "上古水果藤",
   "block.kaleidoscope_startale.ancient_fruit_juice": "上古水果汁",
+
   "_comment.drinks": "饮品",
   "item.kaleidoscope_startale.ice_elf_cocktail": "§b冰之精灵",
   "block.kaleidoscope_startale.ice_elf_cocktail": "§b冰之精灵",
@@ -85,6 +89,7 @@
   "block.kaleidoscope_startale.matcha_tea": "抹茶",
   "item.kaleidoscope_startale.rose_tea": "玫瑰花茶",
   "block.kaleidoscope_startale.rose_tea": "玫瑰花茶",
+
   "_comment.effects": "状态效果",
   "effect.kaleidoscope_startale.inspiration": "灵感充沛",
   "effect.kaleidoscope_startale.inspiration.desc": "受伤时消耗经验抵消伤害",
@@ -97,11 +102,11 @@
   "effect.kaleidoscope_startale.junimo_blessing": "祝尼魔的祝福",
   "effect.kaleidoscope_startale.junimo_blessing.desc": "收获时可能额外掉落，镰刀范围收割，掉落物自动拾取",
   "effect.kaleidoscope_startale.blue_hour": "蓝调时刻",
-  "effect.kaleidoscope_startale.blue_hour.desc": "之后获得的增益效果持续时间延长",
+  "effect.kaleidoscope_startale.blue_hour.desc": "之后获得的增益效果持续时间翻倍，负面效果持续时间减半",
   "effect.kaleidoscope_startale.meal": "膳食",
   "effect.kaleidoscope_startale.meal.desc": "进食速度翻倍",
-  "effect.kaleidoscope_startale.ranch_hero": "牧场英雄",
-  "effect.kaleidoscope_startale.ranch_hero.desc": "拍拍器产出提升，拍击幅度更大，掉落上限提高",
+  "effect.kaleidoscope_startale.amaranth_insight": "苋见之明",
+  "effect.kaleidoscope_startale.amaranth_insight.desc": "拍拍器收获上限提高，拍扁幅度增大",
   "effect.kaleidoscope_startale.refreshing": "清爽",
   "effect.kaleidoscope_startale.refreshing.desc": "提升移动速度与挖掘速度。",
   "effect.kaleidoscope_startale.after_taste": "回甘",
@@ -110,8 +115,12 @@
   "effect.kaleidoscope_startale.invigorating.desc": "免疫部分负面效果。",
   "effect.kaleidoscope_startale.lingering": "余韵",
   "effect.kaleidoscope_startale.lingering.desc": "周期性回复饱食度和生命值。",
+  "effect.kaleidoscope_startale.illusion": "幻梦",
+  "effect.kaleidoscope_startale.illusion.desc": "获得创造飞行的能力并减少最大生命值和体型。",
+
   "_comment.subtitles": "字幕",
   "subtitles.kaleidoscope_startale.pet_squeeze": "生物：被拍了一下",
+
   "_comment.jade": "Jade",
   "jade.kaleidoscope_startale.favorability": "好感度等级：%s",
   "jade.kaleidoscope_startale.favorability_next": "还需要%s点来升级",
@@ -120,6 +129,7 @@
   "config.jade.plugin_kaleidoscope_startale.favorability": "牧星",
   "config.jade.plugin_kaleidoscope_startale.animal_owner": "主人",
   "config.jade.plugin_kaleidoscope_startale.petter_cooldown": "拍拍冷却",
+
   "_comment.hud": "驯养信息面板",
   "hud.kaleidoscope_startale.owner": "主人",
   "hud.kaleidoscope_startale.petter_cooldown": "拍拍冷却",
@@ -129,6 +139,7 @@
   "hud.kaleidoscope_startale.ready": "就绪",
   "hud.kaleidoscope_startale.max_level": "已满级",
   "hud.kaleidoscope_startale.unknown_owner": "未知",
+
   "_comment.jei": "JEI",
   "jei.kaleidoscope_startale.cold_brew_teapot.title": "冷萃茶壶",
   "jei.kaleidoscope_startale.cold_brew_teapot.time": "时间: %s 秒",
@@ -136,16 +147,14 @@
   "jei.kaleidoscope_startale.fermenting.info": "光照: %s-%s | 时长: %s秒",
   "jei.kaleidoscope_startale.scenting.title": "窨制",
   "jei.kaleidoscope_startale.scenting.time": "时间: %s 秒",
-  "jei.kaleidoscope_startale.cold_toss.title": "冷炒",
-  "jei.kaleidoscope_startale.cold_toss.time": "翻炒 %d 次",
-  "jei.kaleidoscope_startale.cold_stew.title": "冷炖",
-  "jei.kaleidoscope_startale.cold_stew.time": "时间: %s 秒",
+
   "_comment.creative_tab": "创造模式物品栏横幅",
   "creative_tab.kaleidoscope_startale.materials": "材料",
   "creative_tab.kaleidoscope_startale.tools": "工具",
   "creative_tab.kaleidoscope_startale.foods": "食物",
   "creative_tab.kaleidoscope_startale.drinks": "饮品",
   "creative_tab.kaleidoscope_startale.shift_hint": "按住Shift可选择多个分类",
+
   "_comment.tooltip": "提示",
   "tooltip.kaleidoscope_startale.effect_chance": "%s（%s%% 概率）",
   "tooltip.kaleidoscope_startale.ancient_fruit_juice_bucket": "用于酿造上古水果酒",
@@ -155,12 +164,10 @@
   "tooltip.kaleidoscope_startale.petter": "PatPatPat~",
   "tooltip.kaleidoscope_startale.petter.cooldown": "喂食饲料可以缩短动物的拍拍冷却。",
   "tooltip.kaleidoscope_startale.petter.limit": "掉落上限：默认 %1$s 个，好感度达 %2$s 级各 +1，抢夺每级 +%3$s。",
-  "tooltip.kaleidoscope_startale.cream_oil.count": "奶油: %s / %s",
-  "tooltip.kaleidoscope_startale.cream_oil.empty": "空奶油壶",
-  "tooltip.kaleidoscope_startale.cold_stove": "厨房用具的热源，用打火石激活。",
   "tooltip.kaleidoscope_startale.matcha_tea.maxim": "茶，香叶，嫩芽。慕诗客，爱僧家。",
   "tooltip.kaleidoscope_startale.rose_tea.maxim": "花开花落无间断，春来春去不相关",
-  "entity.kaleidoscope_startale.rolling_kitchen": "流动小厨",
+
+  "_comment.key": "键位",
   "key.categories.kaleidoscope_startale.vehicle": "载具",
   "key.kaleidoscope_startale.rolling_kitchen.forward": "前进",
   "key.kaleidoscope_startale.rolling_kitchen.backward": "后退",
@@ -168,7 +175,8 @@
   "key.kaleidoscope_startale.rolling_kitchen.right": "右转",
   "key.kaleidoscope_startale.wiggle_car.left": "向左前扭",
   "key.kaleidoscope_startale.wiggle_car.right": "向右前扭",
-  "entity.kaleidoscope_startale.wiggle_car": "扭扭车",
-  "item.kaleidoscope_startale.rolling_kitchen": "流动小厨",
-  "item.kaleidoscope_startale.wiggle_car": "扭扭车"
+
+  "_comment.entity": "实体",
+  "entity.kaleidoscope_startale.rolling_kitchen": "流动小厨",
+  "entity.kaleidoscope_startale.wiggle_car": "扭扭车"
 }

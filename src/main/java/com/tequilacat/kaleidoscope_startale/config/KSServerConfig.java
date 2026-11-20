@@ -18,10 +18,8 @@ public class KSServerConfig {
     public static final ModConfigSpec.ConfigValue<List<? extends Number>> PETTER_FAVOR_CAP_LEVELS;
     public static final ModConfigSpec.DoubleValue PETTER_LOOTING_DROP_CHANCE_PER_LEVEL;
     public static final ModConfigSpec.DoubleValue PETTER_FAVOR_DROP_CHANCE_PER_LEVEL;
-    public static final ModConfigSpec.DoubleValue PETTER_RANCH_HERO_DROP_CHANCE_BONUS;
-    public static final ModConfigSpec.IntValue PETTER_RANCH_HERO_EXTRA_ROLLS;
-    public static final ModConfigSpec.IntValue PETTER_RANCH_HERO_SQUEEZE_POWER;
-    public static final ModConfigSpec.IntValue PETTER_RANCH_HERO_CAP_BONUS;
+    public static final ModConfigSpec.IntValue PETTER_AMARANTH_INSIGHT_SQUEEZE_POWER;
+    public static final ModConfigSpec.IntValue PETTER_AMARANTH_INSIGHT_CAP_BONUS;
 
     public static final ModConfigSpec.IntValue TAME_CHANCE;
     public static final ModConfigSpec.DoubleValue TAME_HEAL;
@@ -78,22 +76,14 @@ public class KSServerConfig {
                 .comment("每级好感度提高的额外掉落概率（%）")
                 .comment("Extra drop chance per favor level above 1")
                 .defineInRange("favorDropChancePerLevel", 0.05D, 0.0D, 1.0D);
-        PETTER_RANCH_HERO_DROP_CHANCE_BONUS = builder
-                .comment("牧场英雄效果提供的额外掉落概率（%）")
-                .comment("Extra drop chance granted by the Ranch Hero effect")
-                .defineInRange("ranchHeroDropChanceBonus", 0.35D, 0.0D, 1.0D);
-        PETTER_RANCH_HERO_EXTRA_ROLLS = builder
-                .comment("牧场英雄效果额外滚取掉落表的次数")
-                .comment("Extra loot table rolls granted by the Ranch Hero effect")
-                .defineInRange("ranchHeroExtraRolls", 1, 0, Integer.MAX_VALUE);
-        PETTER_RANCH_HERO_SQUEEZE_POWER = builder
-                .comment("牧场英雄效果提供的拍击力度加成")
-                .comment("Squeeze power bonus granted by the Ranch Hero effect")
-                .defineInRange("ranchHeroSqueezePower", 2, 0, Integer.MAX_VALUE);
-        PETTER_RANCH_HERO_CAP_BONUS = builder
-                .comment("牧场英雄效果提高的掉落物上限")
-                .comment("Drop cap increase granted by the Ranch Hero effect")
-                .defineInRange("ranchHeroCapBonus", 2, 0, Integer.MAX_VALUE);
+        PETTER_AMARANTH_INSIGHT_SQUEEZE_POWER = builder
+                .comment("苋见之明效果提供的拍击力度加成")
+                .comment("Squeeze power bonus granted by the Amaranth Foresight effect")
+                .defineInRange("amaranthInsightSqueezePower", 2, 0, Integer.MAX_VALUE);
+        PETTER_AMARANTH_INSIGHT_CAP_BONUS = builder
+                .comment("苋见之明效果提高的掉落物上限")
+                .comment("Drop cap increase granted by the Amaranth Foresight effect")
+                .defineInRange("amaranthInsightCapBonus", 2, 0, Integer.MAX_VALUE);
         builder.pop();
 
         builder.comment("驯养配置").push("Taming");
@@ -163,7 +153,7 @@ public class KSServerConfig {
         WANDERER_VINE_EMERALD_COST = builder
                 .comment("流浪商人出售上古水果藤时收取的绿宝石数量")
                 .comment("Emeralds charged by wandering traders for an ancient fruit vine")
-                .defineInRange("wandererVineEmeraldCost", 32, 1, 64);
+                .defineInRange("wandererVineEmeraldCost", 40, 1, 64);
         WANDERER_VINE_COUNT = builder
                 .comment("流浪商人一次出售的上古水果藤数量")
                 .comment("Ancient fruit vines offered per wandering trader trade")

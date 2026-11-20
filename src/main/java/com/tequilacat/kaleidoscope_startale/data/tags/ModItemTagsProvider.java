@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -40,6 +41,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(KSItemTags.TAMED_DATA_DISPLAY_HAT)
                 .add(ModItems.STRAW_HAT.get())
                 .add(ModItems.STRAW_HAT_FLOWER.get());
+        tag(KSItemTags.FERN)
+                .add(Items.FERN)
+                .add(Items.LARGE_FERN);
 
 
         // ==================== 原版 ====================

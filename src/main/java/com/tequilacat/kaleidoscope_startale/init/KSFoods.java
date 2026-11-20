@@ -1,5 +1,6 @@
 package com.tequilacat.kaleidoscope_startale.init;
 
+import com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects;
 import com.tequilacat.kaleidoscope_startale.util.EffectPair;
 import com.tequilacat.kaleidoscope_startale.util.FoodBuilderHelper;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -11,33 +12,36 @@ public interface KSFoods {
 
     /** 大黄 */
     FoodProperties RHUBARB = FoodBuilderHelper.simpleAlwaysEdible(2, 1.0f);
+    /** 苋菜 */
+    FoodProperties AMARANTH = FoodBuilderHelper.simple(2, 1.0F,
+            EffectPair.of(() -> new MobEffectInstance(KSEffects.INSPIRATION, 400), 1.0F));
     /** 上古水果 */
     FoodProperties ANCIENT_FRUIT = FoodBuilderHelper.simpleAlwaysEdible(4, 1.0f);
     /** 金鱼 */
     FoodProperties GOLDFISH = FoodBuilderHelper.simpleAlwaysEdible(2, 1.0f);
     /** 大黄酱 */
     FoodProperties RHUBARB_JAM_FOOD = FoodBuilderHelper.simpleWithContainer(7, 1.0F, Items.GLASS_BOTTLE,
-            EffectPair.of(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.MUSTARD, 6000), 1.0F),
-            EffectPair.of(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.WARMTH, 3600), 1.0F));
+            EffectPair.of(() -> new MobEffectInstance(ModEffects.MUSTARD, 20 * 60 * 5), 1.0F),
+            EffectPair.of(() -> new MobEffectInstance(ModEffects.WARMTH, 20 * 60 * 3), 1.0F));
     /** 上古水果拼盘 */
     FoodProperties ANCIENT_FRUIT_PLATTER_FOOD = FoodBuilderHelper.simpleWithContainer(9, 1.0F, Items.BOWL,
             EffectPair.of(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3600), 1.0F),
-            EffectPair.of(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.VIGOR, 3600), 1.0F));
+            EffectPair.of(() -> new MobEffectInstance(ModEffects.VIGOR, 20 * 60 * 3), 1.0F));
     /** 苋菜汤 */
     FoodProperties AMARANTH_SOUP_FOOD = FoodBuilderHelper.simpleWithContainer(9, 1.0F, Items.BOWL,
-            EffectPair.of(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.WARMTH, 3600), 1.0F));
+            EffectPair.of(() -> new MobEffectInstance(ModEffects.WARMTH, 20 * 60 * 3), 1.0F));
     /** 鱼菇煲 */
     FoodProperties FISH_MUSHROOM_SOUP_ITEM_FOOD = FoodBuilderHelper.simpleAlwaysEdible(22, 1.2F,
-            EffectPair.of(() -> new MobEffectInstance(KSEffects.MEAL, 6000), 1.0F));
+            EffectPair.of(() -> new MobEffectInstance(KSEffects.MEAL, 20 * 60 * 5), 1.0F));
     FoodProperties FISH_MUSHROOM_SOUP_BLOCK_FOOD = FoodBuilderHelper.simpleAlwaysEdible(6, 1.2F,
-            EffectPair.of(() -> new MobEffectInstance(KSEffects.MEAL, 6000), 1.0F));
+            EffectPair.of(() -> new MobEffectInstance(KSEffects.MEAL, 20 * 60 * 5), 1.0F));
     /** 闪亮猪儿虫浓汤 */
     FoodProperties GLOWING_CATERPILLAR_SOUP_ITEM_FOOD = FoodBuilderHelper.simpleAlwaysEdible(22, 1.2F,
-            EffectPair.of(() -> new MobEffectInstance(MobEffects.GLOWING, 6000), 1.0F),
-            EffectPair.of(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.PROJECTILE_DODGE, 6000), 1.0F));
+            EffectPair.of(() -> new MobEffectInstance(MobEffects.GLOWING, 20 * 60 * 5), 1.0F),
+            EffectPair.of(() -> new MobEffectInstance(ModEffects.PROJECTILE_DODGE, 20 * 60 * 5), 1.0F));
     FoodProperties GLOWING_CATERPILLAR_SOUP_BLOCK_FOOD = FoodBuilderHelper.simpleAlwaysEdible(6, 1.2F,
-            EffectPair.of(() -> new MobEffectInstance(MobEffects.GLOWING, 6000), 1.0F),
-            EffectPair.of(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.PROJECTILE_DODGE, 6000), 1.0F));
+            EffectPair.of(() -> new MobEffectInstance(MobEffects.GLOWING, 20 * 60 * 5), 1.0F),
+            EffectPair.of(() -> new MobEffectInstance(ModEffects.PROJECTILE_DODGE, 20 * 60 * 5), 1.0F));
     /** 大黄软糖派 */
     FoodProperties RHUBARB_FONDANT_PIE_ITEM_FOOD = FoodBuilderHelper.simpleAlwaysEdible(20, 1.1F);
     FoodProperties RHUBARB_FONDANT_PIE_BLOCK_FOOD = FoodBuilderHelper.simpleAlwaysEdible(5, 1.1F);
@@ -48,7 +52,7 @@ public interface KSFoods {
     FoodProperties ANCIENT_FRUIT_SKEWER_FOOD = FoodBuilderHelper.simple(14, 1.1F);
     /** 烤蛋饼 */
     FoodProperties EGG_BAKED_CAKE_FOOD = FoodBuilderHelper.simple(11, 1.0F,
-            EffectPair.of(() -> new MobEffectInstance(com.github.ysbbbbbb.kaleidoscopecookery.init.ModEffects.WARMTH, 3600), 1.0F));
+            EffectPair.of(() -> new MobEffectInstance(ModEffects.WARMTH, 20 * 60 *3), 1.0F));
     /** IntelliJ IDEA 饼干 */
     FoodProperties IDEA_COOKIE_FOOD = FoodBuilderHelper.simple(7, 0.8F,
             EffectPair.of(() -> new MobEffectInstance(KSEffects.INSPIRATION, 700), 1.0F));
@@ -56,11 +60,15 @@ public interface KSFoods {
     FoodProperties INSPIRATION_MUSHROOM_FOOD = FoodBuilderHelper.simple(5, 0.7F,
             EffectPair.of(() -> new MobEffectInstance(KSEffects.INSPIRATION, 400), 1.0F));
     /** 史莱姆王风味果冻 */
-    FoodProperties SLIME_KING_FLAVORED_JELLY_ITEM_FOOD = FoodBuilderHelper.simple(28, 1.2F);
-    FoodProperties SLIME_KING_FLAVORED_JELLY_BLOCK_FOOD = FoodBuilderHelper.simpleAlwaysEdible(5, 1.1F);
+    FoodProperties SLIME_KING_FLAVORED_JELLY_ITEM_FOOD = FoodBuilderHelper.simpleAlwaysEdible(28, 1.2F,
+            EffectPair.of(() -> new MobEffectInstance(KSEffects.BLUE_HOUR, 20 * 60 * 10), 1.0F),
+            EffectPair.of(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20 * 60 * 5, 1), 1.0F));
+    FoodProperties SLIME_KING_FLAVORED_JELLY_BLOCK_FOOD = FoodBuilderHelper.simpleAlwaysEdible(5, 1.1F,
+            EffectPair.of(() -> new MobEffectInstance(KSEffects.BLUE_HOUR, 20 * 60), 1.0F),
+            EffectPair.of(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 20 * 30, 1), 1.0F));
     /** 附魔夜行者 */
     FoodProperties ENCHANTED_NIGHTCRAWLER_FOOD = FoodBuilderHelper.simpleAlwaysEdible(18, 0.4F,
-            EffectPair.of(() -> new MobEffectInstance(MobEffects.CONFUSION, 200), 1.0F));
+            EffectPair.of(() -> new MobEffectInstance(MobEffects.CONFUSION, 20 * 10), 1.0F));
     /* 棒冰 */
     FoodProperties POPSICLE = new FoodProperties.Builder().nutrition(3).saturationModifier(0.4f).build();
     /* 巴菲 */

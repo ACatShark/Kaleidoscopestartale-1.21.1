@@ -21,23 +21,17 @@ public interface KSRecipes {
     /** 窨制 */
     ResourceLocation SCENTING_ID = KaleidoscopeStartale.id("scenting");
     /** 冷炒 */
-    ResourceLocation COLD_TOSS_ID = KaleidoscopeStartale.id("cold_toss");
     /** 冷炖 */
-    ResourceLocation COLD_STEW_ID = KaleidoscopeStartale.id("cold_stew");
 
 
     DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdBrewTeapotRecipe>> COLD_BREW_TEAPOT_SERIALIZER = RECIPE_SERIALIZERS.register("cold_brew_teapot", ColdBrewTeapotRecipeSerializer::new);
     DeferredHolder<RecipeSerializer<?>, RecipeSerializer<FermentingRecipe>> FERMENTING_SERIALIZER = RECIPE_SERIALIZERS.register("fermenting", FermentingRecipeSerializer::new);
     DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ScentingRecipe>> SCENTING_SERIALIZER = RECIPE_SERIALIZERS.register("scenting", ScentingRecipeSerializer::new);
-    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdTossRecipe>> COLD_TOSS_SERIALIZER = RECIPE_SERIALIZERS.register("cold_toss", ColdTossRecipeSerializer::new);
-    DeferredHolder<RecipeSerializer<?>, RecipeSerializer<ColdStewRecipe>> COLD_STEW_SERIALIZER = RECIPE_SERIALIZERS.register("cold_stew", ColdStewRecipeSerializer::new);
 
 
     RecipeType<ColdBrewTeapotRecipe> COLD_BREW_TEAPOT_TYPE = RecipeType.simple(COLD_BREW_TEAPOT_ID);
     RecipeType<FermentingRecipe> FERMENTING_TYPE = RecipeType.simple(FERMENTING_ID);
     RecipeType<ScentingRecipe> SCENTING_TYPE = RecipeType.simple(SCENTING_ID);
-    RecipeType<ColdTossRecipe> COLD_TOSS_TYPE = RecipeType.simple(COLD_TOSS_ID);
-    RecipeType<ColdStewRecipe> COLD_STEW_TYPE = RecipeType.simple(COLD_STEW_ID);
 
     static void register(IEventBus bus){
         RECIPE_SERIALIZERS.register(bus);

@@ -5,7 +5,6 @@ import com.github.ysbbbbbb.kaleidoscopecookery.init.ModItems;
 import com.github.ysbbbbbb.kaleidoscopetavern.compat.jei.category.PressingTubCategory;
 import com.tequilacat.kaleidoscope_startale.KaleidoscopeStartale;
 import com.tequilacat.kaleidoscope_startale.compat.jei.category.*;
-import com.tequilacat.kaleidoscope_startale.init.KSItems;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -37,8 +36,6 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new ColdBrewTeapotRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FermentingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ScentingRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
-        registration.addRecipeCategories(new ColdTossRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
-        registration.addRecipeCategories(new ColdStewRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     /**
@@ -53,8 +50,6 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipes(ColdBrewTeapotRecipeCategory.TYPE, ColdBrewTeapotRecipeCategory.getRecipes());
         registration.addRecipes(FermentingRecipeCategory.TYPE, FermentingRecipeCategory.getRecipes());
         registration.addRecipes(ScentingRecipeCategory.TYPE, ScentingRecipeCategory.getRecipes());
-        registration.addRecipes(ColdTossRecipeCategory.TYPE, ColdTossRecipeCategory.getRecipes());
-        registration.addRecipes(ColdStewRecipeCategory.TYPE, ColdStewRecipeCategory.getRecipes());
     }
 
     /**
@@ -70,8 +65,6 @@ public class ModJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(ModItems.TEAPOT.get(), ColdBrewTeapotRecipeCategory.TYPE);
         registration.addRecipeCatalyst(ModBlocks.BAMBOO_TRAY.get(), FermentingRecipeCategory.TYPE);
         registration.addRecipeCatalyst(ModBlocks.BAMBOO_TRAY.get(), ScentingRecipeCategory.TYPE);
-        registration.addRecipeCatalyst(ModBlocks.POT.get(), ColdTossRecipeCategory.TYPE);
-        registration.addRecipeCatalyst(ModBlocks.STOCKPOT.get(), ColdStewRecipeCategory.TYPE);
     }
 
     /**

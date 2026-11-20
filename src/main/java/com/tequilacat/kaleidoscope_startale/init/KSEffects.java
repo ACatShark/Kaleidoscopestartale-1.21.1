@@ -23,12 +23,12 @@ public interface KSEffects {
     DeferredHolder<MobEffect, MobEffect> SMART = MOB_EFFECTS.register("smart", () -> new SmartEffect(0x0069735D));
     /** 祝尼魔的祝福：额外收获、镰刀范围收割、拾取范围扩大 */
     DeferredHolder<MobEffect, MobEffect> JUNIMO_BLESSING = MOB_EFFECTS.register("junimo_blessing", () -> new JunimoBlessingEffect(0x0077C043));
-    /** 蓝调时刻：获得的增益型状态效果持续时间 ×2 */
+    /** 蓝调时刻：新获得的增益效果持续时间翻倍，负面效果持续时间减半 */
     DeferredHolder<MobEffect, MobEffect> BLUE_HOUR = MOB_EFFECTS.register("blue_hour", () -> new BlueHourEffect(0x00324B8C));
     /** 膳食：进食速度翻倍 */
     DeferredHolder<MobEffect, MobEffect> MEAL = MOB_EFFECTS.register("meal", () -> new MealEffect(0x00D9A441));
-    /** 牧场英雄：拍拍器产出与拍击幅度提升、掉落上限提高 */
-    DeferredHolder<MobEffect, MobEffect> RANCH_HERO = MOB_EFFECTS.register("ranch_hero", () -> new RanchHeroEffect(0x00E0A63C));
+    /** 苋见之明：拍拍器收获上限提高、拍扁幅度增大 */
+    DeferredHolder<MobEffect, MobEffect> AMARANTH_INSIGHT = MOB_EFFECTS.register("amaranth_insight", () -> new AmaranthInsightEffect(0x00E0A63C));
     /** 清爽：提升移动速度与挖掘速度 */
     DeferredHolder<MobEffect, MobEffect> REFRESHING = MOB_EFFECTS.register("refreshing", () -> new RefreshingEffect(0x007EC8E3));
     /** 回甘：降低饱食度消耗 */
@@ -37,6 +37,8 @@ public interface KSEffects {
     DeferredHolder<MobEffect, MobEffect> INVIGORATING = MOB_EFFECTS.register("invigorating", () -> new InvigoratingEffect(0x00FFD700));
     /** 余韵：周期性回复饱食度和生命值 */
     DeferredHolder<MobEffect, MobEffect> LINGERING = MOB_EFFECTS.register("lingering", () -> new LingeringEffect(0x00E6E6FA));
+    /** 幻梦：获得创造飞行的能力并减少最大生命值和体型 */
+    DeferredHolder<MobEffect, MobEffect> ILLUSION = MOB_EFFECTS.register("illusion", () -> new IllusionEffect(0x00FF42D6));
 
     static void register(IEventBus bus){
         MOB_EFFECTS.register(bus);

@@ -1,0 +1,13 @@
+{
+  "item": "kaleidoscope_startale:spring_drink",
+  "effects": [
+    [
+      {
+        "effect": "kaleidoscope_startale:illusion",
+        "duration": 360,
+        "amplifier": 0,
+        "probability": 1.0
+      }
+    ]
+  ]
+}
